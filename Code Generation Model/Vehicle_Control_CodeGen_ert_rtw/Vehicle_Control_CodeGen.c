@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.40
+ * Model version                  : 1.49
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Aug 26 10:33:54 2025
+ * C/C++ source code generated on : Tue Aug 26 16:53:42 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -38,6 +38,9 @@ RT_MODEL_Vehicle_Control_Code_T *const Vehicle_Control_CodeGen_M =
 
 /* Forward declaration for local functions */
 static void Vehicle_Contro_SystemCore_setup(dsp_simulink_MovingAverage_Ve_T *obj);
+
+/* Forward declaration for local functions */
+static void Vehicle_Cont_SystemCore_setup_g(dsp_simulink_MovingAverage_g_T *obj);
 static void rate_monotonic_scheduler(void);
 
 /*
@@ -50,6 +53,7 @@ void Vehicle_Control_CodeGen_SetEventsForThisBaseStep(boolean_T *eventFlags)
 {
   /* Task runs when its counter is zero, computed via rtmStepTask macro */
   eventFlags[1] = ((boolean_T)rtmStepTask(Vehicle_Control_CodeGen_M, 1));
+  eventFlags[2] = ((boolean_T)rtmStepTask(Vehicle_Control_CodeGen_M, 2));
 }
 
 /*
@@ -67,8 +71,13 @@ static void rate_monotonic_scheduler(void)
    * counter is reset when it reaches its limit (zero means run).
    */
   (Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[1])++;
-  if ((Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[1]) > 9) {/* Sample time: [0.2s, 0.0s] */
+  if ((Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[1]) > 4) {/* Sample time: [0.1s, 0.0s] */
     Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[1] = 0;
+  }
+
+  (Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[2])++;
+  if ((Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[2]) > 9) {/* Sample time: [0.2s, 0.0s] */
+    Vehicle_Control_CodeGen_M->Timing.TaskCounters.TID[2] = 0;
   }
 }
 
@@ -77,7 +86,7 @@ static void Vehicle_Contro_SystemCore_setup(dsp_simulink_MovingAverage_Ve_T *obj
   obj->isSetupComplete = false;
   obj->isInitialized = 1;
 
-  /* Start for MATLABSystem: '<S46>/Moving Average' */
+  /* Start for MATLABSystem: '<S104>/Moving Average' */
   obj->NumChannels = 1;
   obj->FrameLength = 1;
   obj->_pobj0.isInitialized = 0;
@@ -90,7 +99,7 @@ static void Vehicle_Contro_SystemCore_setup(dsp_simulink_MovingAverage_Ve_T *obj
 /* System initialize for atomic system: */
 void Vehicle__MovingAverage_Init(DW_MovingAverage_Vehicle_Cont_T *localDW)
 {
-  /* Start for MATLABSystem: '<S46>/Moving Average' */
+  /* Start for MATLABSystem: '<S104>/Moving Average' */
   localDW->obj.isInitialized = 0;
   localDW->obj.NumChannels = -1;
   localDW->obj.FrameLength = -1;
@@ -98,7 +107,7 @@ void Vehicle__MovingAverage_Init(DW_MovingAverage_Vehicle_Cont_T *localDW)
   localDW->objisempty = true;
   Vehicle_Contro_SystemCore_setup(&localDW->obj);
 
-  /* InitializeConditions for MATLABSystem: '<S46>/Moving Average' */
+  /* InitializeConditions for MATLABSystem: '<S104>/Moving Average' */
   if (localDW->obj.pStatistic->isInitialized == 1) {
     localDW->obj.pStatistic->pCumSum = 0.0;
     memset(&localDW->obj.pStatistic->pCumSumRev[0], 0, 9U * sizeof(real_T));
@@ -106,7 +115,7 @@ void Vehicle__MovingAverage_Init(DW_MovingAverage_Vehicle_Cont_T *localDW)
     localDW->obj.pStatistic->pModValueRev = 0.0;
   }
 
-  /* End of InitializeConditions for MATLABSystem: '<S46>/Moving Average' */
+  /* End of InitializeConditions for MATLABSystem: '<S104>/Moving Average' */
 }
 
 /* Output and update for atomic system: */
@@ -120,7 +129,7 @@ void Vehicle_Contr_MovingAverage(real_T rtu_0, B_MovingAverage_Vehicle_Contr_T
   real_T z;
   int32_T k;
 
-  /* MATLABSystem: '<S46>/Moving Average' */
+  /* MATLABSystem: '<S104>/Moving Average' */
   if (localDW->obj.TunablePropsChanged) {
     localDW->obj.TunablePropsChanged = false;
   }
@@ -148,10 +157,10 @@ void Vehicle_Contr_MovingAverage(real_T rtu_0, B_MovingAverage_Vehicle_Contr_T
   modValueRev = localDW->obj.pStatistic->pModValueRev;
   z = 0.0;
 
-  /* MATLABSystem: '<S46>/Moving Average' */
+  /* MATLABSystem: '<S104>/Moving Average' */
   localB->MovingAverage = 0.0;
 
-  /* MATLABSystem: '<S46>/Moving Average' */
+  /* MATLABSystem: '<S104>/Moving Average' */
   csum += rtu_0;
   if (modValueRev == 0.0) {
     z = csumrev[(int32_T)cumRevIndex - 1] + csum;
@@ -169,7 +178,7 @@ void Vehicle_Contr_MovingAverage(real_T rtu_0, B_MovingAverage_Vehicle_Contr_T
   }
 
   if (modValueRev == 0.0) {
-    /* MATLABSystem: '<S46>/Moving Average' */
+    /* MATLABSystem: '<S104>/Moving Average' */
     localB->MovingAverage = z / 10.0;
   }
 
@@ -187,7 +196,7 @@ void Vehicle_Contr_MovingAverage(real_T rtu_0, B_MovingAverage_Vehicle_Contr_T
 /* Termination for atomic system: */
 void Vehicle__MovingAverage_Term(DW_MovingAverage_Vehicle_Cont_T *localDW)
 {
-  /* Terminate for MATLABSystem: '<S46>/Moving Average' */
+  /* Terminate for MATLABSystem: '<S104>/Moving Average' */
   if (!localDW->obj.matlabCodegenIsDeleted) {
     localDW->obj.matlabCodegenIsDeleted = true;
     if ((localDW->obj.isInitialized == 1) && localDW->obj.isSetupComplete) {
@@ -200,7 +209,7 @@ void Vehicle__MovingAverage_Term(DW_MovingAverage_Vehicle_Cont_T *localDW)
     }
   }
 
-  /* End of Terminate for MATLABSystem: '<S46>/Moving Average' */
+  /* End of Terminate for MATLABSystem: '<S104>/Moving Average' */
 }
 
 /* System initialize for atomic system: */
@@ -277,12 +286,28 @@ void Vehicle_Co_FDCANWrite3_Term(DW_FDCANWrite3_Vehicle_Contro_T *localDW)
   /* End of Terminate for MATLABSystem: '<S2>/FDCAN Write3' */
 }
 
+static void Vehicle_Cont_SystemCore_setup_g(dsp_simulink_MovingAverage_g_T *obj)
+{
+  obj->isSetupComplete = false;
+  obj->isInitialized = 1;
+
+  /* Start for MATLABSystem: '<S103>/Moving Average1' */
+  obj->NumChannels = 1;
+  obj->FrameLength = 1;
+  obj->_pobj0.isInitialized = 0;
+  obj->_pobj0.isInitialized = 0;
+  obj->pStatistic = &obj->_pobj0;
+  obj->isSetupComplete = true;
+  obj->TunablePropsChanged = false;
+}
+
 /* Model step function for TID0 */
 void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.02s, 0.0s] */
 {
   real_T rtb_Integrator;
-  real_T rtb_Integrator_h;
-  real_T rtb_Switch4;
+  real_T rtb_Integrator_p;
+  real_T rtb_ProportionalGain_e;
+  real_T rtb_TmpRTBAtFunctionCallSubsyst;
   real_T u0;
   uint32_T ThrottleRegenControl_ELAPS_T;
 
@@ -415,27 +440,9 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.02s, 0.0s] */
 
   /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator2' */
 
-  /* ManualSwitch: '<Root>/Manual Switch' incorporates:
-   *  Constant: '<Root>/Constant'
-   *  Constant: '<Root>/Constant1'
-   */
-  if (Vehicle_Control_CodeGen_P.ManualSwitch_CurrentSetting == 1) {
-    u0 = Vehicle_Control_CodeGen_P.Constant_Value_d;
-  } else {
-    u0 = Vehicle_Control_CodeGen_P.Constant1_Value_f;
-  }
-
-  /* Switch: '<Root>/Switch4' incorporates:
-   *  Constant: '<Root>/Constant16'
-   *  ManualSwitch: '<Root>/Manual Switch'
-   */
-  if (u0 > Vehicle_Control_CodeGen_P.Switch4_Threshold) {
-    rtb_Switch4 = 0.0;
-  } else {
-    rtb_Switch4 = Vehicle_Control_CodeGen_P.Constant16_Value_f;
-  }
-
-  /* End of Switch: '<Root>/Switch4' */
+  /* RateTransition generated from: '<Root>/Function-Call Subsystem1' */
+  rtb_TmpRTBAtFunctionCallSubsyst =
+    Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O;
 
   /* S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
@@ -451,22 +458,19 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.02s, 0.0s] */
     Vehicle_Control_CodeGen_M->Timing.clockTick0;
   Vehicle_Control_CodeGen_DW.ThrottleRegenControl_RESET_ELAP = false;
 
-  /* Relay: '<S46>/Relay' incorporates:
-   *  DataStoreRead: '<S46>/Data Store Read1'
+  /* Relay: '<S104>/Relay' incorporates:
+   *  DataStoreRead: '<S104>/Data Store Read1'
    */
   Vehicle_Control_CodeGen_DW.Relay_Mode =
-    ((Vehicle_Control_CodeGen_DW.Battery_Voltage >=
-      Vehicle_Control_CodeGen_P.Relay_OnVal) ||
-     ((!(Vehicle_Control_CodeGen_DW.Battery_Voltage <=
-         Vehicle_Control_CodeGen_P.Relay_OffVal)) &&
+    ((Vehicle_Control_CodeGen_P.Relay_OnVal <= 0.0) ||
+     ((!(Vehicle_Control_CodeGen_P.Relay_OffVal >= 0.0)) &&
       Vehicle_Control_CodeGen_DW.Relay_Mode));
 
-  /* DataStoreRead: '<S46>/Data Store Read' */
-  Vehicle_Contr_MovingAverage(Vehicle_Control_CodeGen_DW.Battery_Voltage,
-    &Vehicle_Control_CodeGen_B.MovingAverage,
+  /* DataStoreRead: '<S104>/Data Store Read' */
+  Vehicle_Contr_MovingAverage(0.0, &Vehicle_Control_CodeGen_B.MovingAverage,
     &Vehicle_Control_CodeGen_DW.MovingAverage);
 
-  /* InitialCondition: '<S46>/IC1' */
+  /* InitialCondition: '<S104>/IC1' */
   if (Vehicle_Control_CodeGen_DW.IC1_FirstOutputTime) {
     Vehicle_Control_CodeGen_DW.IC1_FirstOutputTime = false;
     rtb_Integrator = Vehicle_Control_CodeGen_P.IC1_Value;
@@ -474,209 +478,215 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.02s, 0.0s] */
     rtb_Integrator = Vehicle_Control_CodeGen_B.MovingAverage.MovingAverage;
   }
 
-  /* End of InitialCondition: '<S46>/IC1' */
+  /* End of InitialCondition: '<S104>/IC1' */
 
-  /* Switch: '<S46>/Switch3' incorporates:
-   *  Constant: '<S46>/Constant27'
-   *  Constant: '<S46>/Constant28'
-   *  RelationalOperator: '<S46>/GreaterThan3'
+  /* Switch: '<S104>/Switch3' incorporates:
+   *  Constant: '<S104>/Constant27'
+   *  Constant: '<S104>/Constant28'
+   *  RelationalOperator: '<S104>/GreaterThan3'
    */
-  if (rtb_Switch4 > Vehicle_Control_CodeGen_P.Constant27_Value) {
-    u0 = rtb_Switch4;
+  if (rtb_TmpRTBAtFunctionCallSubsyst >
+      Vehicle_Control_CodeGen_P.Constant27_Value) {
+    u0 = rtb_TmpRTBAtFunctionCallSubsyst;
   } else {
     u0 = Vehicle_Control_CodeGen_P.Constant28_Value;
   }
 
-  /* Sum: '<S46>/Sum' incorporates:
-   *  Constant: '<S46>/Constant23'
-   *  Delay: '<S46>/Delay'
-   *  Product: '<S46>/Product6'
-   *  Switch: '<S46>/Switch3'
+  /* Sum: '<S104>/Sum' incorporates:
+   *  Constant: '<S104>/Constant23'
+   *  Memory: '<S104>/Memory1'
+   *  Product: '<S104>/Product6'
+   *  Switch: '<S104>/Switch3'
    */
   u0 = Vehicle_Control_CodeGen_P.Constant23_Value * u0 -
-    Vehicle_Control_CodeGen_DW.Delay_DSTATE;
+    Vehicle_Control_CodeGen_DW.Memory1_PreviousInput;
 
-  /* Saturate: '<S46>/Saturation5' */
+  /* Saturate: '<S104>/Saturation5' */
   if (u0 > Vehicle_Control_CodeGen_P.Saturation5_UpperSat) {
     u0 = Vehicle_Control_CodeGen_P.Saturation5_UpperSat;
   } else if (u0 < Vehicle_Control_CodeGen_P.Saturation5_LowerSat) {
     u0 = Vehicle_Control_CodeGen_P.Saturation5_LowerSat;
   }
 
-  /* Sum: '<S46>/Sum1' incorporates:
-   *  Constant: '<S46>/Constant'
-   *  DataStoreRead: '<S46>/Data Store Read2'
-   *  Product: '<S46>/Divide3'
-   *  Product: '<S46>/Product5'
-   *  Saturate: '<S46>/Saturation5'
+  /* Sum: '<S104>/Sum1' incorporates:
+   *  Constant: '<S104>/Constant'
+   *  DataStoreRead: '<S104>/Data Store Read2'
+   *  Product: '<S104>/Divide3'
+   *  Product: '<S104>/Product5'
+   *  Saturate: '<S104>/Saturation5'
    */
   u0 = Vehicle_Control_CodeGen_B.MovingAverage.MovingAverage * u0 -
     Vehicle_Control_CodeGen_DW.Global_Power_Limit /
     Vehicle_Control_CodeGen_P.Constant_Value;
 
-  /* Saturate: '<S46>/Saturation3' */
+  /* Saturate: '<S104>/Saturation3' */
   if (u0 > Vehicle_Control_CodeGen_P.Saturation3_UpperSat) {
     u0 = Vehicle_Control_CodeGen_P.Saturation3_UpperSat;
   } else if (u0 < Vehicle_Control_CodeGen_P.Saturation3_LowerSat) {
     u0 = Vehicle_Control_CodeGen_P.Saturation3_LowerSat;
   }
 
-  /* Product: '<S46>/Divide2' incorporates:
-   *  Saturate: '<S46>/Saturation3'
+  /* Product: '<S104>/Divide2' incorporates:
+   *  Saturate: '<S104>/Saturation3'
    */
-  rtb_Integrator_h = u0 / rtb_Integrator;
+  rtb_Integrator_p = u0 / rtb_Integrator;
 
-  /* DiscreteIntegrator: '<S78>/Filter' */
-  if (Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE == 0) {
-    /* DiscreteIntegrator: '<S78>/Filter' */
-    Vehicle_Control_CodeGen_DW.Filter_DSTATE +=
+  /* DiscreteIntegrator: '<S136>/Filter' */
+  if (Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_j == 0) {
+    /* DiscreteIntegrator: '<S136>/Filter' */
+    Vehicle_Control_CodeGen_DW.Filter_DSTATE_l +=
       Vehicle_Control_CodeGen_P.Filter_gainval * (real_T)
-      ThrottleRegenControl_ELAPS_T * Vehicle_Control_CodeGen_DW.Filter_PREV_U;
+      ThrottleRegenControl_ELAPS_T * Vehicle_Control_CodeGen_DW.Filter_PREV_U_p;
   }
 
-  /* End of DiscreteIntegrator: '<S78>/Filter' */
+  /* End of DiscreteIntegrator: '<S136>/Filter' */
 
-  /* Gain: '<S80>/Integral Gain' */
-  rtb_Integrator = Vehicle_Control_CodeGen_P.DiscretePIDController_I *
-    rtb_Integrator_h;
+  /* Gain: '<S138>/Integral Gain' */
+  rtb_Integrator = Vehicle_Control_CodeGen_P.DiscretePIDController1_I *
+    rtb_Integrator_p;
 
-  /* Gain: '<S86>/Filter Coefficient' incorporates:
-   *  Gain: '<S76>/Derivative Gain'
-   *  Sum: '<S78>/SumD'
+  /* Gain: '<S144>/Filter Coefficient' incorporates:
+   *  Gain: '<S134>/Derivative Gain'
+   *  Sum: '<S136>/SumD'
    */
-  Vehicle_Control_CodeGen_DW.Filter_PREV_U =
-    (Vehicle_Control_CodeGen_P.DiscretePIDController_D * rtb_Integrator_h -
-     Vehicle_Control_CodeGen_DW.Filter_DSTATE) *
-    Vehicle_Control_CodeGen_P.DiscretePIDController_N;
+  Vehicle_Control_CodeGen_DW.Filter_PREV_U_p =
+    (Vehicle_Control_CodeGen_P.DiscretePIDController1_D * rtb_Integrator_p -
+     Vehicle_Control_CodeGen_DW.Filter_DSTATE_l) *
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_N;
 
-  /* Sum: '<S92>/Sum' incorporates:
-   *  Delay: '<S46>/Delay'
-   *  DiscreteIntegrator: '<S83>/Integrator'
-   *  Gain: '<S88>/Proportional Gain'
-   */
-  Vehicle_Control_CodeGen_DW.Delay_DSTATE =
-    (Vehicle_Control_CodeGen_P.DiscretePIDController_P * rtb_Integrator_h +
-     Vehicle_Control_CodeGen_DW.Integrator_DSTATE) +
-    Vehicle_Control_CodeGen_DW.Filter_PREV_U;
+  /* Gain: '<S146>/Proportional Gain' */
+  rtb_ProportionalGain_e = Vehicle_Control_CodeGen_P.DiscretePIDController1_P *
+    rtb_Integrator_p;
 
-  /* Relay: '<S47>/Relay' incorporates:
-   *  DataStoreRead: '<S47>/Data Store Read1'
+  /* Relay: '<S105>/Relay' incorporates:
+   *  DataStoreRead: '<S105>/Data Store Read1'
    */
   Vehicle_Control_CodeGen_DW.Relay_Mode_f =
-    ((Vehicle_Control_CodeGen_DW.Battery_Voltage >=
-      Vehicle_Control_CodeGen_P.Relay_OnVal_i) ||
-     ((!(Vehicle_Control_CodeGen_DW.Battery_Voltage <=
-         Vehicle_Control_CodeGen_P.Relay_OffVal_i)) &&
+    ((Vehicle_Control_CodeGen_P.Relay_OnVal_i <= 0.0) ||
+     ((!(Vehicle_Control_CodeGen_P.Relay_OffVal_i >= 0.0)) &&
       Vehicle_Control_CodeGen_DW.Relay_Mode_f));
 
-  /* DataStoreRead: '<S47>/Data Store Read' */
-  Vehicle_Contr_MovingAverage(Vehicle_Control_CodeGen_DW.Battery_Voltage,
-    &Vehicle_Control_CodeGen_B.MovingAverage_p,
+  /* DataStoreRead: '<S105>/Data Store Read' */
+  Vehicle_Contr_MovingAverage(0.0, &Vehicle_Control_CodeGen_B.MovingAverage_p,
     &Vehicle_Control_CodeGen_DW.MovingAverage_p);
 
-  /* InitialCondition: '<S47>/IC2' */
+  /* InitialCondition: '<S105>/IC2' */
   if (Vehicle_Control_CodeGen_DW.IC2_FirstOutputTime) {
     Vehicle_Control_CodeGen_DW.IC2_FirstOutputTime = false;
-    rtb_Integrator_h = Vehicle_Control_CodeGen_P.IC2_Value;
+    rtb_Integrator_p = Vehicle_Control_CodeGen_P.IC2_Value;
   } else {
-    rtb_Integrator_h = Vehicle_Control_CodeGen_B.MovingAverage_p.MovingAverage;
+    rtb_Integrator_p = Vehicle_Control_CodeGen_B.MovingAverage_p.MovingAverage;
   }
 
-  /* End of InitialCondition: '<S47>/IC2' */
+  /* End of InitialCondition: '<S105>/IC2' */
 
-  /* Switch: '<S47>/Switch3' incorporates:
-   *  Constant: '<S47>/Constant27'
-   *  Constant: '<S47>/Constant28'
-   *  RelationalOperator: '<S47>/GreaterThan3'
+  /* Switch: '<S105>/Switch3' incorporates:
+   *  Constant: '<S105>/Constant27'
+   *  Constant: '<S105>/Constant28'
+   *  RelationalOperator: '<S105>/GreaterThan3'
    */
-  if (!(rtb_Switch4 > Vehicle_Control_CodeGen_P.Constant27_Value_o)) {
-    rtb_Switch4 = Vehicle_Control_CodeGen_P.Constant28_Value_j;
+  if (!(rtb_TmpRTBAtFunctionCallSubsyst >
+        Vehicle_Control_CodeGen_P.Constant27_Value_o)) {
+    rtb_TmpRTBAtFunctionCallSubsyst =
+      Vehicle_Control_CodeGen_P.Constant28_Value_j;
   }
 
-  /* Sum: '<S47>/Sum' incorporates:
-   *  Constant: '<S47>/Constant23'
-   *  Delay: '<S47>/Delay'
-   *  Product: '<S47>/Product6'
-   *  Switch: '<S47>/Switch3'
+  /* Sum: '<S105>/Sum' incorporates:
+   *  Constant: '<S105>/Constant23'
+   *  Memory: '<S105>/Memory1'
+   *  Product: '<S105>/Product6'
+   *  Switch: '<S105>/Switch3'
    */
-  u0 = Vehicle_Control_CodeGen_P.Constant23_Value_j * rtb_Switch4 -
-    Vehicle_Control_CodeGen_DW.Delay_DSTATE_o;
+  u0 = Vehicle_Control_CodeGen_P.Constant23_Value_j *
+    rtb_TmpRTBAtFunctionCallSubsyst -
+    Vehicle_Control_CodeGen_DW.Memory1_PreviousInput_a;
 
-  /* Saturate: '<S47>/Saturation5' */
+  /* Saturate: '<S105>/Saturation5' */
   if (u0 > Vehicle_Control_CodeGen_P.Saturation5_UpperSat_p) {
     u0 = Vehicle_Control_CodeGen_P.Saturation5_UpperSat_p;
   } else if (u0 < Vehicle_Control_CodeGen_P.Saturation5_LowerSat_l) {
     u0 = Vehicle_Control_CodeGen_P.Saturation5_LowerSat_l;
   }
 
-  /* Sum: '<S47>/Sum1' incorporates:
-   *  Constant: '<S47>/Constant'
-   *  DataStoreRead: '<S47>/Data Store Read2'
-   *  Product: '<S47>/Divide3'
-   *  Product: '<S47>/Product5'
-   *  Saturate: '<S47>/Saturation5'
+  /* Sum: '<S105>/Sum1' incorporates:
+   *  Constant: '<S105>/Constant'
+   *  DataStoreRead: '<S105>/Data Store Read2'
+   *  Product: '<S105>/Divide3'
+   *  Product: '<S105>/Product5'
+   *  Saturate: '<S105>/Saturation5'
    */
   u0 = Vehicle_Control_CodeGen_B.MovingAverage_p.MovingAverage * u0 -
     Vehicle_Control_CodeGen_DW.Global_Power_Limit /
     Vehicle_Control_CodeGen_P.Constant_Value_n;
 
-  /* Saturate: '<S47>/Saturation3' */
+  /* Saturate: '<S105>/Saturation3' */
   if (u0 > Vehicle_Control_CodeGen_P.Saturation3_UpperSat_j) {
     u0 = Vehicle_Control_CodeGen_P.Saturation3_UpperSat_j;
   } else if (u0 < Vehicle_Control_CodeGen_P.Saturation3_LowerSat_b) {
     u0 = Vehicle_Control_CodeGen_P.Saturation3_LowerSat_b;
   }
 
-  /* Product: '<S47>/Divide2' incorporates:
-   *  Saturate: '<S47>/Saturation3'
+  /* Product: '<S105>/Divide2' incorporates:
+   *  Saturate: '<S105>/Saturation3'
    */
-  rtb_Switch4 = u0 / rtb_Integrator_h;
+  rtb_TmpRTBAtFunctionCallSubsyst = u0 / rtb_Integrator_p;
 
-  /* DiscreteIntegrator: '<S130>/Filter' */
-  if (Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_h == 0) {
-    /* DiscreteIntegrator: '<S130>/Filter' */
-    Vehicle_Control_CodeGen_DW.Filter_DSTATE_j +=
-      Vehicle_Control_CodeGen_P.Filter_gainval_f * (real_T)
-      ThrottleRegenControl_ELAPS_T * Vehicle_Control_CodeGen_DW.Filter_PREV_U_g;
+  /* DiscreteIntegrator: '<S188>/Filter' */
+  if (Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_i == 0) {
+    /* DiscreteIntegrator: '<S188>/Filter' */
+    Vehicle_Control_CodeGen_DW.Filter_DSTATE_i +=
+      Vehicle_Control_CodeGen_P.Filter_gainval_p * (real_T)
+      ThrottleRegenControl_ELAPS_T * Vehicle_Control_CodeGen_DW.Filter_PREV_U_k;
   }
 
-  /* End of DiscreteIntegrator: '<S130>/Filter' */
+  /* End of DiscreteIntegrator: '<S188>/Filter' */
 
-  /* Gain: '<S138>/Filter Coefficient' incorporates:
-   *  Gain: '<S128>/Derivative Gain'
-   *  Sum: '<S130>/SumD'
+  /* Gain: '<S196>/Filter Coefficient' incorporates:
+   *  Gain: '<S186>/Derivative Gain'
+   *  Sum: '<S188>/SumD'
    */
-  Vehicle_Control_CodeGen_DW.Filter_PREV_U_g =
-    (Vehicle_Control_CodeGen_P.DiscretePIDController1_D * rtb_Switch4 -
-     Vehicle_Control_CodeGen_DW.Filter_DSTATE_j) *
-    Vehicle_Control_CodeGen_P.DiscretePIDController1_N;
+  Vehicle_Control_CodeGen_DW.Filter_PREV_U_k =
+    (Vehicle_Control_CodeGen_P.DiscretePIDController1_D_e *
+     rtb_TmpRTBAtFunctionCallSubsyst -
+     Vehicle_Control_CodeGen_DW.Filter_DSTATE_i) *
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_N_e;
 
-  /* Sum: '<S144>/Sum' incorporates:
-   *  Delay: '<S47>/Delay'
-   *  DiscreteIntegrator: '<S135>/Integrator'
-   *  Gain: '<S140>/Proportional Gain'
+  /* Update for Memory: '<S104>/Memory1' incorporates:
+   *  DiscreteIntegrator: '<S141>/Integrator'
+   *  Sum: '<S150>/Sum'
    */
-  Vehicle_Control_CodeGen_DW.Delay_DSTATE_o =
-    (Vehicle_Control_CodeGen_P.DiscretePIDController1_P * rtb_Switch4 +
-     Vehicle_Control_CodeGen_DW.Integrator_DSTATE_b) +
-    Vehicle_Control_CodeGen_DW.Filter_PREV_U_g;
+  Vehicle_Control_CodeGen_DW.Memory1_PreviousInput = (rtb_ProportionalGain_e +
+    Vehicle_Control_CodeGen_DW.Integrator_DSTATE_d) +
+    Vehicle_Control_CodeGen_DW.Filter_PREV_U_p;
 
-  /* Update for DiscreteIntegrator: '<S78>/Filter' */
-  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE = 0U;
+  /* Update for DiscreteIntegrator: '<S136>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_j = 0U;
 
-  /* Update for DiscreteIntegrator: '<S83>/Integrator' */
-  Vehicle_Control_CodeGen_DW.Integrator_DSTATE +=
+  /* Update for DiscreteIntegrator: '<S141>/Integrator' */
+  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_d +=
     Vehicle_Control_CodeGen_P.Integrator_gainval * rtb_Integrator;
 
-  /* Update for DiscreteIntegrator: '<S130>/Filter' */
-  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_h = 0U;
-
-  /* Update for DiscreteIntegrator: '<S135>/Integrator' incorporates:
-   *  Gain: '<S132>/Integral Gain'
+  /* Update for Memory: '<S105>/Memory1' incorporates:
+   *  DiscreteIntegrator: '<S193>/Integrator'
+   *  Gain: '<S198>/Proportional Gain'
+   *  Sum: '<S202>/Sum'
    */
-  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_b +=
-    Vehicle_Control_CodeGen_P.DiscretePIDController1_I * rtb_Switch4 *
-    Vehicle_Control_CodeGen_P.Integrator_gainval_m;
+  Vehicle_Control_CodeGen_DW.Memory1_PreviousInput_a =
+    (Vehicle_Control_CodeGen_P.DiscretePIDController1_P_i *
+     rtb_TmpRTBAtFunctionCallSubsyst +
+     Vehicle_Control_CodeGen_DW.Integrator_DSTATE_o) +
+    Vehicle_Control_CodeGen_DW.Filter_PREV_U_k;
+
+  /* Update for DiscreteIntegrator: '<S188>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_i = 0U;
+
+  /* Update for DiscreteIntegrator: '<S193>/Integrator' incorporates:
+   *  Gain: '<S190>/Integral Gain'
+   */
+  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_o +=
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_I_o *
+    rtb_TmpRTBAtFunctionCallSubsyst *
+    Vehicle_Control_CodeGen_P.Integrator_gainval_f;
 
   /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator' */
 
@@ -690,7 +700,217 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.02s, 0.0s] */
 }
 
 /* Model step function for TID1 */
-void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
+void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.1s, 0.0s] */
+{
+  real_T csum;
+  real_T cumRevIndex;
+  real_T modValueRev;
+  real_T tmp;
+  real_T z;
+  int32_T k;
+  uint32_T PowerForcasting_ELAPS_T;
+
+  /* S-Function (fcgen): '<Root>/Function-Call Generator1' incorporates:
+   *  SubSystem: '<Root>/Power Forcasting'
+   */
+  if (Vehicle_Control_CodeGen_DW.PowerForcasting_RESET_ELAPS_T) {
+    PowerForcasting_ELAPS_T = 0U;
+  } else {
+    PowerForcasting_ELAPS_T = Vehicle_Control_CodeGen_M->Timing.clockTick1 -
+      Vehicle_Control_CodeGen_DW.PowerForcasting_PREV_T;
+  }
+
+  Vehicle_Control_CodeGen_DW.PowerForcasting_PREV_T =
+    Vehicle_Control_CodeGen_M->Timing.clockTick1;
+  Vehicle_Control_CodeGen_DW.PowerForcasting_RESET_ELAPS_T = false;
+
+  /* DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' */
+  if (Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_SYSTEM_ == 0) {
+    /* DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' */
+    Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_DSTATE +=
+      Vehicle_Control_CodeGen_P.DiscreteTimeIntegrator2_gainval * (real_T)
+      PowerForcasting_ELAPS_T
+      * Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_PREV_U;
+  }
+
+  /* End of DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' */
+
+  /* MATLABSystem: '<S103>/Moving Average1' */
+  if (Vehicle_Control_CodeGen_DW.obj.TunablePropsChanged) {
+    Vehicle_Control_CodeGen_DW.obj.TunablePropsChanged = false;
+  }
+
+  if (Vehicle_Control_CodeGen_DW.obj.pStatistic->isInitialized != 1) {
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->isSetupComplete = false;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->isInitialized = 1;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSum = 0.0;
+    memset(&Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSumRev[0], 0, 999U *
+           sizeof(real_T));
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumRevIndex = 1.0;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev = 0.0;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->isSetupComplete = true;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSum = 0.0;
+    memset(&Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSumRev[0], 0, 999U *
+           sizeof(real_T));
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumRevIndex = 1.0;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev = 0.0;
+  }
+
+  cumRevIndex = Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumRevIndex;
+  csum = Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSum;
+  for (k = 0; k < 999; k++) {
+    Vehicle_Control_CodeGen_B.csumrev[k] =
+      Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSumRev[k];
+  }
+
+  modValueRev = Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev;
+  z = 0.0;
+  tmp = 0.0;
+  csum += Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_DSTATE;
+  if (modValueRev == 0.0) {
+    z = Vehicle_Control_CodeGen_B.csumrev[(int32_T)cumRevIndex - 1] + csum;
+  }
+
+  Vehicle_Control_CodeGen_B.csumrev[(int32_T)cumRevIndex - 1] =
+    Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_DSTATE;
+  if (cumRevIndex != 999.0) {
+    cumRevIndex++;
+  } else {
+    cumRevIndex = 1.0;
+    csum = 0.0;
+    for (k = 997; k >= 0; k--) {
+      Vehicle_Control_CodeGen_B.csumrev[k] +=
+        Vehicle_Control_CodeGen_B.csumrev[k + 1];
+    }
+  }
+
+  if (modValueRev == 0.0) {
+    tmp = z / 1000.0;
+  }
+
+  Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSum = csum;
+  memcpy(&Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSumRev[0],
+         &Vehicle_Control_CodeGen_B.csumrev[0], 999U * sizeof(real_T));
+  Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumRevIndex = cumRevIndex;
+  if (modValueRev > 0.0) {
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev = modValueRev - 1.0;
+  } else {
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev = 0.0;
+  }
+
+  /* Sum: '<S7>/Sum' incorporates:
+   *  Constant: '<S7>/Constant4'
+   *  Constant: '<S7>/Constant5'
+   *  Constant: '<S7>/Constant6'
+   *  Constant: '<S7>/Constant7'
+   *  MATLABSystem: '<S103>/Moving Average1'
+   *  Product: '<S7>/Divide1'
+   *  Product: '<S7>/Product'
+   *  Sum: '<S7>/Add3'
+   *  Sum: '<S7>/Subtract'
+   *  Sum: '<S7>/Subtract1'
+   */
+  cumRevIndex = (Vehicle_Control_CodeGen_P.Constant4_Value_f -
+                 Vehicle_Control_CodeGen_P.Constant5_Value_a) /
+    (Vehicle_Control_CodeGen_P.Constant6_Value_j -
+     Vehicle_Control_CodeGen_P.Constant7_Value_m) * tmp +
+    Vehicle_Control_CodeGen_P.Constant5_Value_a;
+
+  /* DiscreteIntegrator: '<S80>/Filter' */
+  if (Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE == 0) {
+    /* DiscreteIntegrator: '<S80>/Filter' */
+    Vehicle_Control_CodeGen_DW.Filter_DSTATE +=
+      Vehicle_Control_CodeGen_P.Filter_gainval_e * (real_T)
+      PowerForcasting_ELAPS_T * Vehicle_Control_CodeGen_DW.Filter_PREV_U;
+  }
+
+  /* End of DiscreteIntegrator: '<S80>/Filter' */
+
+  /* DiscreteIntegrator: '<S85>/Integrator' */
+  if (Vehicle_Control_CodeGen_DW.Integrator_SYSTEM_ENABLE == 0) {
+    /* DiscreteIntegrator: '<S85>/Integrator' */
+    Vehicle_Control_CodeGen_DW.Integrator_DSTATE +=
+      Vehicle_Control_CodeGen_P.Integrator_gainval_k * (real_T)
+      PowerForcasting_ELAPS_T * Vehicle_Control_CodeGen_DW.Integrator_PREV_U;
+  }
+
+  /* End of DiscreteIntegrator: '<S85>/Integrator' */
+
+  /* Gain: '<S88>/Filter Coefficient' incorporates:
+   *  Gain: '<S78>/Derivative Gain'
+   *  Sum: '<S80>/SumD'
+   */
+  Vehicle_Control_CodeGen_DW.Filter_PREV_U =
+    (Vehicle_Control_CodeGen_P.DiscretePIDController_D * cumRevIndex -
+     Vehicle_Control_CodeGen_DW.Filter_DSTATE) *
+    Vehicle_Control_CodeGen_P.DiscretePIDController_N;
+
+  /* Update for DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' incorporates:
+   *  Constant: '<S103>/Constant2'
+   *  Product: '<S103>/Divide'
+   *  Sum: '<S103>/Add2'
+   */
+  Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_SYSTEM_ = 0U;
+  Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_PREV_U = 0.0 /
+    Vehicle_Control_CodeGen_P.Constant2_Value_o;
+
+  /* Update for DiscreteIntegrator: '<S80>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE = 0U;
+
+  /* Update for DiscreteIntegrator: '<S85>/Integrator' incorporates:
+   *  Gain: '<S82>/Integral Gain'
+   */
+  Vehicle_Control_CodeGen_DW.Integrator_SYSTEM_ENABLE = 0U;
+  Vehicle_Control_CodeGen_DW.Integrator_PREV_U =
+    Vehicle_Control_CodeGen_P.DiscretePIDController_I * cumRevIndex;
+
+  /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator1' */
+
+  /* ManualSwitch: '<Root>/Manual Switch2' incorporates:
+   *  Constant: '<Root>/Constant5'
+   *  Constant: '<Root>/Constant6'
+   */
+  if (Vehicle_Control_CodeGen_P.ManualSwitch2_CurrentSetting == 1) {
+    tmp = Vehicle_Control_CodeGen_P.Constant5_Value_f;
+  } else {
+    tmp = Vehicle_Control_CodeGen_P.Constant6_Value_c;
+  }
+
+  /* Switch: '<Root>/Switch3' incorporates:
+   *  Constant: '<Root>/Power Limit'
+   *  DataStoreWrite: '<Root>/Data Store Write1'
+   *  Gain: '<S90>/Proportional Gain'
+   *  ManualSwitch: '<Root>/Manual Switch2'
+   *  Sum: '<S94>/Sum'
+   */
+  if (tmp > Vehicle_Control_CodeGen_P.Switch3_Threshold) {
+    Vehicle_Control_CodeGen_DW.Global_Power_Limit =
+      Vehicle_Control_CodeGen_P.PowerLimit_Value;
+  } else {
+    /* S-Function (fcgen): '<Root>/Function-Call Generator1' incorporates:
+     *  SubSystem: '<Root>/Power Forcasting'
+     */
+    Vehicle_Control_CodeGen_DW.Global_Power_Limit =
+      (Vehicle_Control_CodeGen_P.DiscretePIDController_P * cumRevIndex +
+       Vehicle_Control_CodeGen_DW.Integrator_DSTATE) +
+      Vehicle_Control_CodeGen_DW.Filter_PREV_U;
+
+    /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator1' */
+  }
+
+  /* End of Switch: '<Root>/Switch3' */
+
+  /* Update absolute time */
+  /* The "clockTick1" counts the number of times the code of this task has
+   * been executed. The resolution of this integer timer is 0.1, which is the step size
+   * of the task. Size of "clockTick1" ensures timer will not overflow during the
+   * application lifespan selected.
+   */
+  Vehicle_Control_CodeGen_M->Timing.clockTick1++;
+}
+
+/* Model step function for TID2 */
+void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
 {
   real_T rtb_ManualSwitch1;
   real_T tmp;
@@ -747,7 +967,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion' incorporates:
      *  Constant: '<Root>/Constant2'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant2_Value_j);
@@ -758,7 +978,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion'
+     *  DataTypeConversion: '<S9>/Data Type Conversion'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -771,9 +991,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal' */
 
-  /* ReverseEndian: <S8>/Byte Reversal */
+  /* ReverseEndian: <S9>/Byte Reversal */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal)[0] =
@@ -786,7 +1006,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion1' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion1' incorporates:
      *  Constant: '<Root>/Constant8'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant8_Value);
@@ -797,7 +1017,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion1'
+     *  DataTypeConversion: '<S9>/Data Type Conversion1'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion1 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -810,9 +1030,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal1' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal1' */
 
-  /* ReverseEndian: <S8>/Byte Reversal1 */
+  /* ReverseEndian: <S9>/Byte Reversal1 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal1)[0] =
@@ -825,10 +1045,10 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion2' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion2' incorporates:
      *  Constant: '<Root>/Constant7'
      */
-    tmp = floor(Vehicle_Control_CodeGen_P.Constant7_Value_m);
+    tmp = floor(Vehicle_Control_CodeGen_P.Constant7_Value_m4);
     if (rtIsNaN(tmp) || rtIsInf(tmp)) {
       tmp = 0.0;
     } else {
@@ -836,7 +1056,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion2'
+     *  DataTypeConversion: '<S9>/Data Type Conversion2'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion2 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -849,9 +1069,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal2' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal2' */
 
-  /* ReverseEndian: <S8>/Byte Reversal2 */
+  /* ReverseEndian: <S9>/Byte Reversal2 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal2)[0] =
@@ -864,7 +1084,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion3' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion3' incorporates:
      *  Constant: '<Root>/Constant12'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant12_Value_g);
@@ -875,7 +1095,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion3'
+     *  DataTypeConversion: '<S9>/Data Type Conversion3'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion3 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -888,9 +1108,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal3' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal3' */
 
-  /* ReverseEndian: <S8>/Byte Reversal3 */
+  /* ReverseEndian: <S9>/Byte Reversal3 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal3)[0] =
@@ -903,7 +1123,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion4' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion4' incorporates:
      *  Constant: '<Root>/Constant13'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant13_Value_i);
@@ -914,7 +1134,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion4'
+     *  DataTypeConversion: '<S9>/Data Type Conversion4'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion4 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -927,9 +1147,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal4' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal4' */
 
-  /* ReverseEndian: <S8>/Byte Reversal4 */
+  /* ReverseEndian: <S9>/Byte Reversal4 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal4)[0] =
@@ -942,7 +1162,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion5' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion5' incorporates:
      *  Constant: '<Root>/Constant9'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant9_Value);
@@ -953,7 +1173,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion5'
+     *  DataTypeConversion: '<S9>/Data Type Conversion5'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion5 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -966,9 +1186,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal5' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal5' */
 
-  /* ReverseEndian: <S8>/Byte Reversal5 */
+  /* ReverseEndian: <S9>/Byte Reversal5 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal5)[0] =
@@ -981,7 +1201,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion6' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion6' incorporates:
      *  Constant: '<Root>/Constant10'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant10_Value);
@@ -992,7 +1212,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion6'
+     *  DataTypeConversion: '<S9>/Data Type Conversion6'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion6 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -1005,9 +1225,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal6' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal6' */
 
-  /* ReverseEndian: <S8>/Byte Reversal6 */
+  /* ReverseEndian: <S9>/Byte Reversal6 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal6)[0] =
@@ -1020,7 +1240,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
      *  SubSystem: '<Root>/Triggered Subsystem'
      */
-    /* DataTypeConversion: '<S8>/Data Type Conversion7' incorporates:
+    /* DataTypeConversion: '<S9>/Data Type Conversion7' incorporates:
      *  Constant: '<Root>/Constant11'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant11_Value_i);
@@ -1031,7 +1251,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
 
     /* RateTransition generated from: '<Root>/Function-Call Subsystem' incorporates:
-     *  DataTypeConversion: '<S8>/Data Type Conversion7'
+     *  DataTypeConversion: '<S9>/Data Type Conversion7'
      */
     Vehicle_Control_CodeGen_B.DataTypeConversion7 = (uint16_T)(tmp < 0.0 ?
       (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
@@ -1044,17 +1264,17 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal7' */
+  /* S-Function (reverseendian_svd): '<S9>/Byte Reversal7' */
 
-  /* ReverseEndian: <S8>/Byte Reversal7 */
+  /* ReverseEndian: <S9>/Byte Reversal7 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal7)[0] =
     SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion7)[0]);
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack' */
 
-  /* Pack: <S8>/Byte Pack */
+  /* Pack: <S9>/Byte Pack */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1071,9 +1291,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack1' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack1' */
 
-  /* Pack: <S8>/Byte Pack1 */
+  /* Pack: <S9>/Byte Pack1 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1090,9 +1310,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack2' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack2' */
 
-  /* Pack: <S8>/Byte Pack2 */
+  /* Pack: <S9>/Byte Pack2 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1109,9 +1329,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack3' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack3' */
 
-  /* Pack: <S8>/Byte Pack3 */
+  /* Pack: <S9>/Byte Pack3 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1128,16 +1348,16 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* MATLABSystem: '<S8>/FDCAN Write3' incorporates:
-   *  Concatenate: '<S8>/Vector Concatenate'
+  /* MATLABSystem: '<S9>/FDCAN Write3' incorporates:
+   *  Concatenate: '<S9>/Vector Concatenate'
    * */
-  MW_FDCAN_TransmitMessage(Vehicle_Control_CodeGen_DW.obj.MW_FDCAN_HANDLE,
+  MW_FDCAN_TransmitMessage(Vehicle_Control_CodeGen_DW.obj_o.MW_FDCAN_HANDLE,
     &Vehicle_Control_CodeGen_B.VectorConcatenate[0], 8U, 0, 0, 8U, 1000U, 0, 0,
     &fifoLevel);
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack4' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack4' */
 
-  /* Pack: <S8>/Byte Pack4 */
+  /* Pack: <S9>/Byte Pack4 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1154,9 +1374,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack5' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack5' */
 
-  /* Pack: <S8>/Byte Pack5 */
+  /* Pack: <S9>/Byte Pack5 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1173,9 +1393,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack6' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack6' */
 
-  /* Pack: <S8>/Byte Pack6 */
+  /* Pack: <S9>/Byte Pack6 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1192,9 +1412,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* S-Function (any2byte_svd): '<S8>/Byte Pack7' */
+  /* S-Function (any2byte_svd): '<S9>/Byte Pack7' */
 
-  /* Pack: <S8>/Byte Pack7 */
+  /* Pack: <S9>/Byte Pack7 */
   {
     uint32_T MW_outputPortOffset = 0U;
     uint16_T MW_inputPortWidth = 0U;
@@ -1211,8 +1431,8 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
-  /* MATLABSystem: '<S8>/FDCAN Write1' incorporates:
-   *  Concatenate: '<S8>/Vector Concatenate1'
+  /* MATLABSystem: '<S9>/FDCAN Write1' incorporates:
+   *  Concatenate: '<S9>/Vector Concatenate1'
    * */
   MW_FDCAN_TransmitMessage(Vehicle_Control_CodeGen_DW.obj_b.MW_FDCAN_HANDLE,
     &Vehicle_Control_CodeGen_B.VectorConcatenate1[0], 9U, 0, 0, 8U, 1000U, 0, 0,
@@ -1243,11 +1463,11 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
   }
 
   /* Outputs for Enabled SubSystem: '<S1>/Enabled Subsystem' incorporates:
-   *  EnablePort: '<S9>/Enable'
+   *  EnablePort: '<S12>/Enable'
    */
   if (tmp > 0.0) {
-    /* DataTypeConversion: '<S9>/Data Type Conversion3' incorporates:
-     *  Constant: '<S9>/Constant4'
+    /* DataTypeConversion: '<S12>/Data Type Conversion3' incorporates:
+     *  Constant: '<S12>/Constant4'
      */
     tmp = floor(Vehicle_Control_CodeGen_P.Constant4_Value_p);
     if (rtIsNaN(tmp) || rtIsInf(tmp)) {
@@ -1259,12 +1479,12 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     rtb_VectorConcatenate[0] = (uint8_T)(tmp < 0.0 ? (int32_T)(uint8_T)-(int8_T)
       (uint8_T)-tmp : (int32_T)(uint8_T)tmp);
 
-    /* End of DataTypeConversion: '<S9>/Data Type Conversion3' */
+    /* End of DataTypeConversion: '<S12>/Data Type Conversion3' */
 
-    /* LookupNDDirect: '<S9>/Direct Lookup Table (n-D)' incorporates:
-     *  UnitDelay: '<S10>/Output'
+    /* LookupNDDirect: '<S12>/Direct Lookup Table (n-D)' incorporates:
+     *  UnitDelay: '<S13>/Output'
      *
-     * About '<S9>/Direct Lookup Table (n-D)':
+     * About '<S12>/Direct Lookup Table (n-D)':
      *  1-dimensional Direct Look-Up returning a Scalar,
      *
      *     Remove protection against out-of-range input in generated code: 'off'
@@ -1275,10 +1495,10 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
       tmp_0 = Vehicle_Control_CodeGen_DW.Output_DSTATE;
     }
 
-    /* DataTypeConversion: '<S9>/Data Type Conversion2' incorporates:
-     *  LookupNDDirect: '<S9>/Direct Lookup Table (n-D)'
+    /* DataTypeConversion: '<S12>/Data Type Conversion2' incorporates:
+     *  LookupNDDirect: '<S12>/Direct Lookup Table (n-D)'
      *
-     * About '<S9>/Direct Lookup Table (n-D)':
+     * About '<S12>/Direct Lookup Table (n-D)':
      *  1-dimensional Direct Look-Up returning a Scalar,
      *
      *     Remove protection against out-of-range input in generated code: 'off'
@@ -1293,12 +1513,12 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     rtb_VectorConcatenate[1] = (uint8_T)(tmp < 0.0 ? (int32_T)(uint8_T)-(int8_T)
       (uint8_T)-tmp : (int32_T)(uint8_T)tmp);
 
-    /* End of DataTypeConversion: '<S9>/Data Type Conversion2' */
+    /* End of DataTypeConversion: '<S12>/Data Type Conversion2' */
 
-    /* LookupNDDirect: '<S9>/Direct Lookup Table (n-D)1' incorporates:
-     *  UnitDelay: '<S11>/Output'
+    /* LookupNDDirect: '<S12>/Direct Lookup Table (n-D)1' incorporates:
+     *  UnitDelay: '<S14>/Output'
      *
-     * About '<S9>/Direct Lookup Table (n-D)1':
+     * About '<S12>/Direct Lookup Table (n-D)1':
      *  1-dimensional Direct Look-Up returning a Scalar,
      *
      *     Remove protection against out-of-range input in generated code: 'off'
@@ -1309,10 +1529,10 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
       tmp_0 = Vehicle_Control_CodeGen_DW.Output_DSTATE_a;
     }
 
-    /* DataTypeConversion: '<S9>/Data Type Conversion4' incorporates:
-     *  LookupNDDirect: '<S9>/Direct Lookup Table (n-D)1'
+    /* DataTypeConversion: '<S12>/Data Type Conversion4' incorporates:
+     *  LookupNDDirect: '<S12>/Direct Lookup Table (n-D)1'
      *
-     * About '<S9>/Direct Lookup Table (n-D)1':
+     * About '<S12>/Direct Lookup Table (n-D)1':
      *  1-dimensional Direct Look-Up returning a Scalar,
      *
      *     Remove protection against out-of-range input in generated code: 'off'
@@ -1327,51 +1547,51 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.2s, 0.0s] */
     rtb_VectorConcatenate[2] = (uint8_T)(tmp < 0.0 ? (int32_T)(uint8_T)-(int8_T)
       (uint8_T)-tmp : (int32_T)(uint8_T)tmp);
 
-    /* End of DataTypeConversion: '<S9>/Data Type Conversion4' */
+    /* End of DataTypeConversion: '<S12>/Data Type Conversion4' */
     Vehicle_Control_FDCANWrite1(rtb_VectorConcatenate,
       &Vehicle_Control_CodeGen_DW.FDCANWrite2);
     Vehicle_Control_FDCANWrite3(rtb_VectorConcatenate,
       &Vehicle_Control_CodeGen_DW.FDCANWrite3_pn);
 
-    /* Sum: '<S12>/FixPt Sum1' incorporates:
-     *  Constant: '<S12>/FixPt Constant'
-     *  UnitDelay: '<S10>/Output'
+    /* Sum: '<S15>/FixPt Sum1' incorporates:
+     *  Constant: '<S15>/FixPt Constant'
+     *  UnitDelay: '<S13>/Output'
      */
     Vehicle_Control_CodeGen_DW.Output_DSTATE = (uint8_T)((uint32_T)
       Vehicle_Control_CodeGen_DW.Output_DSTATE +
       Vehicle_Control_CodeGen_P.FixPtConstant_Value);
 
-    /* Switch: '<S13>/FixPt Switch' */
+    /* Switch: '<S16>/FixPt Switch' */
     if (Vehicle_Control_CodeGen_DW.Output_DSTATE >
         Vehicle_Control_CodeGen_P.WrapToZero_Threshold) {
-      /* Sum: '<S12>/FixPt Sum1' incorporates:
-       *  Constant: '<S13>/Constant'
+      /* Sum: '<S15>/FixPt Sum1' incorporates:
+       *  Constant: '<S16>/Constant'
        */
       Vehicle_Control_CodeGen_DW.Output_DSTATE =
         Vehicle_Control_CodeGen_P.Constant_Value_h;
     }
 
-    /* End of Switch: '<S13>/FixPt Switch' */
+    /* End of Switch: '<S16>/FixPt Switch' */
 
-    /* Sum: '<S14>/FixPt Sum1' incorporates:
-     *  Constant: '<S14>/FixPt Constant'
-     *  UnitDelay: '<S11>/Output'
+    /* Sum: '<S17>/FixPt Sum1' incorporates:
+     *  Constant: '<S17>/FixPt Constant'
+     *  UnitDelay: '<S14>/Output'
      */
     Vehicle_Control_CodeGen_DW.Output_DSTATE_a = (uint8_T)((uint32_T)
       Vehicle_Control_CodeGen_DW.Output_DSTATE_a +
       Vehicle_Control_CodeGen_P.FixPtConstant_Value_n);
 
-    /* Switch: '<S15>/FixPt Switch' */
+    /* Switch: '<S18>/FixPt Switch' */
     if (Vehicle_Control_CodeGen_DW.Output_DSTATE_a >
         Vehicle_Control_CodeGen_P.WrapToZero_Threshold_e) {
-      /* Sum: '<S14>/FixPt Sum1' incorporates:
-       *  Constant: '<S15>/Constant'
+      /* Sum: '<S17>/FixPt Sum1' incorporates:
+       *  Constant: '<S18>/Constant'
        */
       Vehicle_Control_CodeGen_DW.Output_DSTATE_a =
-        Vehicle_Control_CodeGen_P.Constant_Value_dp;
+        Vehicle_Control_CodeGen_P.Constant_Value_d;
     }
 
-    /* End of Switch: '<S15>/FixPt Switch' */
+    /* End of Switch: '<S18>/FixPt Switch' */
   }
 
   /* End of Switch: '<S1>/Switch' */
@@ -1391,6 +1611,10 @@ void Vehicle_Control_CodeGen_step(int_T tid)
     Vehicle_Control_CodeGen_step1();
     break;
 
+   case 2 :
+    Vehicle_Control_CodeGen_step2();
+    break;
+
    default :
     /* do nothing */
     break;
@@ -1400,13 +1624,13 @@ void Vehicle_Control_CodeGen_step(int_T tid)
 /* Model initialize function */
 void Vehicle_Control_CodeGen_initialize(void)
 {
-  /* Start for DataStoreMemory: '<Root>/Data Store Memory' */
-  Vehicle_Control_CodeGen_DW.Battery_Voltage =
-    Vehicle_Control_CodeGen_P.DataStoreMemory_InitialValue;
-
   /* Start for DataStoreMemory: '<Root>/Data Store Memory5' */
   Vehicle_Control_CodeGen_DW.Global_Power_Limit =
     Vehicle_Control_CodeGen_P.DataStoreMemory5_InitialValue;
+
+  /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem1' */
+  Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O =
+    Vehicle_Control_CodeGen_P.TmpRTBAtFunctionCallSubsystem1O;
 
   /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem' */
   Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystemOu =
@@ -1443,14 +1667,14 @@ void Vehicle_Control_CodeGen_initialize(void)
   /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
-  /* Start for MATLABSystem: '<S8>/FDCAN Write3' */
-  Vehicle_Control_CodeGen_DW.obj.matlabCodegenIsDeleted = false;
-  Vehicle_Control_CodeGen_DW.obj.isInitialized = 1;
-  Vehicle_Control_CodeGen_DW.obj.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
-  MW_FDCAN_Start(Vehicle_Control_CodeGen_DW.obj.MW_FDCAN_HANDLE);
-  Vehicle_Control_CodeGen_DW.obj.isSetupComplete = true;
+  /* Start for MATLABSystem: '<S9>/FDCAN Write3' */
+  Vehicle_Control_CodeGen_DW.obj_o.matlabCodegenIsDeleted = false;
+  Vehicle_Control_CodeGen_DW.obj_o.isInitialized = 1;
+  Vehicle_Control_CodeGen_DW.obj_o.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
+  MW_FDCAN_Start(Vehicle_Control_CodeGen_DW.obj_o.MW_FDCAN_HANDLE);
+  Vehicle_Control_CodeGen_DW.obj_o.isSetupComplete = true;
 
-  /* Start for MATLABSystem: '<S8>/FDCAN Write1' */
+  /* Start for MATLABSystem: '<S9>/FDCAN Write1' */
   Vehicle_Control_CodeGen_DW.obj_b.matlabCodegenIsDeleted = false;
   Vehicle_Control_CodeGen_DW.obj_b.isInitialized = 1;
   Vehicle_Control_CodeGen_DW.obj_b.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
@@ -1465,14 +1689,14 @@ void Vehicle_Control_CodeGen_initialize(void)
     Vehicle_Control_CodeGen_P.UnitDelay_InitialCondition;
 
   /* SystemInitialize for Enabled SubSystem: '<S1>/Enabled Subsystem' */
-  /* InitializeConditions for Sum: '<S12>/FixPt Sum1' incorporates:
-   *  UnitDelay: '<S10>/Output'
+  /* InitializeConditions for Sum: '<S15>/FixPt Sum1' incorporates:
+   *  UnitDelay: '<S13>/Output'
    */
   Vehicle_Control_CodeGen_DW.Output_DSTATE =
     Vehicle_Control_CodeGen_P.Output_InitialCondition;
 
-  /* InitializeConditions for Sum: '<S14>/FixPt Sum1' incorporates:
-   *  UnitDelay: '<S11>/Output'
+  /* InitializeConditions for Sum: '<S17>/FixPt Sum1' incorporates:
+   *  UnitDelay: '<S14>/Output'
    */
   Vehicle_Control_CodeGen_DW.Output_DSTATE_a =
     Vehicle_Control_CodeGen_P.Output_InitialCondition_n;
@@ -1482,7 +1706,7 @@ void Vehicle_Control_CodeGen_initialize(void)
   /* End of SystemInitialize for SubSystem: '<S1>/Enabled Subsystem' */
   /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator4' */
 
-  /* SystemInitialize for S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' incorporates:
+  /* SystemInitialize for S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' incorporates:
    *  SubSystem: '<Root>/Function-Call Subsystem'
    */
   /* System initialize for function-call system: '<Root>/Function-Call Subsystem' */
@@ -1496,64 +1720,64 @@ void Vehicle_Control_CodeGen_initialize(void)
   /*-----------S-Function Block: <S3>/CAN FD Unpack1 -----------------*/
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem1' */
-  /* SystemInitialize for SignalConversion generated from: '<S16>/In1' incorporates:
-   *  Outport: '<S16>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S19>/In1' incorporates:
+   *  Outport: '<S19>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g20a = Vehicle_Control_CodeGen_P.Out1_Y0_j;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem1' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem10' */
-  /* SystemInitialize for SignalConversion generated from: '<S17>/In1' incorporates:
-   *  Outport: '<S17>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S20>/In1' incorporates:
+   *  Outport: '<S20>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g2 = Vehicle_Control_CodeGen_P.Out1_Y0_m;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem10' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem12' */
-  /* SystemInitialize for SignalConversion generated from: '<S19>/In1' incorporates:
-   *  Outport: '<S19>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S22>/In1' incorporates:
+   *  Outport: '<S22>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g20 = Vehicle_Control_CodeGen_P.Out1_Y0_n;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem12' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem2' */
-  /* SystemInitialize for SignalConversion generated from: '<S20>/In1' incorporates:
-   *  Outport: '<S20>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S23>/In1' incorporates:
+   *  Outport: '<S23>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g20as = Vehicle_Control_CodeGen_P.Out1_Y0_pe;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem2' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem4' */
-  /* SystemInitialize for SignalConversion generated from: '<S22>/In1' incorporates:
-   *  Outport: '<S22>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S25>/In1' incorporates:
+   *  Outport: '<S25>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g20asd = Vehicle_Control_CodeGen_P.Out1_Y0_g;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem4' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem6' */
-  /* SystemInitialize for SignalConversion generated from: '<S24>/In1' incorporates:
-   *  Outport: '<S24>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S27>/In1' incorporates:
+   *  Outport: '<S27>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g20asdt = Vehicle_Control_CodeGen_P.Out1_Y0_a;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem6' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem7' */
-  /* SystemInitialize for SignalConversion generated from: '<S25>/In1' incorporates:
-   *  Outport: '<S25>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S28>/In1' incorporates:
+   *  Outport: '<S28>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1 = Vehicle_Control_CodeGen_P.Out1_Y0_h;
 
   /* End of SystemInitialize for SubSystem: '<S3>/If Action Subsystem7' */
 
   /* SystemInitialize for IfAction SubSystem: '<S3>/If Action Subsystem8' */
-  /* SystemInitialize for SignalConversion generated from: '<S26>/In1' incorporates:
-   *  Outport: '<S26>/Out1'
+  /* SystemInitialize for SignalConversion generated from: '<S29>/In1' incorporates:
+   *  Outport: '<S29>/Out1'
    */
   Vehicle_Control_CodeGen_B.In1_g = Vehicle_Control_CodeGen_P.Out1_Y0_i;
 
@@ -1574,44 +1798,78 @@ void Vehicle_Control_CodeGen_initialize(void)
 
   /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator2' */
 
-  /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
-   *  SubSystem: '<Root>/Throttle//Regen Control'
+  /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator1' incorporates:
+   *  SubSystem: '<Root>/Power Forcasting'
    */
-  /* Start for InitialCondition: '<S46>/IC1' */
-  Vehicle_Control_CodeGen_DW.IC1_FirstOutputTime = true;
+  /* InitializeConditions for DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' */
+  Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_DSTATE =
+    Vehicle_Control_CodeGen_P.DiscreteTimeIntegrator2_IC;
 
-  /* Start for InitialCondition: '<S47>/IC2' */
-  Vehicle_Control_CodeGen_DW.IC2_FirstOutputTime = true;
-
-  /* InitializeConditions for Delay: '<S46>/Delay' */
-  Vehicle_Control_CodeGen_DW.Delay_DSTATE =
-    Vehicle_Control_CodeGen_P.Delay_InitialCondition;
-
-  /* InitializeConditions for DiscreteIntegrator: '<S78>/Filter' */
+  /* InitializeConditions for DiscreteIntegrator: '<S80>/Filter' */
   Vehicle_Control_CodeGen_DW.Filter_DSTATE =
     Vehicle_Control_CodeGen_P.DiscretePIDController_InitialCo;
 
-  /* InitializeConditions for DiscreteIntegrator: '<S83>/Integrator' */
+  /* InitializeConditions for DiscreteIntegrator: '<S85>/Integrator' */
   Vehicle_Control_CodeGen_DW.Integrator_DSTATE =
-    Vehicle_Control_CodeGen_P.DiscretePIDController_Initial_j;
+    Vehicle_Control_CodeGen_P.DiscretePIDController_Initial_o;
 
-  /* InitializeConditions for Delay: '<S47>/Delay' */
-  Vehicle_Control_CodeGen_DW.Delay_DSTATE_o =
-    Vehicle_Control_CodeGen_P.Delay_InitialCondition_f;
+  /* Start for MATLABSystem: '<S103>/Moving Average1' */
+  Vehicle_Control_CodeGen_DW.obj.isInitialized = 0;
+  Vehicle_Control_CodeGen_DW.obj.NumChannels = -1;
+  Vehicle_Control_CodeGen_DW.obj.FrameLength = -1;
+  Vehicle_Control_CodeGen_DW.obj.matlabCodegenIsDeleted = false;
+  Vehicle_Cont_SystemCore_setup_g(&Vehicle_Control_CodeGen_DW.obj);
 
-  /* InitializeConditions for DiscreteIntegrator: '<S130>/Filter' */
-  Vehicle_Control_CodeGen_DW.Filter_DSTATE_j =
+  /* InitializeConditions for MATLABSystem: '<S103>/Moving Average1' */
+  if (Vehicle_Control_CodeGen_DW.obj.pStatistic->isInitialized == 1) {
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSum = 0.0;
+    memset(&Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumSumRev[0], 0, 999U *
+           sizeof(real_T));
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pCumRevIndex = 1.0;
+    Vehicle_Control_CodeGen_DW.obj.pStatistic->pModValueRev = 0.0;
+  }
+
+  /* End of InitializeConditions for MATLABSystem: '<S103>/Moving Average1' */
+  /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator1' */
+
+  /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
+   *  SubSystem: '<Root>/Throttle//Regen Control'
+   */
+  /* Start for InitialCondition: '<S104>/IC1' */
+  Vehicle_Control_CodeGen_DW.IC1_FirstOutputTime = true;
+
+  /* Start for InitialCondition: '<S105>/IC2' */
+  Vehicle_Control_CodeGen_DW.IC2_FirstOutputTime = true;
+
+  /* InitializeConditions for Memory: '<S104>/Memory1' */
+  Vehicle_Control_CodeGen_DW.Memory1_PreviousInput =
+    Vehicle_Control_CodeGen_P.Memory1_InitialCondition;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S136>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_DSTATE_l =
     Vehicle_Control_CodeGen_P.DiscretePIDController1_InitialC;
 
-  /* InitializeConditions for DiscreteIntegrator: '<S135>/Integrator' */
-  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_b =
-    Vehicle_Control_CodeGen_P.DiscretePIDController1_Initia_e;
+  /* InitializeConditions for DiscreteIntegrator: '<S141>/Integrator' */
+  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_d =
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_Initia_h;
+
+  /* InitializeConditions for Memory: '<S105>/Memory1' */
+  Vehicle_Control_CodeGen_DW.Memory1_PreviousInput_a =
+    Vehicle_Control_CodeGen_P.Memory1_InitialCondition_b;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S188>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_DSTATE_i =
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_Initia_f;
+
+  /* InitializeConditions for DiscreteIntegrator: '<S193>/Integrator' */
+  Vehicle_Control_CodeGen_DW.Integrator_DSTATE_o =
+    Vehicle_Control_CodeGen_P.DiscretePIDController1_Initia_j;
   Vehicle__MovingAverage_Init(&Vehicle_Control_CodeGen_DW.MovingAverage);
   Vehicle__MovingAverage_Init(&Vehicle_Control_CodeGen_DW.MovingAverage_p);
 
   /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator' */
 
-  /* SystemInitialize for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' incorporates:
+  /* SystemInitialize for S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' incorporates:
    *  SubSystem: '<Root>/Function-Call Subsystem1'
    */
   /* System initialize for function-call system: '<Root>/Function-Call Subsystem1' */
@@ -1634,6 +1892,11 @@ void Vehicle_Control_CodeGen_initialize(void)
   Vehicle_Control_CodeGen_DW.obj_n.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(0);
   MW_FDCAN_Start(Vehicle_Control_CodeGen_DW.obj_n.MW_FDCAN_HANDLE);
   Vehicle_Control_CodeGen_DW.obj_n.isSetupComplete = true;
+
+  /* SystemInitialize for DataTypeConversion: '<S4>/Data Type Conversion15' incorporates:
+   *  Outport: '<S4>/Out14'
+   */
+  Vehicle_Control_CodeGen_B.APPSPercentage = Vehicle_Control_CodeGen_P.Out14_Y0;
 
   /* SystemInitialize for S-Function (byte2any_svd): '<S4>/Byte Unpack' incorporates:
    *  Outport: '<S4>/Out17'
@@ -1663,21 +1926,37 @@ void Vehicle_Control_CodeGen_initialize(void)
    */
   Vehicle_Control_CodeGen_DW.ThrottleRegenControl_RESET_ELAP = true;
 
-  /* Enable for DiscreteIntegrator: '<S78>/Filter' */
-  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE = 1U;
+  /* Enable for DiscreteIntegrator: '<S136>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_j = 1U;
 
-  /* Enable for DiscreteIntegrator: '<S130>/Filter' */
-  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_h = 1U;
+  /* Enable for DiscreteIntegrator: '<S188>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE_i = 1U;
 
   /* End of Enable for S-Function (fcgen): '<Root>/Function-Call Generator' */
+
+  /* Enable for S-Function (fcgen): '<Root>/Function-Call Generator1' incorporates:
+   *  SubSystem: '<Root>/Power Forcasting'
+   */
+  Vehicle_Control_CodeGen_DW.PowerForcasting_RESET_ELAPS_T = true;
+
+  /* Enable for DiscreteIntegrator: '<S103>/Discrete-Time Integrator2' */
+  Vehicle_Control_CodeGen_DW.DiscreteTimeIntegrator2_SYSTEM_ = 1U;
+
+  /* Enable for DiscreteIntegrator: '<S80>/Filter' */
+  Vehicle_Control_CodeGen_DW.Filter_SYSTEM_ENABLE = 1U;
+
+  /* Enable for DiscreteIntegrator: '<S85>/Integrator' */
+  Vehicle_Control_CodeGen_DW.Integrator_SYSTEM_ENABLE = 1U;
+
+  /* End of Enable for S-Function (fcgen): '<Root>/Function-Call Generator1' */
 }
 
 /* Model terminate function */
 void Vehicle_Control_CodeGen_terminate(void)
 {
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' */
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' */
 
-  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' incorporates:
+  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' incorporates:
    *  SubSystem: '<Root>/Function-Call Subsystem'
    */
   /* Termination for function-call system: '<Root>/Function-Call Subsystem' */
@@ -1693,7 +1972,7 @@ void Vehicle_Control_CodeGen_terminate(void)
 
   /* End of Terminate for MATLABSystem: '<S3>/FDCAN Read1' */
 
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' */
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' */
 
   /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator2' incorporates:
    *  SubSystem: '<Root>/50 HZ Send Torque Requests to Inverters'
@@ -1703,17 +1982,9 @@ void Vehicle_Control_CodeGen_terminate(void)
 
   /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator2' */
 
-  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
-   *  SubSystem: '<Root>/Throttle//Regen Control'
-   */
-  Vehicle__MovingAverage_Term(&Vehicle_Control_CodeGen_DW.MovingAverage);
-  Vehicle__MovingAverage_Term(&Vehicle_Control_CodeGen_DW.MovingAverage_p);
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' */
 
-  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator' */
-
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
-
-  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' incorporates:
+  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' incorporates:
    *  SubSystem: '<Root>/Function-Call Subsystem1'
    */
   /* Termination for function-call system: '<Root>/Function-Call Subsystem1' */
@@ -1729,23 +2000,51 @@ void Vehicle_Control_CodeGen_terminate(void)
 
   /* End of Terminate for MATLABSystem: '<S4>/FDCAN Read1' */
 
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' */
 
-  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
-   *  SubSystem: '<Root>/Triggered Subsystem'
+  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
+   *  SubSystem: '<Root>/Throttle//Regen Control'
    */
-  /* Terminate for MATLABSystem: '<S8>/FDCAN Write3' */
+  Vehicle__MovingAverage_Term(&Vehicle_Control_CodeGen_DW.MovingAverage);
+  Vehicle__MovingAverage_Term(&Vehicle_Control_CodeGen_DW.MovingAverage_p);
+
+  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator' */
+
+  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator1' incorporates:
+   *  SubSystem: '<Root>/Power Forcasting'
+   */
+  /* Terminate for MATLABSystem: '<S103>/Moving Average1' */
   if (!Vehicle_Control_CodeGen_DW.obj.matlabCodegenIsDeleted) {
     Vehicle_Control_CodeGen_DW.obj.matlabCodegenIsDeleted = true;
     if ((Vehicle_Control_CodeGen_DW.obj.isInitialized == 1) &&
         Vehicle_Control_CodeGen_DW.obj.isSetupComplete) {
-      MW_FDCAN_Close(Vehicle_Control_CodeGen_DW.obj.MW_FDCAN_HANDLE);
+      if (Vehicle_Control_CodeGen_DW.obj.pStatistic->isInitialized == 1) {
+        Vehicle_Control_CodeGen_DW.obj.pStatistic->isInitialized = 2;
+      }
+
+      Vehicle_Control_CodeGen_DW.obj.NumChannels = -1;
+      Vehicle_Control_CodeGen_DW.obj.FrameLength = -1;
     }
   }
 
-  /* End of Terminate for MATLABSystem: '<S8>/FDCAN Write3' */
+  /* End of Terminate for MATLABSystem: '<S103>/Moving Average1' */
+  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator1' */
 
-  /* Terminate for MATLABSystem: '<S8>/FDCAN Write1' */
+  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
+   *  SubSystem: '<Root>/Triggered Subsystem'
+   */
+  /* Terminate for MATLABSystem: '<S9>/FDCAN Write3' */
+  if (!Vehicle_Control_CodeGen_DW.obj_o.matlabCodegenIsDeleted) {
+    Vehicle_Control_CodeGen_DW.obj_o.matlabCodegenIsDeleted = true;
+    if ((Vehicle_Control_CodeGen_DW.obj_o.isInitialized == 1) &&
+        Vehicle_Control_CodeGen_DW.obj_o.isSetupComplete) {
+      MW_FDCAN_Close(Vehicle_Control_CodeGen_DW.obj_o.MW_FDCAN_HANDLE);
+    }
+  }
+
+  /* End of Terminate for MATLABSystem: '<S9>/FDCAN Write3' */
+
+  /* Terminate for MATLABSystem: '<S9>/FDCAN Write1' */
   if (!Vehicle_Control_CodeGen_DW.obj_b.matlabCodegenIsDeleted) {
     Vehicle_Control_CodeGen_DW.obj_b.matlabCodegenIsDeleted = true;
     if ((Vehicle_Control_CodeGen_DW.obj_b.isInitialized == 1) &&
@@ -1754,7 +2053,7 @@ void Vehicle_Control_CodeGen_terminate(void)
     }
   }
 
-  /* End of Terminate for MATLABSystem: '<S8>/FDCAN Write1' */
+  /* End of Terminate for MATLABSystem: '<S9>/FDCAN Write1' */
 
   /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/10 HZ Send1'
@@ -1778,7 +2077,7 @@ void Vehicle_Control_CodeGen_configure_interrupts(void)
   MW_NVIC_EnableIRQ(34);
 }
 
-/* Hardware Interrupt Block: '<S43>/Hardware Interrupt' */
+/* Hardware Interrupt Block: '<S46>/Hardware Interrupt' */
 void FDCAN2_IT0_IRQHandler(void)
 {
   /* Event: FDCAN2 RF0NE */
@@ -1789,7 +2088,7 @@ void FDCAN2_IT0_IRQHandler(void)
     WRITE_REG(FDCAN2->IR,FDCAN_IR_RF0N);
     if (1 == runModel) {
       {
-        /* S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' */
+        /* S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' */
 
         /* Output and update for function-call system: '<Root>/Function-Call Subsystem' */
         {
@@ -1888,9 +2187,9 @@ void FDCAN2_IT0_IRQHandler(void)
           switch (Vehicle_Control_CodeGen_B.CANFDUnpack2[0]) {
            case 235:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem6' incorporates:
-             *  ActionPort: '<S24>/Action Port'
+             *  ActionPort: '<S27>/Action Port'
              */
-            /* SignalConversion generated from: '<S24>/In1' */
+            /* SignalConversion generated from: '<S27>/In1' */
             Vehicle_Control_CodeGen_B.In1_g20asdt =
               Vehicle_Control_CodeGen_B.ByteUnpack;
 
@@ -1903,9 +2202,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 168:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem4' incorporates:
-             *  ActionPort: '<S22>/Action Port'
+             *  ActionPort: '<S25>/Action Port'
              */
-            /* SignalConversion generated from: '<S22>/In1' */
+            /* SignalConversion generated from: '<S25>/In1' */
             Vehicle_Control_CodeGen_B.In1_g20asd =
               Vehicle_Control_CodeGen_B.ByteUnpack;
 
@@ -1914,9 +2213,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 95:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem2' incorporates:
-             *  ActionPort: '<S20>/Action Port'
+             *  ActionPort: '<S23>/Action Port'
              */
-            /* SignalConversion generated from: '<S20>/In1' */
+            /* SignalConversion generated from: '<S23>/In1' */
             Vehicle_Control_CodeGen_B.In1_g20as =
               Vehicle_Control_CodeGen_B.ByteUnpack;
 
@@ -1925,9 +2224,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 138:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem1' incorporates:
-             *  ActionPort: '<S16>/Action Port'
+             *  ActionPort: '<S19>/Action Port'
              */
-            /* SignalConversion generated from: '<S16>/In1' */
+            /* SignalConversion generated from: '<S19>/In1' */
             Vehicle_Control_CodeGen_B.In1_g20a =
               Vehicle_Control_CodeGen_B.ByteUnpack;
 
@@ -1943,9 +2242,9 @@ void FDCAN2_IT0_IRQHandler(void)
           switch (Vehicle_Control_CodeGen_B.CANFDUnpack1[0]) {
            case 235:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem12' incorporates:
-             *  ActionPort: '<S19>/Action Port'
+             *  ActionPort: '<S22>/Action Port'
              */
-            /* SignalConversion generated from: '<S19>/In1' */
+            /* SignalConversion generated from: '<S22>/In1' */
             Vehicle_Control_CodeGen_B.In1_g20 =
               Vehicle_Control_CodeGen_B.ByteUnpack1;
 
@@ -1958,9 +2257,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 168:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem10' incorporates:
-             *  ActionPort: '<S17>/Action Port'
+             *  ActionPort: '<S20>/Action Port'
              */
-            /* SignalConversion generated from: '<S17>/In1' */
+            /* SignalConversion generated from: '<S20>/In1' */
             Vehicle_Control_CodeGen_B.In1_g2 =
               Vehicle_Control_CodeGen_B.ByteUnpack1;
 
@@ -1969,9 +2268,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 95:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem8' incorporates:
-             *  ActionPort: '<S26>/Action Port'
+             *  ActionPort: '<S29>/Action Port'
              */
-            /* SignalConversion generated from: '<S26>/In1' */
+            /* SignalConversion generated from: '<S29>/In1' */
             Vehicle_Control_CodeGen_B.In1_g =
               Vehicle_Control_CodeGen_B.ByteUnpack1;
 
@@ -1980,9 +2279,9 @@ void FDCAN2_IT0_IRQHandler(void)
 
            case 138:
             /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem7' incorporates:
-             *  ActionPort: '<S25>/Action Port'
+             *  ActionPort: '<S28>/Action Port'
              */
-            /* SignalConversion generated from: '<S25>/In1' */
+            /* SignalConversion generated from: '<S28>/In1' */
             Vehicle_Control_CodeGen_B.In1 =
               Vehicle_Control_CodeGen_B.ByteUnpack1;
 
@@ -1993,7 +2292,7 @@ void FDCAN2_IT0_IRQHandler(void)
           /* End of SwitchCase: '<S3>/Switch Case1' */
         }
 
-        /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S43>/Hardware Interrupt' */
+        /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S46>/Hardware Interrupt' */
 
         /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
         Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystemOu =
@@ -2034,7 +2333,7 @@ void FDCAN2_IT0_IRQHandler(void)
   __DSB();
 }
 
-/* Hardware Interrupt Block: '<S45>/Hardware Interrupt' */
+/* Hardware Interrupt Block: '<S48>/Hardware Interrupt' */
 void FDCAN1_IT0_IRQHandler(void)
 {
   /* Event: FDCAN1 RF0NE */
@@ -2045,7 +2344,7 @@ void FDCAN1_IT0_IRQHandler(void)
     WRITE_REG(FDCAN1->IR,FDCAN_IR_RF0N);
     if (1 == runModel) {
       {
-        /* S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
+        /* S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' */
 
         /* Output and update for function-call system: '<Root>/Function-Call Subsystem1' */
         {
@@ -2226,9 +2525,17 @@ void FDCAN1_IT0_IRQHandler(void)
                        unpackData)[MW_inputPortOffset]), MW_outputPortWidth);
             }
           }
+
+          /* DataTypeConversion: '<S4>/Data Type Conversion15' */
+          Vehicle_Control_CodeGen_B.APPSPercentage =
+            Vehicle_Control_CodeGen_B.FromPedalBoxtoVCU[1];
         }
 
-        /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
+        /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S48>/Hardware Interrupt' */
+
+        /* RateTransition generated from: '<Root>/Function-Call Subsystem1' */
+        Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O =
+          Vehicle_Control_CodeGen_B.APPSPercentage;
       }
     }
   }

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.40
+ * Model version                  : 1.49
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Aug 26 10:33:54 2025
+ * C/C++ source code generated on : Tue Aug 26 16:53:42 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -146,6 +146,53 @@ struct tag_teqMPwEGIK86lITAwcPFIE
 typedef struct tag_teqMPwEGIK86lITAwcPFIE stm32cube_blocks_FDCANRead_Ve_T;
 
 #endif                             /* typedef_stm32cube_blocks_FDCANRead_Ve_T */
+
+#ifndef struct_tag_bLXxAw6j3QavLR7OIJgfL
+#define struct_tag_bLXxAw6j3QavLR7OIJgfL
+
+struct tag_bLXxAw6j3QavLR7OIJgfL
+{
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  real_T pCumSum;
+  real_T pCumSumRev[999];
+  real_T pCumRevIndex;
+  real_T pModValueRev;
+};
+
+#endif                                 /* struct_tag_bLXxAw6j3QavLR7OIJgfL */
+
+#ifndef typedef_h_dsp_internal_SlidingWindo_g_T
+#define typedef_h_dsp_internal_SlidingWindo_g_T
+
+typedef struct tag_bLXxAw6j3QavLR7OIJgfL h_dsp_internal_SlidingWindo_g_T;
+
+#endif                             /* typedef_h_dsp_internal_SlidingWindo_g_T */
+
+#ifndef struct_tag_oHUaqSgHYJgkx29dPXyLvG
+#define struct_tag_oHUaqSgHYJgkx29dPXyLvG
+
+struct tag_oHUaqSgHYJgkx29dPXyLvG
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  boolean_T TunablePropsChanged;
+  cell_wrap_Vehicle_Control_Cod_T inputVarSize;
+  h_dsp_internal_SlidingWindo_g_T *pStatistic;
+  int32_T NumChannels;
+  int32_T FrameLength;
+  h_dsp_internal_SlidingWindo_g_T _pobj0;
+};
+
+#endif                                 /* struct_tag_oHUaqSgHYJgkx29dPXyLvG */
+
+#ifndef typedef_dsp_simulink_MovingAverage_g_T
+#define typedef_dsp_simulink_MovingAverage_g_T
+
+typedef struct tag_oHUaqSgHYJgkx29dPXyLvG dsp_simulink_MovingAverage_g_T;
+
+#endif                              /* typedef_dsp_simulink_MovingAverage_g_T */
 
 /* Parameters (default storage) */
 typedef struct P_Vehicle_Control_CodeGen_T_ P_Vehicle_Control_CodeGen_T;

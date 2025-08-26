@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.40
+ * Model version                  : 1.49
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Aug 26 10:33:54 2025
+ * C/C++ source code generated on : Tue Aug 26 16:53:42 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -38,14 +38,14 @@ volatile boolean_T stopRequested = false;
 volatile boolean_T runModel = true;
 SemaphoreHandle_t stopSem;
 SemaphoreHandle_t baserateTaskSem;
-SemaphoreHandle_t subrateTaskSem[1];
-int taskId[1];
+SemaphoreHandle_t subrateTaskSem[2];
+int taskId[2];
 mw_thread_t schedulerThread;
 mw_thread_t baseRateThread;
 void *threadJoinStatus;
 int terminatingmodel = 0;
-mw_thread_t subRateThread[1];
-int subratePriority[1];
+mw_thread_t subRateThread[2];
+int subratePriority[2];
 void *subrateTask(void *arg)
 {
   int tid = *((int *) arg);
@@ -73,6 +73,7 @@ void *subrateTask(void *arg)
 
 void *baseRateTask(void *arg)
 {
+  int_T i;
   runModel = (rtmGetErrorStatus(Vehicle_Control_CodeGen_M) == (NULL));
   while (runModel) {
     mw_osSemaphoreWaitEver(&baserateTaskSem);
@@ -84,9 +85,13 @@ void *baseRateTask(void *arg)
 
 #endif
 
-    if (rtmStepTask(Vehicle_Control_CodeGen_M, 1)
-        ) {
-      mw_osSemaphoreRelease(&subrateTaskSem[0]);
+    for (i = 1
+         ; i <= 2; i++) {
+      if (rtmStepTask(Vehicle_Control_CodeGen_M, i)
+          ) {
+        mw_osSemaphoreRelease(&subrateTaskSem[ i - 1
+                              ]);
+      }
     }
 
     Vehicle_Control_CodeGen_step(0);
@@ -116,7 +121,7 @@ void *terminateTask(void *arg)
     int i;
 
     /* Signal all periodic tasks to complete */
-    for (i=0; i<1; i++) {
+    for (i=0; i<2; i++) {
       CHECK_STATUS(mw_osSemaphoreRelease(&subrateTaskSem[i]), 0,
                    "mw_osSemaphoreRelease");
       CHECK_STATUS(mw_osSemaphoreDelete(&subrateTaskSem[i]), 0,
@@ -124,7 +129,7 @@ void *terminateTask(void *arg)
     }
 
     /* Wait for all periodic tasks to complete */
-    for (i=0; i<1; i++) {
+    for (i=0; i<2; i++) {
       CHECK_STATUS(mw_osThreadJoin(subRateThread[i], &threadJoinStatus), 0,
                    "mw_osThreadJoin");
     }
@@ -150,6 +155,7 @@ int main(int argc, char **argv)
 {
   MW_EnableNVICPeripheral();
   subratePriority[0] = 39;
+  subratePriority[1] = 38;
 
 #if !defined(MW_FREERTOS) && defined(MW_MULTI_TASKING_MODE) && (MW_MULTI_TASKING_MODE == 1)
 
@@ -200,7 +206,7 @@ int main(int argc, char **argv)
   Vehicle_Control_CodeGen_initialize();
 
   /* Call RTOS Initialization function */
-  mw_RTOSInit(0.02, 1);
+  mw_RTOSInit(0.02, 2);
 
   /* Wait for stop semaphore */
   mw_osSemaphoreWaitEver(&stopSem);
