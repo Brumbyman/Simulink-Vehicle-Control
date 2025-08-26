@@ -1,0 +1,1 @@
+When Committing to git all code gen files should be ignored. Only the Main source files will be kept. 

@@ -1,0 +1,10 @@
+config load "C:\Users\ezeki\OneDrive\Documents\GitHub\Simulink-Vehicle-Control\Code Generation Model\Vehicle_Control_CodeGen.ioc"
+project toolchain STM32CubeIDE
+
+SetStructure Advanced
+
+project setCustomFWPath "C:\Users\ezeki\STM32Cube\Repository\STM32Cube_FW_H7_V1.9.1"
+
+project generate 
+
+exit wait
