@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.49
+ * Model version                  : 1.54
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Aug 26 16:53:42 2025
+ * C/C++ source code generated on : Wed Aug 27 13:04:49 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,604 +22,524 @@
 /* Block parameters (default storage) */
 P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   /* Mask Parameter: DiscretePIDController1_D
-   * Referenced by: '<S134>/Derivative Gain'
+   * Referenced by: '<S78>/Derivative Gain'
    */
   0.0,
 
   /* Mask Parameter: DiscretePIDController1_D_e
-   * Referenced by: '<S186>/Derivative Gain'
+   * Referenced by: '<S130>/Derivative Gain'
    */
   0.0,
 
-  /* Mask Parameter: DiscretePIDController_D
-   * Referenced by: '<S78>/Derivative Gain'
-   */
-  21000.0,
-
   /* Mask Parameter: DiscretePIDController1_I
-   * Referenced by: '<S138>/Integral Gain'
+   * Referenced by: '<S82>/Integral Gain'
    */
   0.544217300579932,
 
   /* Mask Parameter: DiscretePIDController1_I_o
-   * Referenced by: '<S190>/Integral Gain'
+   * Referenced by: '<S134>/Integral Gain'
    */
   0.544217300579932,
 
-  /* Mask Parameter: DiscretePIDController_I
-   * Referenced by: '<S82>/Integral Gain'
-   */
-  0.042,
-
   /* Mask Parameter: DiscretePIDController1_InitialC
-   * Referenced by: '<S136>/Filter'
+   * Referenced by: '<S80>/Filter'
    */
   0.0,
 
   /* Mask Parameter: DiscretePIDController1_Initia_f
-   * Referenced by: '<S188>/Filter'
-   */
-  0.0,
-
-  /* Mask Parameter: DiscretePIDController_InitialCo
-   * Referenced by: '<S80>/Filter'
+   * Referenced by: '<S132>/Filter'
    */
   0.0,
 
   /* Mask Parameter: DiscretePIDController1_Initia_h
-   * Referenced by: '<S141>/Integrator'
+   * Referenced by: '<S85>/Integrator'
    */
   10.0,
 
   /* Mask Parameter: DiscretePIDController1_Initia_j
-   * Referenced by: '<S193>/Integrator'
+   * Referenced by: '<S137>/Integrator'
    */
   10.0,
 
-  /* Mask Parameter: DiscretePIDController_Initial_o
-   * Referenced by: '<S85>/Integrator'
-   */
-  10000.0,
-
   /* Mask Parameter: DiscretePIDController1_N
-   * Referenced by: '<S144>/Filter Coefficient'
+   * Referenced by: '<S88>/Filter Coefficient'
    */
   100.0,
 
   /* Mask Parameter: DiscretePIDController1_N_e
-   * Referenced by: '<S196>/Filter Coefficient'
+   * Referenced by: '<S140>/Filter Coefficient'
    */
   100.0,
 
-  /* Mask Parameter: DiscretePIDController_N
-   * Referenced by: '<S88>/Filter Coefficient'
-   */
-  0.01,
-
   /* Mask Parameter: DiscretePIDController1_P
-   * Referenced by: '<S146>/Proportional Gain'
+   * Referenced by: '<S90>/Proportional Gain'
    */
   0.000544217300579932,
 
   /* Mask Parameter: DiscretePIDController1_P_i
-   * Referenced by: '<S198>/Proportional Gain'
+   * Referenced by: '<S142>/Proportional Gain'
    */
   0.000544217300579932,
 
-  /* Mask Parameter: DiscretePIDController_P
-   * Referenced by: '<S90>/Proportional Gain'
-   */
-  -420.0,
-
   /* Mask Parameter: CompareToConstant_const
-   * Referenced by: '<S106>/Constant'
+   * Referenced by: '<S50>/Constant'
    */
   5.0,
 
   /* Mask Parameter: CompareToConstant_const_d
-   * Referenced by: '<S158>/Constant'
+   * Referenced by: '<S102>/Constant'
    */
   5.0,
 
   /* Mask Parameter: WrapToZero_Threshold
-   * Referenced by: '<S16>/FixPt Switch'
+   * Referenced by: '<S15>/FixPt Switch'
    */
   5U,
 
   /* Mask Parameter: WrapToZero_Threshold_e
-   * Referenced by: '<S18>/FixPt Switch'
+   * Referenced by: '<S17>/FixPt Switch'
    */
   5U,
 
   /* Expression: 3.6
-   * Referenced by: '<S104>/Constant2'
+   * Referenced by: '<S48>/Constant2'
    */
   3.6,
 
   /* Expression: 1
-   * Referenced by: '<S104>/Sine Wave1'
+   * Referenced by: '<S48>/Sine Wave1'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Sine Wave1'
+   * Referenced by: '<S48>/Sine Wave1'
    */
   0.0,
 
   /* Expression: 1
-   * Referenced by: '<S104>/Sine Wave1'
+   * Referenced by: '<S48>/Sine Wave1'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Sine Wave1'
+   * Referenced by: '<S48>/Sine Wave1'
    */
   0.0,
 
   /* Expression: 6
-   * Referenced by: '<S104>/Constant12'
+   * Referenced by: '<S48>/Constant12'
    */
   6.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Constant7'
+   * Referenced by: '<S48>/Constant7'
    */
   0.0,
 
   /* Expression: 20
-   * Referenced by: '<S104>/Constant6'
+   * Referenced by: '<S48>/Constant6'
    */
   20.0,
 
   /* Expression: 10
-   * Referenced by: '<S104>/Constant4'
+   * Referenced by: '<S48>/Constant4'
    */
   10.0,
 
   /* Expression: 100
-   * Referenced by: '<S104>/Constant5'
+   * Referenced by: '<S48>/Constant5'
    */
   100.0,
 
   /* Expression: 100
-   * Referenced by: '<S104>/Saturation'
+   * Referenced by: '<S48>/Saturation'
    */
   100.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Saturation'
+   * Referenced by: '<S48>/Saturation'
    */
   0.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Constant11'
+   * Referenced by: '<S48>/Constant11'
    */
   0.0,
 
   /* Expression: 0.65
-   * Referenced by: '<S104>/Scale'
+   * Referenced by: '<S48>/Scale'
    */
   0.65,
 
   /* Expression: 90
-   * Referenced by: '<S104>/Constant18'
+   * Referenced by: '<S48>/Constant18'
    */
   90.0,
 
   /* Expression: 60
-   * Referenced by: '<S104>/Constant14'
+   * Referenced by: '<S48>/Constant14'
    */
   60.0,
 
   /* Expression: 5
-   * Referenced by: '<S104>/Constant19'
+   * Referenced by: '<S48>/Constant19'
    */
   5.0,
 
   /* Expression: 50
-   * Referenced by: '<S104>/Constant16'
+   * Referenced by: '<S48>/Constant16'
    */
   50.0,
 
   /* Expression: 30
-   * Referenced by: '<S104>/Constant13'
+   * Referenced by: '<S48>/Constant13'
    */
   30.0,
 
   /* Expression: 10
-   * Referenced by: '<S104>/Constant17'
+   * Referenced by: '<S48>/Constant17'
    */
   10.0,
 
   /* Expression: 2
-   * Referenced by: '<S104>/Constant26'
+   * Referenced by: '<S48>/Constant26'
    */
   2.0,
 
   /* Expression: 0.01
-   * Referenced by: '<S104>/Constant15'
+   * Referenced by: '<S48>/Constant15'
    */
   0.01,
 
   /* Expression: 580
-   * Referenced by: '<S104>/Constant20'
+   * Referenced by: '<S48>/Constant20'
    */
   580.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Constant21'
+   * Referenced by: '<S48>/Constant21'
    */
   0.0,
 
   /* Expression: 0
-   * Referenced by: '<S104>/Constant28'
+   * Referenced by: '<S48>/Constant28'
    */
   0.0,
 
   /* Expression: 3.6
-   * Referenced by: '<S105>/Constant2'
+   * Referenced by: '<S49>/Constant2'
    */
   3.6,
 
   /* Expression: 1
-   * Referenced by: '<S105>/Sine Wave1'
+   * Referenced by: '<S49>/Sine Wave1'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Sine Wave1'
+   * Referenced by: '<S49>/Sine Wave1'
    */
   0.0,
 
   /* Expression: 1
-   * Referenced by: '<S105>/Sine Wave1'
+   * Referenced by: '<S49>/Sine Wave1'
    */
   1.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Sine Wave1'
+   * Referenced by: '<S49>/Sine Wave1'
    */
   0.0,
 
   /* Expression: 6
-   * Referenced by: '<S105>/Constant12'
+   * Referenced by: '<S49>/Constant12'
    */
   6.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Constant7'
+   * Referenced by: '<S49>/Constant7'
    */
   0.0,
 
   /* Expression: 20
-   * Referenced by: '<S105>/Constant6'
+   * Referenced by: '<S49>/Constant6'
    */
   20.0,
 
   /* Expression: 10
-   * Referenced by: '<S105>/Constant4'
+   * Referenced by: '<S49>/Constant4'
    */
   10.0,
 
   /* Expression: 100
-   * Referenced by: '<S105>/Constant5'
+   * Referenced by: '<S49>/Constant5'
    */
   100.0,
 
   /* Expression: 100
-   * Referenced by: '<S105>/Saturation'
+   * Referenced by: '<S49>/Saturation'
    */
   100.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Saturation'
+   * Referenced by: '<S49>/Saturation'
    */
   0.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Constant11'
+   * Referenced by: '<S49>/Constant11'
    */
   0.0,
 
   /* Expression: 0.65
-   * Referenced by: '<S105>/Scale'
+   * Referenced by: '<S49>/Scale'
    */
   0.65,
 
   /* Expression: 90
-   * Referenced by: '<S105>/Constant18'
+   * Referenced by: '<S49>/Constant18'
    */
   90.0,
 
   /* Expression: 60
-   * Referenced by: '<S105>/Constant14'
+   * Referenced by: '<S49>/Constant14'
    */
   60.0,
 
   /* Expression: 5
-   * Referenced by: '<S105>/Constant19'
+   * Referenced by: '<S49>/Constant19'
    */
   5.0,
 
   /* Expression: 50
-   * Referenced by: '<S105>/Constant16'
+   * Referenced by: '<S49>/Constant16'
    */
   50.0,
 
   /* Expression: 30
-   * Referenced by: '<S105>/Constant13'
+   * Referenced by: '<S49>/Constant13'
    */
   30.0,
 
   /* Expression: 10
-   * Referenced by: '<S105>/Constant17'
+   * Referenced by: '<S49>/Constant17'
    */
   10.0,
 
   /* Expression: 2
-   * Referenced by: '<S105>/Constant26'
+   * Referenced by: '<S49>/Constant26'
    */
   2.0,
 
   /* Expression: 0.01
-   * Referenced by: '<S105>/Constant15'
+   * Referenced by: '<S49>/Constant15'
    */
   0.01,
 
   /* Expression: 580
-   * Referenced by: '<S105>/Constant20'
+   * Referenced by: '<S49>/Constant20'
    */
   580.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Constant21'
+   * Referenced by: '<S49>/Constant21'
    */
   0.0,
 
   /* Expression: 0
-   * Referenced by: '<S105>/Constant28'
+   * Referenced by: '<S49>/Constant28'
    */
   0.0,
 
   /* Computed Parameter: Out1_Y0
-   * Referenced by: '<S8>/Out1'
-   */
-  0.0,
-
-  /* Computed Parameter: Out2_Y0
-   * Referenced by: '<S8>/Out2'
-   */
-  0.0,
-
-  /* Expression: 590
-   * Referenced by: '<S104>/Relay'
-   */
-  590.0,
-
-  /* Expression: 585
-   * Referenced by: '<S104>/Relay'
-   */
-  585.0,
-
-  /* Expression: 0
-   * Referenced by: '<S104>/Relay'
-   */
-  0.0,
-
-  /* Expression: 1
-   * Referenced by: '<S104>/Relay'
-   */
-  1.0,
-
-  /* Expression: 0.5
-   * Referenced by: '<S104>/Switch2'
-   */
-  0.5,
-
-  /* Expression: 0.75
-   * Referenced by: '<S104>/Constant23'
-   */
-  0.75,
-
-  /* Expression: 22
-   * Referenced by: '<S104>/Constant27'
-   */
-  22.0,
-
-  /* Expression: 14
-   * Referenced by: '<S104>/Memory1'
-   */
-  14.0,
-
-  /* Expression: inf
-   * Referenced by: '<S104>/Saturation5'
-   */
-  INFINITY,
-
-  /* Expression: 0
-   * Referenced by: '<S104>/Saturation5'
-   */
-  0.0,
-
-  /* Expression: -1
-   * Referenced by: '<S104>/Gain'
-   */
-  -1.0,
-
-  /* Expression: 2
-   * Referenced by: '<S104>/Constant'
-   */
-  2.0,
-
-  /* Expression: inf
-   * Referenced by: '<S104>/Saturation3'
-   */
-  INFINITY,
-
-  /* Expression: 0
-   * Referenced by: '<S104>/Saturation3'
-   */
-  0.0,
-
-  /* Expression: 600
-   * Referenced by: '<S104>/IC1'
-   */
-  600.0,
-
-  /* Computed Parameter: Filter_gainval
-   * Referenced by: '<S136>/Filter'
-   */
-  0.02,
-
-  /* Computed Parameter: Integrator_gainval
-   * Referenced by: '<S141>/Integrator'
-   */
-  1.0,
-
-  /* Expression: 0.75
-   * Referenced by: '<S105>/Constant23'
-   */
-  0.75,
-
-  /* Expression: 22
-   * Referenced by: '<S105>/Constant27'
-   */
-  22.0,
-
-  /* Expression: 14
-   * Referenced by: '<S105>/Memory1'
-   */
-  14.0,
-
-  /* Expression: inf
-   * Referenced by: '<S105>/Saturation5'
-   */
-  INFINITY,
-
-  /* Expression: 0
-   * Referenced by: '<S105>/Saturation5'
-   */
-  0.0,
-
-  /* Expression: -1
-   * Referenced by: '<S105>/Gain'
-   */
-  -1.0,
-
-  /* Expression: 590
-   * Referenced by: '<S105>/Relay'
-   */
-  590.0,
-
-  /* Expression: 585
-   * Referenced by: '<S105>/Relay'
-   */
-  585.0,
-
-  /* Expression: 0
-   * Referenced by: '<S105>/Relay'
-   */
-  0.0,
-
-  /* Expression: 1
-   * Referenced by: '<S105>/Relay'
-   */
-  1.0,
-
-  /* Expression: 0.5
-   * Referenced by: '<S105>/Switch2'
-   */
-  0.5,
-
-  /* Expression: 2
-   * Referenced by: '<S105>/Constant'
-   */
-  2.0,
-
-  /* Expression: inf
-   * Referenced by: '<S105>/Saturation3'
-   */
-  INFINITY,
-
-  /* Expression: 0
-   * Referenced by: '<S105>/Saturation3'
-   */
-  0.0,
-
-  /* Expression: 600
-   * Referenced by: '<S105>/IC2'
-   */
-  600.0,
-
-  /* Computed Parameter: Filter_gainval_p
-   * Referenced by: '<S188>/Filter'
-   */
-  0.02,
-
-  /* Computed Parameter: Integrator_gainval_f
-   * Referenced by: '<S193>/Integrator'
-   */
-  1.0,
-
-  /* Computed Parameter: Out1_Y0_e
    * Referenced by: '<S7>/Out1'
    */
   0.0,
 
-  /* Expression: 100
-   * Referenced by: '<S7>/Constant5'
-   */
-  100.0,
-
-  /* Computed Parameter: DiscreteTimeIntegrator2_gainval
-   * Referenced by: '<S103>/Discrete-Time Integrator2'
-   */
-  0.1,
-
-  /* Expression: 0
-   * Referenced by: '<S103>/Discrete-Time Integrator2'
+  /* Computed Parameter: Out2_Y0
+   * Referenced by: '<S7>/Out2'
    */
   0.0,
 
-  /* Expression: 5
-   * Referenced by: '<S7>/Constant4'
+  /* Expression: 590
+   * Referenced by: '<S48>/Relay'
    */
-  5.0,
+  590.0,
 
-  /* Expression: 22000
-   * Referenced by: '<S7>/Constant6'
+  /* Expression: 585
+   * Referenced by: '<S48>/Relay'
    */
-  22000.0,
+  585.0,
 
   /* Expression: 0
-   * Referenced by: '<S7>/Constant7'
+   * Referenced by: '<S48>/Relay'
    */
   0.0,
 
-  /* Computed Parameter: Filter_gainval_e
-   * Referenced by: '<S80>/Filter'
+  /* Expression: 1
+   * Referenced by: '<S48>/Relay'
    */
-  0.1,
+  1.0,
 
-  /* Computed Parameter: Integrator_gainval_k
-   * Referenced by: '<S85>/Integrator'
+  /* Expression: 0.5
+   * Referenced by: '<S48>/Switch2'
    */
-  0.1,
+  0.5,
+
+  /* Expression: 0.75
+   * Referenced by: '<S48>/Constant23'
+   */
+  0.75,
+
+  /* Expression: 22
+   * Referenced by: '<S48>/Constant27'
+   */
+  22.0,
+
+  /* Expression: 14
+   * Referenced by: '<S48>/Memory1'
+   */
+  14.0,
+
+  /* Expression: inf
+   * Referenced by: '<S48>/Saturation5'
+   */
+  INFINITY,
+
+  /* Expression: 0
+   * Referenced by: '<S48>/Saturation5'
+   */
+  0.0,
+
+  /* Expression: -1
+   * Referenced by: '<S48>/Gain'
+   */
+  -1.0,
 
   /* Expression: 2
-   * Referenced by: '<S103>/Constant2'
+   * Referenced by: '<S48>/Constant'
    */
   2.0,
 
-  /* Expression: 25000
-   * Referenced by: '<S2>/Constant'
+  /* Expression: inf
+   * Referenced by: '<S48>/Saturation3'
    */
-  25000.0,
+  INFINITY,
 
-  /* Expression: 25000
-   * Referenced by: '<S2>/Constant2'
+  /* Expression: 0
+   * Referenced by: '<S48>/Saturation3'
    */
-  25000.0,
+  0.0,
+
+  /* Expression: 600
+   * Referenced by: '<S48>/IC1'
+   */
+  600.0,
+
+  /* Computed Parameter: Filter_gainval
+   * Referenced by: '<S80>/Filter'
+   */
+  0.002,
+
+  /* Computed Parameter: Integrator_gainval
+   * Referenced by: '<S85>/Integrator'
+   */
+  1.0,
+
+  /* Expression: -1
+   * Referenced by: '<S48>/Gain1'
+   */
+  -1.0,
+
+  /* Expression: 0.75
+   * Referenced by: '<S49>/Constant23'
+   */
+  0.75,
+
+  /* Expression: 22
+   * Referenced by: '<S49>/Constant27'
+   */
+  22.0,
+
+  /* Expression: 14
+   * Referenced by: '<S49>/Memory1'
+   */
+  14.0,
+
+  /* Expression: inf
+   * Referenced by: '<S49>/Saturation5'
+   */
+  INFINITY,
+
+  /* Expression: 0
+   * Referenced by: '<S49>/Saturation5'
+   */
+  0.0,
+
+  /* Expression: -1
+   * Referenced by: '<S49>/Gain'
+   */
+  -1.0,
+
+  /* Expression: 590
+   * Referenced by: '<S49>/Relay'
+   */
+  590.0,
+
+  /* Expression: 585
+   * Referenced by: '<S49>/Relay'
+   */
+  585.0,
+
+  /* Expression: 0
+   * Referenced by: '<S49>/Relay'
+   */
+  0.0,
+
+  /* Expression: 1
+   * Referenced by: '<S49>/Relay'
+   */
+  1.0,
+
+  /* Expression: 0.5
+   * Referenced by: '<S49>/Switch2'
+   */
+  0.5,
+
+  /* Expression: 2
+   * Referenced by: '<S49>/Constant'
+   */
+  2.0,
+
+  /* Expression: inf
+   * Referenced by: '<S49>/Saturation3'
+   */
+  INFINITY,
+
+  /* Expression: 0
+   * Referenced by: '<S49>/Saturation3'
+   */
+  0.0,
+
+  /* Expression: 600
+   * Referenced by: '<S49>/IC2'
+   */
+  600.0,
+
+  /* Computed Parameter: Filter_gainval_p
+   * Referenced by: '<S132>/Filter'
+   */
+  0.002,
+
+  /* Computed Parameter: Integrator_gainval_f
+   * Referenced by: '<S137>/Integrator'
+   */
+  1.0,
+
+  /* Expression: -1
+   * Referenced by: '<S49>/Gain1'
+   */
+  -1.0,
 
   /* Expression: 144
    * Referenced by: '<S2>/Constant1'
@@ -632,17 +552,17 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   144.0,
 
   /* Expression: 61
-   * Referenced by: '<S12>/Constant4'
+   * Referenced by: '<S11>/Constant4'
    */
   61.0,
 
   /* Expression: [235 74 168 73 95 138]
-   * Referenced by: '<S12>/Direct Lookup Table (n-D)'
+   * Referenced by: '<S11>/Direct Lookup Table (n-D)'
    */
   { 235.0, 74.0, 168.0, 73.0, 95.0, 138.0 },
 
   /* Expression: [235 74 168 73 95 138]
-   * Referenced by: '<S12>/Direct Lookup Table (n-D)1'
+   * Referenced by: '<S11>/Direct Lookup Table (n-D)1'
    */
   { 235.0, 74.0, 168.0, 73.0, 95.0, 138.0 },
 
@@ -726,10 +646,15 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    */
   0.0,
 
-  /* Expression: 25000
-   * Referenced by: '<Root>/Constant9'
+  /* Expression: 1
+   * Referenced by: '<Root>/Constant'
    */
-  25000.0,
+  1.0,
+
+  /* Expression: 0
+   * Referenced by: '<Root>/Constant1'
+   */
+  0.0,
 
   /* Expression: 25000
    * Referenced by: '<Root>/Constant10'
@@ -741,6 +666,26 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    */
   25000.0,
 
+  /* Expression: 0.10472
+   * Referenced by: '<Root>/Constant16'
+   */
+  0.10472,
+
+  /* Expression: 5
+   * Referenced by: '<Root>/Constant3'
+   */
+  5.0,
+
+  /* Expression: 0.10472
+   * Referenced by: '<Root>/Constant17'
+   */
+  0.10472,
+
+  /* Expression: 20
+   * Referenced by: '<Root>/Constant4'
+   */
+  20.0,
+
   /* Expression: 50000
    * Referenced by: '<Root>/Power Limit'
    */
@@ -748,11 +693,6 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
 
   /* Expression: 25000
    * Referenced by: '<Root>/Constant2'
-   */
-  25000.0,
-
-  /* Expression: 25000
-   * Referenced by: '<Root>/Constant8'
    */
   25000.0,
 
@@ -770,6 +710,21 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    * Referenced by: '<Root>/Constant13'
    */
   25000.0,
+
+  /* Expression: 0.5
+   * Referenced by: '<Root>/Switch3'
+   */
+  0.5,
+
+  /* Expression: 0.5
+   * Referenced by: '<Root>/Switch1'
+   */
+  0.5,
+
+  /* Expression: 0.5
+   * Referenced by: '<Root>/Switch2'
+   */
+  0.5,
 
   /* Expression: 0
    * Referenced by:
@@ -807,17 +762,7 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   0.0,
 
   /* Expression: 0.5
-   * Referenced by: '<Root>/Switch3'
-   */
-  0.5,
-
-  /* Expression: 0.5
    * Referenced by: '<Root>/Switch5'
-   */
-  0.5,
-
-  /* Expression: 0.5
-   * Referenced by: '<Root>/Switch6'
    */
   0.5,
 
@@ -837,11 +782,6 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   0.5,
 
   /* Expression: 0.5
-   * Referenced by: '<Root>/Switch10'
-   */
-  0.5,
-
-  /* Expression: 0.5
    * Referenced by: '<Root>/Switch11'
    */
   0.5,
@@ -852,62 +792,62 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   0.5,
 
   /* Computed Parameter: Out1_Y0_a
-   * Referenced by: '<S27>/Out1'
-   */
-  0U,
-
-  /* Computed Parameter: Out1_Y0_p
    * Referenced by: '<S26>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_g
+  /* Computed Parameter: Out1_Y0_p
    * Referenced by: '<S25>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_k
+  /* Computed Parameter: Out1_Y0_g
    * Referenced by: '<S24>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_pe
+  /* Computed Parameter: Out1_Y0_k
    * Referenced by: '<S23>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_j
-   * Referenced by: '<S19>/Out1'
-   */
-  0U,
-
-  /* Computed Parameter: Out1_Y0_n
+  /* Computed Parameter: Out1_Y0_pe
    * Referenced by: '<S22>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_o
+  /* Computed Parameter: Out1_Y0_j
+   * Referenced by: '<S18>/Out1'
+   */
+  0U,
+
+  /* Computed Parameter: Out1_Y0_n
    * Referenced by: '<S21>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_m
+  /* Computed Parameter: Out1_Y0_o
    * Referenced by: '<S20>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_b
-   * Referenced by: '<S30>/Out1'
+  /* Computed Parameter: Out1_Y0_m
+   * Referenced by: '<S19>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_i
+  /* Computed Parameter: Out1_Y0_b
    * Referenced by: '<S29>/Out1'
    */
   0U,
 
-  /* Computed Parameter: Out1_Y0_h
+  /* Computed Parameter: Out1_Y0_i
    * Referenced by: '<S28>/Out1'
+   */
+  0U,
+
+  /* Computed Parameter: Out1_Y0_h
+   * Referenced by: '<S27>/Out1'
    */
   0U,
 
@@ -1037,54 +977,59 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
   false,
 
   /* Computed Parameter: ManualSwitch1_CurrentSetting
-   * Referenced by: '<S104>/Manual Switch1'
+   * Referenced by: '<S48>/Manual Switch1'
    */
   0U,
 
   /* Computed Parameter: ManualSwitch1_CurrentSetting_n
-   * Referenced by: '<S105>/Manual Switch1'
+   * Referenced by: '<S49>/Manual Switch1'
    */
   0U,
 
   /* Computed Parameter: Constant_Value_h
-   * Referenced by: '<S16>/Constant'
+   * Referenced by: '<S15>/Constant'
    */
   0U,
 
-  /* Computed Parameter: Constant_Value_d
-   * Referenced by: '<S18>/Constant'
+  /* Computed Parameter: Constant_Value_dp
+   * Referenced by: '<S17>/Constant'
    */
   0U,
 
   /* Computed Parameter: Output_InitialCondition
-   * Referenced by: '<S13>/Output'
+   * Referenced by: '<S12>/Output'
    */
   0U,
 
   /* Computed Parameter: Output_InitialCondition_n
-   * Referenced by: '<S14>/Output'
+   * Referenced by: '<S13>/Output'
    */
   0U,
 
   /* Computed Parameter: FixPtConstant_Value
-   * Referenced by: '<S15>/FixPt Constant'
+   * Referenced by: '<S14>/FixPt Constant'
    */
   1U,
 
   /* Computed Parameter: FixPtConstant_Value_n
-   * Referenced by: '<S17>/FixPt Constant'
+   * Referenced by: '<S16>/FixPt Constant'
    */
   1U,
 
   /* Computed Parameter: ManualSwitch2_CurrentSetting
    * Referenced by: '<Root>/Manual Switch2'
    */
-  0U,
+  1U,
+
+  /* Computed Parameter: ManualSwitch_CurrentSetting
+   * Referenced by: '<Root>/Manual Switch'
+   */
+  1U,
 
   /* Computed Parameter: ManualSwitch1_CurrentSetting_h
    * Referenced by: '<Root>/Manual Switch1'
    */
-  0U
+  1U
 };
 
 /*
