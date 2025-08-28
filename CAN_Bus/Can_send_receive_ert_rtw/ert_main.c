@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.61
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Aug 27 15:55:00 2025
+ * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
   MX_TIM23_Init();
   MX_TIM24_Init();
   MX_TIM7_Init();
-  MW_FDCAN_ConfigGlobalFilter(1,FDCAN_ACCEPT_IN_RX_FIFO0,FDCAN_REJECT,
+  MW_FDCAN_ConfigGlobalFilter(2,FDCAN_ACCEPT_IN_RX_FIFO0,FDCAN_REJECT,
     FDCAN_REJECT_REMOTE,FDCAN_REJECT_REMOTE);
   rtmSetErrorStatus(Can_send_receive_M, 0);
   Can_send_receive_configure_interrupts();

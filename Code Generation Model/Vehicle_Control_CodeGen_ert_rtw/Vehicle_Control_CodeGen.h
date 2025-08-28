@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.54
+ * Model version                  : 1.56
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Aug 27 13:04:49 2025
+ * C/C++ source code generated on : Thu Aug 28 13:46:48 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -97,24 +97,22 @@ typedef struct {
   uint16_T In1_g20asdt;                /* '<S26>/In1' */
   uint16_T DataTypeConversion;         /* '<S8>/Data Type Conversion' */
   uint16_T ByteReversal;               /* '<S8>/Byte Reversal' */
-  uint16_T DataTypeConversion1;        /* '<S8>/Data Type Conversion1' */
-  uint16_T ByteReversal1;              /* '<S8>/Byte Reversal1' */
   uint16_T DataTypeConversion2;        /* '<S8>/Data Type Conversion2' */
   uint16_T ByteReversal2;              /* '<S8>/Byte Reversal2' */
   uint16_T DataTypeConversion3;        /* '<S8>/Data Type Conversion3' */
   uint16_T ByteReversal3;              /* '<S8>/Byte Reversal3' */
   uint16_T DataTypeConversion4;        /* '<S8>/Data Type Conversion4' */
   uint16_T ByteReversal4;              /* '<S8>/Byte Reversal4' */
-  uint16_T DataTypeConversion5;        /* '<S8>/Data Type Conversion5' */
-  uint16_T ByteReversal5;              /* '<S8>/Byte Reversal5' */
   uint16_T DataTypeConversion6;        /* '<S8>/Data Type Conversion6' */
   uint16_T ByteReversal6;              /* '<S8>/Byte Reversal6' */
   uint16_T DataTypeConversion7;        /* '<S8>/Data Type Conversion7' */
   uint16_T ByteReversal7;              /* '<S8>/Byte Reversal7' */
+  uint16_T DataTypeConversion1;        /* '<S8>/Data Type Conversion1' */
+  uint16_T DataTypeConversion5;        /* '<S8>/Data Type Conversion5' */
   uint16_T DataTypeConversion_m;       /* '<S2>/Data Type Conversion' */
   uint16_T ByteReversal_p;             /* '<S2>/Byte Reversal' */
   uint16_T DataTypeConversion2_k;      /* '<S2>/Data Type Conversion2' */
-  uint16_T ByteReversal1_j;            /* '<S2>/Byte Reversal1' */
+  uint16_T ByteReversal1;              /* '<S2>/Byte Reversal1' */
   uint8_T FromPedalBoxtoVCU[8];        /* '<S4>/CAN FD Unpack1' */
   uint8_T BMS1[8];                     /* '<S4>/CAN FD Unpack3' */
   uint8_T BMS2[8];                     /* '<S4>/CAN FD Unpack4' */

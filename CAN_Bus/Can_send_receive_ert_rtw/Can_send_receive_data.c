@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.61
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Aug 27 15:55:00 2025
+ * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -21,28 +21,7 @@
 
 /* Invariant block signals (default storage) */
 const ConstB_Can_send_receive_T Can_send_receive_ConstB = {
-  0U,                                  /* '<S5>/Byte Reversal' */
-  0U,                                  /* '<S5>/Byte Reversal1' */
-  0U,                                  /* '<S5>/Byte Reversal2' */
-  0U,                                  /* '<S5>/Data Type Conversion3' */
-  0U,                                  /* '<S5>/Byte Reversal3' */
-  0U,                                  /* '<S5>/Byte Reversal4' */
-  0U,                                  /* '<S5>/Byte Reversal5' */
-  61U,                                 /* '<S6>/Data Type Conversion3' */
-
-  { 0U, 0U },                          /* '<S5>/Byte Pack' */
-
-  { 0U, 0U },                          /* '<S5>/Byte Pack1' */
-
-  { 0U, 0U },                          /* '<S5>/Byte Pack2' */
-
-  { 0U, 0U },                          /* '<S5>/Byte Pack3' */
-
-  { 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U },  /* '<S5>/Vector Concatenate' */
-
-  { 0U, 0U },                          /* '<S5>/Byte Pack4' */
-
-  { 0U, 0U }                           /* '<S5>/Byte Pack5' */
+  61U                                  /* '<S6>/Data Type Conversion3' */
 };
 
 /* Constant parameters (default storage) */

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.54
+ * Model version                  : 1.56
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Aug 27 13:04:49 2025
+ * C/C++ source code generated on : Thu Aug 28 13:46:48 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -1030,7 +1030,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
   /* ReverseEndian: <S2>/Byte Reversal1 */
 
   /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal1_j)[0] =
+  ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal1)[0] =
     SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion2_k)[0]);
 
   /* DataTypeConversion: '<S2>/Data Type Conversion1' incorporates:
@@ -1102,7 +1102,7 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
     {
       MW_inputPortWidth = sizeof(uint16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Vehicle_Control_CodeGen_B.ByteReversal1_j, MW_inputPortWidth);
+             &Vehicle_Control_CodeGen_B.ByteReversal1, MW_inputPortWidth);
     }
   }
 
@@ -1193,28 +1193,6 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal)[0] =
     SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion)[0]);
-
-  /* DataTypeConversion: '<S8>/Data Type Conversion1' incorporates:
-   *  RateTransition generated from: '<Root>/Triggered Subsystem'
-   */
-  tmp = floor(Vehicle_Control_CodeGen_DW.TmpRTBAtTriggeredSubsystemInpor);
-  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
-    tmp = 0.0;
-  } else {
-    tmp = fmod(tmp, 65536.0);
-  }
-
-  /* DataTypeConversion: '<S8>/Data Type Conversion1' */
-  Vehicle_Control_CodeGen_B.DataTypeConversion1 = (uint16_T)(tmp < 0.0 ?
-    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
-
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal1' */
-
-  /* ReverseEndian: <S8>/Byte Reversal1 */
-
-  /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal1)[0] =
-    SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion1)[0]);
 
   /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator4' */
 
@@ -1333,28 +1311,6 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
   ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal4)[0] =
     SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion4)[0]);
 
-  /* DataTypeConversion: '<S8>/Data Type Conversion5' incorporates:
-   *  RateTransition generated from: '<Root>/Triggered Subsystem'
-   */
-  tmp = floor(Vehicle_Control_CodeGen_DW.TmpRTBAtTriggeredSubsystemInp_b);
-  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
-    tmp = 0.0;
-  } else {
-    tmp = fmod(tmp, 65536.0);
-  }
-
-  /* DataTypeConversion: '<S8>/Data Type Conversion5' */
-  Vehicle_Control_CodeGen_B.DataTypeConversion5 = (uint16_T)(tmp < 0.0 ?
-    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
-
-  /* S-Function (reverseendian_svd): '<S8>/Byte Reversal5' */
-
-  /* ReverseEndian: <S8>/Byte Reversal5 */
-
-  /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Vehicle_Control_CodeGen_B.ByteReversal5)[0] =
-    SWAP16(((uint16_T *)&Vehicle_Control_CodeGen_B.DataTypeConversion5)[0]);
-
   /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator4' */
 
   /* Switch: '<Root>/Switch11' */
@@ -1452,6 +1408,20 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
+  /* DataTypeConversion: '<S8>/Data Type Conversion1' incorporates:
+   *  RateTransition generated from: '<Root>/Triggered Subsystem'
+   */
+  tmp = floor(Vehicle_Control_CodeGen_DW.TmpRTBAtTriggeredSubsystemInpor);
+  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 65536.0);
+  }
+
+  /* DataTypeConversion: '<S8>/Data Type Conversion1' */
+  Vehicle_Control_CodeGen_B.DataTypeConversion1 = (uint16_T)(tmp < 0.0 ?
+    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
+
   /* S-Function (any2byte_svd): '<S8>/Byte Pack1' */
 
   /* Pack: <S8>/Byte Pack1 */
@@ -1467,7 +1437,7 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
     {
       MW_inputPortWidth = sizeof(uint16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Vehicle_Control_CodeGen_B.ByteReversal1, MW_inputPortWidth);
+             &Vehicle_Control_CodeGen_B.DataTypeConversion1, MW_inputPortWidth);
     }
   }
 
@@ -1535,6 +1505,20 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
     }
   }
 
+  /* DataTypeConversion: '<S8>/Data Type Conversion5' incorporates:
+   *  RateTransition generated from: '<Root>/Triggered Subsystem'
+   */
+  tmp = floor(Vehicle_Control_CodeGen_DW.TmpRTBAtTriggeredSubsystemInp_b);
+  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 65536.0);
+  }
+
+  /* DataTypeConversion: '<S8>/Data Type Conversion5' */
+  Vehicle_Control_CodeGen_B.DataTypeConversion5 = (uint16_T)(tmp < 0.0 ?
+    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
+
   /* S-Function (any2byte_svd): '<S8>/Byte Pack5' */
 
   /* Pack: <S8>/Byte Pack5 */
@@ -1550,7 +1534,7 @@ void Vehicle_Control_CodeGen_step2(void) /* Sample time: [0.2s, 0.0s] */
     {
       MW_inputPortWidth = sizeof(uint16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Vehicle_Control_CodeGen_B.ByteReversal5, MW_inputPortWidth);
+             &Vehicle_Control_CodeGen_B.DataTypeConversion5, MW_inputPortWidth);
     }
   }
 

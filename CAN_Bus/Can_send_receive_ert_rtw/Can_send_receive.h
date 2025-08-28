@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.61
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Aug 27 15:55:00 2025
+ * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -46,59 +46,65 @@
 /* Block signals (default storage) */
 typedef struct {
   CAN_FD_MESSAGE_BUS FDCANRead1;       /* '<S2>/FDCAN Read1' */
-  uint16_T TmpRTBAtFunctionCallSubsystem1O;/* '<Root>/Function-Call Subsystem1' */
-  uint16_T TmpRTBAtFunctionCallSubsystem_d;/* '<Root>/Function-Call Subsystem1' */
-  uint16_T WheelSpeedFrontLeft;        /* '<S2>/Byte Unpack' */
-  uint16_T WheelSpeedFrontRight;       /* '<S2>/Byte Unpack1' */
-  uint16_T BMSCurrentSensor;           /* '<S2>/Byte Unpack2' */
-  uint16_T BMSVoltage;                 /* '<S2>/Byte Unpack3' */
-  uint16_T DCL;                        /* '<S2>/Byte Unpack4' */
-  uint16_T CCL;                        /* '<S2>/Byte Unpack5' */
+  real_T BrakesPercentage;             /* '<S2>/Data Type Conversion3' */
+  uint16_T TmpRTBAtFunctionCallSubsystemOu;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_l;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_c;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_m;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_i;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_e;/* '<Root>/Function-Call Subsystem' */
+  uint16_T TmpRTBAtFunctionCallSubsystem_o;/* '<Root>/Function-Call Subsystem' */
+  uint16_T ByteUnpack;                 /* '<S2>/Byte Unpack' */
+  uint16_T ByteUnpack1;                /* '<S2>/Byte Unpack1' */
+  uint16_T DataTypeConversion;         /* '<S2>/Data Type Conversion' */
+  uint16_T In1;                        /* '<S14>/In1' */
+  uint16_T In1_g;                      /* '<S16>/In1' */
+  uint16_T In1_g2;                     /* '<S13>/In1' */
+  uint16_T In1_g20;                    /* '<S17>/In1' */
+  uint16_T In1_g20a;                   /* '<S19>/In1' */
+  uint16_T In1_g20as;                  /* '<S21>/In1' */
+  uint16_T ByteReversal;               /* '<S5>/Byte Reversal' */
+  uint16_T ByteReversal1;              /* '<S5>/Byte Reversal1' */
+  uint16_T ByteReversal2;              /* '<S5>/Byte Reversal2' */
+  uint16_T ByteReversal3;              /* '<S5>/Byte Reversal3' */
+  uint16_T ByteReversal4;              /* '<S5>/Byte Reversal4' */
+  uint16_T ByteReversal5;              /* '<S5>/Byte Reversal5' */
+  uint16_T DataTypeConversion6;        /* '<S5>/Data Type Conversion6' */
   uint16_T ByteReversal6;              /* '<S5>/Byte Reversal6' */
   uint16_T ByteReversal7;              /* '<S5>/Byte Reversal7' */
-  uint8_T FromPedalBoxtoVCU[8];        /* '<S2>/CAN FD Unpack1' */
-  uint8_T BMS1[8];                     /* '<S2>/CAN FD Unpack3' */
-  uint8_T BMS2[8];                     /* '<S2>/CAN FD Unpack4' */
+  uint8_T CANFDUnpack2[3];             /* '<S2>/CAN FD Unpack2' */
+  uint8_T CANFDUnpack1[3];             /* '<S2>/CAN FD Unpack1' */
   uint8_T VectorConcatenate1[8];       /* '<S5>/Vector Concatenate1' */
+  uint8_T VectorConcatenate[8];        /* '<S5>/Vector Concatenate' */
 } B_Can_send_receive_T;
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
   stm32cube_blocks_FDCANWrite_C_T obj; /* '<S6>/FDCAN Write3' */
-  stm32cube_blocks_FDCANWrite_C_T obj_c;/* '<S6>/FDCAN Write2' */
-  stm32cube_blocks_FDCANWrite_C_T obj_l;/* '<S5>/FDCAN Write3' */
-  stm32cube_blocks_FDCANWrite_C_T obj_a;/* '<S5>/FDCAN Write1' */
-  stm32cube_blocks_FDCANRead_Ca_T obj_n;/* '<S2>/FDCAN Read1' */
+  stm32cube_blocks_FDCANWrite_C_T obj_g;/* '<S6>/FDCAN Write2' */
+  stm32cube_blocks_FDCANWrite_C_T obj_h;/* '<S5>/FDCAN Write3' */
+  stm32cube_blocks_FDCANWrite_C_T obj_l;/* '<S5>/FDCAN Write1' */
+  stm32cube_blocks_FDCANRead_Ca_T obj_d;/* '<S2>/FDCAN Read1' */
   real_T UnitDelay_DSTATE;             /* '<S1>/Unit Delay' */
+  volatile real_T TmpRTBAtFunctionCallSubsystemOu;/* synthesized block */
+  int_T CANFDUnpack2_ModeSignalID;     /* '<S2>/CAN FD Unpack2' */
+  int_T CANFDUnpack2_StatusPortID;     /* '<S2>/CAN FD Unpack2' */
   int_T CANFDUnpack1_ModeSignalID;     /* '<S2>/CAN FD Unpack1' */
   int_T CANFDUnpack1_StatusPortID;     /* '<S2>/CAN FD Unpack1' */
-  int_T CANFDUnpack3_ModeSignalID;     /* '<S2>/CAN FD Unpack3' */
-  int_T CANFDUnpack3_StatusPortID;     /* '<S2>/CAN FD Unpack3' */
-  int_T CANFDUnpack4_ModeSignalID;     /* '<S2>/CAN FD Unpack4' */
-  int_T CANFDUnpack4_StatusPortID;     /* '<S2>/CAN FD Unpack4' */
-  volatile uint16_T TmpRTBAtFunctionCallSubsystem1O;/* synthesized block */
-  volatile uint16_T TmpRTBAtFunctionCallSubsystem_l;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_e;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_a;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_g;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_k;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_m;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_h;/* synthesized block */
+  volatile uint16_T TmpRTBAtFunctionCallSubsystem_i;/* synthesized block */
   uint8_T Output_DSTATE;               /* '<S7>/Output' */
-  uint8_T Output_DSTATE_l;             /* '<S8>/Output' */
+  uint8_T Output_DSTATE_c;             /* '<S8>/Output' */
 } DW_Can_send_receive_T;
 
 /* Invariant block signals (default storage) */
 typedef struct {
-  const uint16_T ByteReversal;         /* '<S5>/Byte Reversal' */
-  const uint16_T ByteReversal1;        /* '<S5>/Byte Reversal1' */
-  const uint16_T ByteReversal2;        /* '<S5>/Byte Reversal2' */
-  const uint16_T DataTypeConversion3;  /* '<S5>/Data Type Conversion3' */
-  const uint16_T ByteReversal3;        /* '<S5>/Byte Reversal3' */
-  const uint16_T ByteReversal4;        /* '<S5>/Byte Reversal4' */
-  const uint16_T ByteReversal5;        /* '<S5>/Byte Reversal5' */
-  const uint8_T DataTypeConversion3_k; /* '<S6>/Data Type Conversion3' */
-  const uint8_T BytePack[2];           /* '<S5>/Byte Pack' */
-  const uint8_T BytePack1[2];          /* '<S5>/Byte Pack1' */
-  const uint8_T BytePack2[2];          /* '<S5>/Byte Pack2' */
-  const uint8_T BytePack3[2];          /* '<S5>/Byte Pack3' */
-  const uint8_T VectorConcatenate[8];  /* '<S5>/Vector Concatenate' */
-  const uint8_T BytePack4[2];          /* '<S5>/Byte Pack4' */
-  const uint8_T BytePack5[2];          /* '<S5>/Byte Pack5' */
+  const uint8_T DataTypeConversion3;   /* '<S6>/Data Type Conversion3' */
 } ConstB_Can_send_receive_T;
 
 /* Constant parameters (default storage) */
@@ -143,7 +149,7 @@ extern "C"
 
 #endif
 
-  void FDCAN1_IT0_IRQHandler(void);
+  void FDCAN2_IT0_IRQHandler(void);
   void Can_send_receive_configure_interrupts (void);
   void Can_send_receive_unconfigure_interrupts (void);
 
@@ -166,89 +172,18 @@ extern "C"
  * Block '<S6>/Scope3' : Unused code path elimination
  * Block '<S1>/Scope' : Unused code path elimination
  * Block '<S1>/Scope1' : Unused code path elimination
- * Block '<S2>/CAN FD Unpack2' : Unused code path elimination
- * Block '<S2>/Data Type Conversion1' : Unused code path elimination
- * Block '<S2>/Data Type Conversion10' : Unused code path elimination
- * Block '<S2>/Data Type Conversion11' : Unused code path elimination
- * Block '<S2>/Data Type Conversion12' : Unused code path elimination
- * Block '<S2>/Data Type Conversion13' : Unused code path elimination
- * Block '<S2>/Data Type Conversion14' : Unused code path elimination
- * Block '<S2>/Data Type Conversion15' : Unused code path elimination
- * Block '<S2>/Data Type Conversion16' : Unused code path elimination
- * Block '<S2>/Data Type Conversion17' : Unused code path elimination
- * Block '<S2>/Data Type Conversion18' : Unused code path elimination
- * Block '<S2>/Data Type Conversion19' : Unused code path elimination
- * Block '<S2>/Data Type Conversion2' : Unused code path elimination
- * Block '<S2>/Data Type Conversion20' : Unused code path elimination
- * Block '<S2>/Data Type Conversion21' : Unused code path elimination
- * Block '<S2>/Data Type Conversion3' : Unused code path elimination
- * Block '<S2>/Data Type Conversion4' : Unused code path elimination
- * Block '<S2>/Data Type Conversion5' : Unused code path elimination
- * Block '<S2>/Data Type Conversion6' : Unused code path elimination
- * Block '<S2>/Data Type Conversion7' : Unused code path elimination
- * Block '<S2>/Data Type Conversion8' : Unused code path elimination
- * Block '<S2>/Data Type Conversion9' : Unused code path elimination
- * Block '<S13>/DTProp1' : Unused code path elimination
- * Block '<S13>/DTProp2' : Unused code path elimination
- * Block '<S13>/Extract Desired Bits' : Unused code path elimination
- * Block '<S13>/Modify Scaling Only' : Unused code path elimination
- * Block '<S14>/DTProp1' : Unused code path elimination
- * Block '<S14>/DTProp2' : Unused code path elimination
- * Block '<S14>/Extract Desired Bits' : Unused code path elimination
- * Block '<S14>/Modify Scaling Only' : Unused code path elimination
- * Block '<S15>/DTProp1' : Unused code path elimination
- * Block '<S15>/DTProp2' : Unused code path elimination
- * Block '<S15>/Extract Desired Bits' : Unused code path elimination
- * Block '<S15>/Modify Scaling Only' : Unused code path elimination
- * Block '<S16>/DTProp1' : Unused code path elimination
- * Block '<S16>/DTProp2' : Unused code path elimination
- * Block '<S16>/Extract Desired Bits' : Unused code path elimination
- * Block '<S16>/Modify Scaling Only' : Unused code path elimination
- * Block '<S17>/DTProp1' : Unused code path elimination
- * Block '<S17>/DTProp2' : Unused code path elimination
- * Block '<S17>/Extract Desired Bits' : Unused code path elimination
- * Block '<S17>/Modify Scaling Only' : Unused code path elimination
- * Block '<S18>/DTProp1' : Unused code path elimination
- * Block '<S18>/DTProp2' : Unused code path elimination
- * Block '<S18>/Extract Desired Bits' : Unused code path elimination
- * Block '<S18>/Modify Scaling Only' : Unused code path elimination
- * Block '<S19>/DTProp1' : Unused code path elimination
- * Block '<S19>/DTProp2' : Unused code path elimination
- * Block '<S19>/Extract Desired Bits' : Unused code path elimination
- * Block '<S19>/Modify Scaling Only' : Unused code path elimination
- * Block '<S20>/DTProp1' : Unused code path elimination
- * Block '<S20>/DTProp2' : Unused code path elimination
- * Block '<S20>/Extract Desired Bits' : Unused code path elimination
- * Block '<S20>/Modify Scaling Only' : Unused code path elimination
- * Block '<S21>/DTProp1' : Unused code path elimination
- * Block '<S21>/DTProp2' : Unused code path elimination
- * Block '<S21>/Extract Desired Bits' : Unused code path elimination
- * Block '<S21>/Modify Scaling Only' : Unused code path elimination
- * Block '<S22>/DTProp1' : Unused code path elimination
- * Block '<S22>/DTProp2' : Unused code path elimination
- * Block '<S22>/Extract Desired Bits' : Unused code path elimination
- * Block '<S22>/Modify Scaling Only' : Unused code path elimination
- * Block '<S23>/DTProp1' : Unused code path elimination
- * Block '<S23>/DTProp2' : Unused code path elimination
- * Block '<S23>/Extract Desired Bits' : Unused code path elimination
- * Block '<S23>/Modify Scaling Only' : Unused code path elimination
- * Block '<S24>/DTProp1' : Unused code path elimination
- * Block '<S24>/DTProp2' : Unused code path elimination
- * Block '<S24>/Extract Desired Bits' : Unused code path elimination
- * Block '<S24>/Modify Scaling Only' : Unused code path elimination
- * Block '<S25>/DTProp1' : Unused code path elimination
- * Block '<S25>/DTProp2' : Unused code path elimination
- * Block '<S25>/Extract Desired Bits' : Unused code path elimination
- * Block '<S25>/Modify Scaling Only' : Unused code path elimination
- * Block '<S26>/Constant2' : Unused code path elimination
+ * Block '<S2>/Scope1' : Unused code path elimination
+ * Block '<S2>/Scope2' : Unused code path elimination
+ * Block '<S2>/Scope4' : Unused code path elimination
+ * Block '<S2>/Scope7' : Unused code path elimination
  * Block '<S4>/Constant2' : Unused code path elimination
  * Block '<S5>/Scope' : Unused code path elimination
  * Block '<S5>/Data Type Conversion' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion1' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion2' : Eliminate redundant data type conversion
+ * Block '<S5>/Data Type Conversion3' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion4' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion5' : Eliminate redundant data type conversion
- * Block '<S5>/Data Type Conversion6' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion7' : Eliminate redundant data type conversion
  */
 
@@ -267,34 +202,32 @@ extern "C"
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'Can_send_receive'
- * '<S1>'   : 'Can_send_receive/10 HZ Send2'
- * '<S2>'   : 'Can_send_receive/Function-Call Subsystem1'
- * '<S3>'   : 'Can_send_receive/Hardware Interrupt3'
+ * '<S1>'   : 'Can_send_receive/10 HZ Send1'
+ * '<S2>'   : 'Can_send_receive/Function-Call Subsystem'
+ * '<S3>'   : 'Can_send_receive/Hardware Interrupt1'
  * '<S4>'   : 'Can_send_receive/Subsystem'
- * '<S5>'   : 'Can_send_receive/Triggered Subsystem2'
- * '<S6>'   : 'Can_send_receive/10 HZ Send2/Enabled Subsystem'
- * '<S7>'   : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited'
- * '<S8>'   : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited1'
- * '<S9>'   : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited/Increment Real World'
- * '<S10>'  : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited/Wrap To Zero'
- * '<S11>'  : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited1/Increment Real World'
- * '<S12>'  : 'Can_send_receive/10 HZ Send2/Enabled Subsystem/Counter Limited1/Wrap To Zero'
- * '<S13>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits'
- * '<S14>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits1'
- * '<S15>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits10'
- * '<S16>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits11'
- * '<S17>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits12'
- * '<S18>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits2'
- * '<S19>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits3'
- * '<S20>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits4'
- * '<S21>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits5'
- * '<S22>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits6'
- * '<S23>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits7'
- * '<S24>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits8'
- * '<S25>'  : 'Can_send_receive/Function-Call Subsystem1/Extract Bits9'
- * '<S26>'  : 'Can_send_receive/Function-Call Subsystem1/Subsystem'
- * '<S27>'  : 'Can_send_receive/Hardware Interrupt3/ECSoC'
- * '<S28>'  : 'Can_send_receive/Hardware Interrupt3/ECSoC/ECSimCodegen'
+ * '<S5>'   : 'Can_send_receive/Triggered Subsystem1'
+ * '<S6>'   : 'Can_send_receive/10 HZ Send1/Enabled Subsystem'
+ * '<S7>'   : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited'
+ * '<S8>'   : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited1'
+ * '<S9>'   : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited/Increment Real World'
+ * '<S10>'  : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited/Wrap To Zero'
+ * '<S11>'  : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited1/Increment Real World'
+ * '<S12>'  : 'Can_send_receive/10 HZ Send1/Enabled Subsystem/Counter Limited1/Wrap To Zero'
+ * '<S13>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem1'
+ * '<S14>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem10'
+ * '<S15>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem11'
+ * '<S16>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem12'
+ * '<S17>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem2'
+ * '<S18>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem3'
+ * '<S19>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem4'
+ * '<S20>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem5'
+ * '<S21>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem6'
+ * '<S22>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem7'
+ * '<S23>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem8'
+ * '<S24>'  : 'Can_send_receive/Function-Call Subsystem/If Action Subsystem9'
+ * '<S25>'  : 'Can_send_receive/Hardware Interrupt1/ECSoC'
+ * '<S26>'  : 'Can_send_receive/Hardware Interrupt1/ECSoC/ECSimCodegen'
  */
 #endif                                 /* Can_send_receive_h_ */
 
