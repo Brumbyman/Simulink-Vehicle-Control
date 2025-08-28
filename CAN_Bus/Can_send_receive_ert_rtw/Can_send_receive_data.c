@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.61
+ * Model version                  : 1.63
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
+ * C/C++ source code generated on : Thu Aug 28 15:08:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -21,7 +21,11 @@
 
 /* Invariant block signals (default storage) */
 const ConstB_Can_send_receive_T Can_send_receive_ConstB = {
-  61U                                  /* '<S6>/Data Type Conversion3' */
+  -100,                                /* '<S5>/Data Type Conversion' */
+  -25345,                              /* '<S5>/Byte Reversal8' */
+  61U,                                 /* '<S6>/Data Type Conversion3' */
+
+  { 255U, 156U }                       /* '<S5>/Byte Pack' */
 };
 
 /* Constant parameters (default storage) */

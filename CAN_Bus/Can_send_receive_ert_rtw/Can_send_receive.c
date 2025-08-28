@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.61
+ * Model version                  : 1.63
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
+ * C/C++ source code generated on : Thu Aug 28 15:08:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -44,10 +44,6 @@ void Can_send_receive_step(void)
 
   /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
   Can_send_receive_B.TmpRTBAtFunctionCallSubsystemOu =
-    Can_send_receive_DW.TmpRTBAtFunctionCallSubsystem_e;
-
-  /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
-  Can_send_receive_B.TmpRTBAtFunctionCallSubsystem_l =
     Can_send_receive_DW.TmpRTBAtFunctionCallSubsystem_a;
 
   /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
@@ -77,13 +73,11 @@ void Can_send_receive_step(void)
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem1'
    */
-  /* S-Function (reverseendian_svd): '<S5>/Byte Reversal' */
-
-  /* ReverseEndian: <S5>/Byte Reversal */
-
-  /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Can_send_receive_B.ByteReversal)[0] =
-    SWAP16(((uint16_T *)&Can_send_receive_B.TmpRTBAtFunctionCallSubsystemOu)[0]);
+  /* SignalConversion generated from: '<S5>/Vector Concatenate' incorporates:
+   *  Concatenate: '<S5>/Vector Concatenate'
+   */
+  Can_send_receive_B.VectorConcatenate[0] = Can_send_receive_ConstB.BytePack[0];
+  Can_send_receive_B.VectorConcatenate[1] = Can_send_receive_ConstB.BytePack[1];
 
   /* S-Function (reverseendian_svd): '<S5>/Byte Reversal1' */
 
@@ -91,7 +85,7 @@ void Can_send_receive_step(void)
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Can_send_receive_B.ByteReversal1)[0] =
-    SWAP16(((uint16_T *)&Can_send_receive_B.TmpRTBAtFunctionCallSubsystem_l)[0]);
+    SWAP16(((uint16_T *)&Can_send_receive_B.TmpRTBAtFunctionCallSubsystemOu)[0]);
 
   /* S-Function (reverseendian_svd): '<S5>/Byte Reversal2' */
 
@@ -156,25 +150,6 @@ void Can_send_receive_step(void)
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Can_send_receive_B.ByteReversal7)[0] =
     SWAP16(((uint16_T *)&Can_send_receive_B.TmpRTBAtFunctionCallSubsystem_o)[0]);
-
-  /* S-Function (any2byte_svd): '<S5>/Byte Pack' */
-
-  /* Pack: <S5>/Byte Pack */
-  {
-    uint32_T MW_outputPortOffset = 0U;
-    uint16_T MW_inputPortWidth = 0U;
-
-    /* Packed output data type - uint8_T */
-    void* packData = &Can_send_receive_B.VectorConcatenate[0];
-
-    /* Packing the values of Input 1 */
-    /* Input data type - uint16_T, size - 1 */
-    {
-      MW_inputPortWidth = sizeof(uint16_T);
-      memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Can_send_receive_B.ByteReversal, MW_inputPortWidth);
-    }
-  }
 
   /* S-Function (any2byte_svd): '<S5>/Byte Pack1' */
 
@@ -728,15 +703,6 @@ void FDCAN2_IT0_IRQHandler(void)
           switch (tmp < 0.0 ? -(int32_T)(uint32_T)-tmp : (int32_T)(uint32_T)tmp)
           {
            case 235:
-            /* Outputs for IfAction SubSystem: '<S2>/If Action Subsystem6' incorporates:
-             *  ActionPort: '<S21>/Action Port'
-             */
-            /* SignalConversion generated from: '<S21>/In1' */
-            Can_send_receive_B.In1_g20as = Can_send_receive_B.DataTypeConversion;
-
-            /* End of Outputs for SubSystem: '<S2>/If Action Subsystem6' */
-            break;
-
            case 74:
            case 73:
             break;
@@ -809,10 +775,6 @@ void FDCAN2_IT0_IRQHandler(void)
         }
 
         /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S26>/Hardware Interrupt' */
-
-        /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
-        Can_send_receive_DW.TmpRTBAtFunctionCallSubsystem_e =
-          Can_send_receive_B.In1_g20as;
 
         /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
         Can_send_receive_DW.TmpRTBAtFunctionCallSubsystemOu =

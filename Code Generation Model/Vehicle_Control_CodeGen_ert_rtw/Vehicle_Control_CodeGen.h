@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.56
+ * Model version                  : 1.58
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 13:46:48 2025
+ * C/C++ source code generated on : Thu Aug 28 15:15:15 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -109,10 +109,10 @@ typedef struct {
   uint16_T ByteReversal7;              /* '<S8>/Byte Reversal7' */
   uint16_T DataTypeConversion1;        /* '<S8>/Data Type Conversion1' */
   uint16_T DataTypeConversion5;        /* '<S8>/Data Type Conversion5' */
-  uint16_T DataTypeConversion_m;       /* '<S2>/Data Type Conversion' */
-  uint16_T ByteReversal_p;             /* '<S2>/Byte Reversal' */
-  uint16_T DataTypeConversion2_k;      /* '<S2>/Data Type Conversion2' */
-  uint16_T ByteReversal1;              /* '<S2>/Byte Reversal1' */
+  int16_T DataTypeConversion_m;        /* '<S2>/Data Type Conversion' */
+  int16_T ByteReversal_p;              /* '<S2>/Byte Reversal' */
+  int16_T DataTypeConversion2_k;       /* '<S2>/Data Type Conversion2' */
+  int16_T ByteReversal1;               /* '<S2>/Byte Reversal1' */
   uint8_T FromPedalBoxtoVCU[8];        /* '<S4>/CAN FD Unpack1' */
   uint8_T BMS1[8];                     /* '<S4>/CAN FD Unpack3' */
   uint8_T BMS2[8];                     /* '<S4>/CAN FD Unpack4' */
@@ -582,17 +582,20 @@ struct P_Vehicle_Control_CodeGen_T_ {
   real_T Constant16_Value_m;           /* Expression: 0.10472
                                         * Referenced by: '<Root>/Constant16'
                                         */
-  real_T Constant3_Value_n;            /* Expression: 5
+  real_T Constant3_Value_n;            /* Expression: 10
                                         * Referenced by: '<Root>/Constant3'
                                         */
   real_T Constant17_Value_k;           /* Expression: 0.10472
                                         * Referenced by: '<Root>/Constant17'
                                         */
-  real_T Constant4_Value_i;            /* Expression: 20
+  real_T Constant4_Value_i;            /* Expression: 10
                                         * Referenced by: '<Root>/Constant4'
                                         */
   real_T PowerLimit_Value;             /* Expression: 50000
                                         * Referenced by: '<Root>/Power Limit'
+                                        */
+  real_T Constant8_Value;              /* Expression: 50
+                                        * Referenced by: '<Root>/Constant8'
                                         */
   real_T Constant2_Value_j;            /* Expression: 25000
                                         * Referenced by: '<Root>/Constant2'
@@ -609,15 +612,18 @@ struct P_Vehicle_Control_CodeGen_T_ {
   real_T Switch3_Threshold;            /* Expression: 0.5
                                         * Referenced by: '<Root>/Switch3'
                                         */
+  real_T TmpRTBAtFunctionCallSubsystem1O;/* Expression: 0
+                                          * Referenced by:
+                                          */
+  real_T Switch4_Threshold;            /* Expression: 0.5
+                                        * Referenced by: '<Root>/Switch4'
+                                        */
   real_T Switch1_Threshold;            /* Expression: 0.5
                                         * Referenced by: '<Root>/Switch1'
                                         */
   real_T Switch2_Threshold_g;          /* Expression: 0.5
                                         * Referenced by: '<Root>/Switch2'
                                         */
-  real_T TmpRTBAtFunctionCallSubsystem1O;/* Expression: 0
-                                          * Referenced by:
-                                          */
   real_T DataStoreMemory_InitialValue; /* Expression: 0
                                         * Referenced by: '<Root>/Data Store Memory'
                                         */
@@ -869,8 +875,8 @@ extern "C"
 
 #endif
 
-  void FDCAN2_IT0_IRQHandler(void);
   void FDCAN1_IT0_IRQHandler(void);
+  void FDCAN2_IT0_IRQHandler(void);
   void Vehicle_Control_CodeGen_configure_interrupts (void);
   void Vehicle_Control_CodeGen_unconfigure_interrupts (void);
 
@@ -977,6 +983,9 @@ extern "C"
  * Block '<Root>/Scope2' : Unused code path elimination
  * Block '<Root>/Scope3' : Unused code path elimination
  * Block '<Root>/Scope5' : Unused code path elimination
+ * Block '<Root>/Scope6' : Unused code path elimination
+ * Block '<Root>/Scope7' : Unused code path elimination
+ * Block '<Root>/Scope8' : Unused code path elimination
  * Block '<S48>/Add2' : Unused code path elimination
  * Block '<S48>/Constant10' : Unused code path elimination
  * Block '<S48>/Constant3' : Unused code path elimination

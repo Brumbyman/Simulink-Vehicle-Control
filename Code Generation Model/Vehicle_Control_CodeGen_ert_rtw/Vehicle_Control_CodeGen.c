@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.56
+ * Model version                  : 1.58
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 13:46:48 2025
+ * C/C++ source code generated on : Thu Aug 28 15:15:15 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -342,9 +342,9 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   }
 
   /* End of Switch: '<Root>/Switch3' */
-  /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
-  rtb_TmpRTBAtFunctionCallSubs_dl =
-    Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystemOu;
+  /* RateTransition generated from: '<Root>/Function-Call Subsystem1' */
+  rtb_TmpRTBAtFunctionCallSubsyst =
+    Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O;
 
   /* ManualSwitch: '<Root>/Manual Switch' incorporates:
    *  Constant: '<Root>/Constant'
@@ -357,6 +357,18 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   }
 
   /* End of ManualSwitch: '<Root>/Manual Switch' */
+
+  /* Switch: '<Root>/Switch4' incorporates:
+   *  Constant: '<Root>/Constant8'
+   */
+  if (!(rtb_ManualSwitch > Vehicle_Control_CodeGen_P.Switch4_Threshold)) {
+    rtb_TmpRTBAtFunctionCallSubsyst = Vehicle_Control_CodeGen_P.Constant8_Value;
+  }
+
+  /* End of Switch: '<Root>/Switch4' */
+  /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
+  rtb_TmpRTBAtFunctionCallSubs_dl =
+    Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystemOu;
 
   /* Switch: '<Root>/Switch1' incorporates:
    *  Constant: '<Root>/Constant16'
@@ -389,9 +401,6 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   }
 
   /* End of Switch: '<Root>/Switch2' */
-  /* RateTransition generated from: '<Root>/Function-Call Subsystem1' */
-  rtb_TmpRTBAtFunctionCallSubsyst =
-    Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O;
 
   /* S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
@@ -1000,8 +1009,8 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
   }
 
   /* DataTypeConversion: '<S2>/Data Type Conversion' */
-  Vehicle_Control_CodeGen_B.DataTypeConversion_m = (uint16_T)(tmp < 0.0 ?
-    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
+  Vehicle_Control_CodeGen_B.DataTypeConversion_m = (int16_T)(tmp < 0.0 ?
+    (int32_T)(int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
 
   /* S-Function (reverseendian_svd): '<S2>/Byte Reversal' */
 
@@ -1022,8 +1031,8 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
   }
 
   /* DataTypeConversion: '<S2>/Data Type Conversion2' */
-  Vehicle_Control_CodeGen_B.DataTypeConversion2_k = (uint16_T)(tmp < 0.0 ?
-    (int32_T)(uint16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(uint16_T)tmp);
+  Vehicle_Control_CodeGen_B.DataTypeConversion2_k = (int16_T)(tmp < 0.0 ?
+    (int32_T)(int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
 
   /* S-Function (reverseendian_svd): '<S2>/Byte Reversal1' */
 
@@ -1060,9 +1069,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
     void* packData = &Vehicle_Control_CodeGen_B.VectorConcatenate_c[1];
 
     /* Packing the values of Input 1 */
-    /* Input data type - uint16_T, size - 1 */
+    /* Input data type - int16_T, size - 1 */
     {
-      MW_inputPortWidth = sizeof(uint16_T);
+      MW_inputPortWidth = sizeof(int16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
              &Vehicle_Control_CodeGen_B.ByteReversal_p, MW_inputPortWidth);
     }
@@ -1098,9 +1107,9 @@ void Vehicle_Control_CodeGen_step1(void) /* Sample time: [0.02s, 0.0s] */
     void* packData = &Vehicle_Control_CodeGen_B.VectorConcatenate1_k[1];
 
     /* Packing the values of Input 1 */
-    /* Input data type - uint16_T, size - 1 */
+    /* Input data type - int16_T, size - 1 */
     {
-      MW_inputPortWidth = sizeof(uint16_T);
+      MW_inputPortWidth = sizeof(int16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
              &Vehicle_Control_CodeGen_B.ByteReversal1, MW_inputPortWidth);
     }
@@ -1769,6 +1778,10 @@ void Vehicle_Control_CodeGen_step(int_T tid)
 /* Model initialize function */
 void Vehicle_Control_CodeGen_initialize(void)
 {
+  /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem1' */
+  Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O =
+    Vehicle_Control_CodeGen_P.TmpRTBAtFunctionCallSubsystem1O;
+
   /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem' */
   Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystemOu =
     Vehicle_Control_CodeGen_P.TmpRTBAtFunctionCallSubsystemOu;
@@ -1776,10 +1789,6 @@ void Vehicle_Control_CodeGen_initialize(void)
   /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem' */
   Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem_h =
     Vehicle_Control_CodeGen_P.TmpRTBAtFunctionCallSubsystem_j;
-
-  /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem1' */
-  Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O =
-    Vehicle_Control_CodeGen_P.TmpRTBAtFunctionCallSubsystem1O;
 
   /* InitializeConditions for RateTransition generated from: '<Root>/Function-Call Subsystem' */
   Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem_e =
@@ -2045,26 +2054,6 @@ void Vehicle_Control_CodeGen_initialize(void)
 /* Model terminate function */
 void Vehicle_Control_CodeGen_terminate(void)
 {
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
-
-  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' incorporates:
-   *  SubSystem: '<Root>/Function-Call Subsystem'
-   */
-  /* Termination for function-call system: '<Root>/Function-Call Subsystem' */
-
-  /* Terminate for MATLABSystem: '<S3>/FDCAN Read1' */
-  if (!Vehicle_Control_CodeGen_DW.obj_j.matlabCodegenIsDeleted) {
-    Vehicle_Control_CodeGen_DW.obj_j.matlabCodegenIsDeleted = true;
-    if ((Vehicle_Control_CodeGen_DW.obj_j.isInitialized == 1) &&
-        Vehicle_Control_CodeGen_DW.obj_j.isSetupComplete) {
-      MW_FDCAN_Close(Vehicle_Control_CodeGen_DW.obj_j.MW_FDCAN_HANDLE);
-    }
-  }
-
-  /* End of Terminate for MATLABSystem: '<S3>/FDCAN Read1' */
-
-  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
-
   /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S47>/Hardware Interrupt' */
 
   /* Terminate for S-Function (HardwareInterrupt_sfun): '<S47>/Hardware Interrupt' incorporates:
@@ -2084,6 +2073,26 @@ void Vehicle_Control_CodeGen_terminate(void)
   /* End of Terminate for MATLABSystem: '<S4>/FDCAN Read1' */
 
   /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S47>/Hardware Interrupt' */
+
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
+
+  /* Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' incorporates:
+   *  SubSystem: '<Root>/Function-Call Subsystem'
+   */
+  /* Termination for function-call system: '<Root>/Function-Call Subsystem' */
+
+  /* Terminate for MATLABSystem: '<S3>/FDCAN Read1' */
+  if (!Vehicle_Control_CodeGen_DW.obj_j.matlabCodegenIsDeleted) {
+    Vehicle_Control_CodeGen_DW.obj_j.matlabCodegenIsDeleted = true;
+    if ((Vehicle_Control_CodeGen_DW.obj_j.isInitialized == 1) &&
+        Vehicle_Control_CodeGen_DW.obj_j.isSetupComplete) {
+      MW_FDCAN_Close(Vehicle_Control_CodeGen_DW.obj_j.MW_FDCAN_HANDLE);
+    }
+  }
+
+  /* End of Terminate for MATLABSystem: '<S3>/FDCAN Read1' */
+
+  /* End of Terminate for S-Function (HardwareInterrupt_sfun): '<S45>/Hardware Interrupt' */
 
   /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'

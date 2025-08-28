@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.61
+ * Model version                  : 1.63
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 10:28:40 2025
+ * C/C++ source code generated on : Thu Aug 28 15:08:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -48,7 +48,6 @@ typedef struct {
   CAN_FD_MESSAGE_BUS FDCANRead1;       /* '<S2>/FDCAN Read1' */
   real_T BrakesPercentage;             /* '<S2>/Data Type Conversion3' */
   uint16_T TmpRTBAtFunctionCallSubsystemOu;/* '<Root>/Function-Call Subsystem' */
-  uint16_T TmpRTBAtFunctionCallSubsystem_l;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_c;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_m;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_i;/* '<Root>/Function-Call Subsystem' */
@@ -62,8 +61,6 @@ typedef struct {
   uint16_T In1_g2;                     /* '<S13>/In1' */
   uint16_T In1_g20;                    /* '<S17>/In1' */
   uint16_T In1_g20a;                   /* '<S19>/In1' */
-  uint16_T In1_g20as;                  /* '<S21>/In1' */
-  uint16_T ByteReversal;               /* '<S5>/Byte Reversal' */
   uint16_T ByteReversal1;              /* '<S5>/Byte Reversal1' */
   uint16_T ByteReversal2;              /* '<S5>/Byte Reversal2' */
   uint16_T ByteReversal3;              /* '<S5>/Byte Reversal3' */
@@ -91,7 +88,6 @@ typedef struct {
   int_T CANFDUnpack2_StatusPortID;     /* '<S2>/CAN FD Unpack2' */
   int_T CANFDUnpack1_ModeSignalID;     /* '<S2>/CAN FD Unpack1' */
   int_T CANFDUnpack1_StatusPortID;     /* '<S2>/CAN FD Unpack1' */
-  volatile uint16_T TmpRTBAtFunctionCallSubsystem_e;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_a;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_g;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_k;/* synthesized block */
@@ -104,7 +100,10 @@ typedef struct {
 
 /* Invariant block signals (default storage) */
 typedef struct {
+  const int16_T DataTypeConversion;    /* '<S5>/Data Type Conversion' */
+  const int16_T ByteReversal8;         /* '<S5>/Byte Reversal8' */
   const uint8_T DataTypeConversion3;   /* '<S6>/Data Type Conversion3' */
+  const uint8_T BytePack[2];           /* '<S5>/Byte Pack' */
 } ConstB_Can_send_receive_T;
 
 /* Constant parameters (default storage) */
@@ -178,7 +177,6 @@ extern "C"
  * Block '<S2>/Scope7' : Unused code path elimination
  * Block '<S4>/Constant2' : Unused code path elimination
  * Block '<S5>/Scope' : Unused code path elimination
- * Block '<S5>/Data Type Conversion' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion1' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion2' : Eliminate redundant data type conversion
  * Block '<S5>/Data Type Conversion3' : Eliminate redundant data type conversion
