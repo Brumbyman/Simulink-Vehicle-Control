@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.62
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 15:15:15 2025
+ * C/C++ source code generated on : Thu Aug 28 17:03:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -600,6 +600,9 @@ struct P_Vehicle_Control_CodeGen_T_ {
   real_T Constant2_Value_j;            /* Expression: 25000
                                         * Referenced by: '<Root>/Constant2'
                                         */
+  real_T Constant20_Value_c;           /* Expression: 580
+                                        * Referenced by: '<Root>/Constant20'
+                                        */
   real_T Constant7_Value_m;            /* Expression: 25000
                                         * Referenced by: '<Root>/Constant7'
                                         */
@@ -608,6 +611,9 @@ struct P_Vehicle_Control_CodeGen_T_ {
                                         */
   real_T Constant13_Value_i;           /* Expression: 25000
                                         * Referenced by: '<Root>/Constant13'
+                                        */
+  real_T Switch6_Threshold;            /* Expression: 0.5
+                                        * Referenced by: '<Root>/Switch6'
                                         */
   real_T Switch3_Threshold;            /* Expression: 0.5
                                         * Referenced by: '<Root>/Switch3'
@@ -806,14 +812,14 @@ struct P_Vehicle_Control_CodeGen_T_ {
   uint8_T FixPtConstant_Value_n;    /* Computed Parameter: FixPtConstant_Value_n
                                      * Referenced by: '<S16>/FixPt Constant'
                                      */
-  uint8_T ManualSwitch2_CurrentSetting;
-                             /* Computed Parameter: ManualSwitch2_CurrentSetting
-                              * Referenced by: '<Root>/Manual Switch2'
-                              */
   uint8_T ManualSwitch_CurrentSetting;
                               /* Computed Parameter: ManualSwitch_CurrentSetting
                                * Referenced by: '<Root>/Manual Switch'
                                */
+  uint8_T ManualSwitch2_CurrentSetting;
+                             /* Computed Parameter: ManualSwitch2_CurrentSetting
+                              * Referenced by: '<Root>/Manual Switch2'
+                              */
   uint8_T ManualSwitch1_CurrentSetting_h;
                            /* Computed Parameter: ManualSwitch1_CurrentSetting_h
                             * Referenced by: '<Root>/Manual Switch1'

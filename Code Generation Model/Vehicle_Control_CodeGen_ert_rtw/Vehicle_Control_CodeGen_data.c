@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.62
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 15:15:15 2025
+ * C/C++ source code generated on : Thu Aug 28 17:03:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -701,6 +701,11 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    */
   25000.0,
 
+  /* Expression: 580
+   * Referenced by: '<Root>/Constant20'
+   */
+  580.0,
+
   /* Expression: 25000
    * Referenced by: '<Root>/Constant7'
    */
@@ -715,6 +720,11 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    * Referenced by: '<Root>/Constant13'
    */
   25000.0,
+
+  /* Expression: 0.5
+   * Referenced by: '<Root>/Switch6'
+   */
+  0.5,
 
   /* Expression: 0.5
    * Referenced by: '<Root>/Switch3'
@@ -1026,15 +1036,15 @@ P_Vehicle_Control_CodeGen_T Vehicle_Control_CodeGen_P = {
    */
   1U,
 
-  /* Computed Parameter: ManualSwitch2_CurrentSetting
-   * Referenced by: '<Root>/Manual Switch2'
-   */
-  1U,
-
   /* Computed Parameter: ManualSwitch_CurrentSetting
    * Referenced by: '<Root>/Manual Switch'
    */
   0U,
+
+  /* Computed Parameter: ManualSwitch2_CurrentSetting
+   * Referenced by: '<Root>/Manual Switch2'
+   */
+  1U,
 
   /* Computed Parameter: ManualSwitch1_CurrentSetting_h
    * Referenced by: '<Root>/Manual Switch1'

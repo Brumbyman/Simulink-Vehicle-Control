@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Vehicle_Control_CodeGen'.
  *
- * Model version                  : 1.58
+ * Model version                  : 1.62
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 15:15:15 2025
+ * C/C++ source code generated on : Thu Aug 28 17:03:56 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -299,6 +299,7 @@ void Vehicle_Co_FDCANWrite3_Term(DW_FDCANWrite3_Vehicle_Contro_T *localDW)
 /* Model step function for TID0 */
 void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
 {
+  real_T Battery_Voltage;
   real_T Global_Power_Limit;
   real_T rtb_CurrentError;
   real_T rtb_ManualSwitch;
@@ -316,6 +317,30 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   {                                    /* Sample time: [0.002s, 0.0s] */
     rate_monotonic_scheduler();
   }
+
+  /* ManualSwitch: '<Root>/Manual Switch' incorporates:
+   *  Constant: '<Root>/Constant'
+   *  Constant: '<Root>/Constant1'
+   */
+  if (Vehicle_Control_CodeGen_P.ManualSwitch_CurrentSetting == 1) {
+    rtb_ManualSwitch = Vehicle_Control_CodeGen_P.Constant_Value_d;
+  } else {
+    rtb_ManualSwitch = Vehicle_Control_CodeGen_P.Constant1_Value_f;
+  }
+
+  /* End of ManualSwitch: '<Root>/Manual Switch' */
+
+  /* Switch: '<Root>/Switch6' incorporates:
+   *  Constant: '<Root>/Constant20'
+   *  DataStoreWrite: '<Root>/Data Store Write2'
+   */
+  if (rtb_ManualSwitch > Vehicle_Control_CodeGen_P.Switch6_Threshold) {
+    Battery_Voltage = 0.0;
+  } else {
+    Battery_Voltage = Vehicle_Control_CodeGen_P.Constant20_Value_c;
+  }
+
+  /* End of Switch: '<Root>/Switch6' */
 
   /* ManualSwitch: '<Root>/Manual Switch2' incorporates:
    *  Constant: '<Root>/Constant5'
@@ -345,18 +370,6 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* RateTransition generated from: '<Root>/Function-Call Subsystem1' */
   rtb_TmpRTBAtFunctionCallSubsyst =
     Vehicle_Control_CodeGen_DW.TmpRTBAtFunctionCallSubsystem1O;
-
-  /* ManualSwitch: '<Root>/Manual Switch' incorporates:
-   *  Constant: '<Root>/Constant'
-   *  Constant: '<Root>/Constant1'
-   */
-  if (Vehicle_Control_CodeGen_P.ManualSwitch_CurrentSetting == 1) {
-    rtb_ManualSwitch = Vehicle_Control_CodeGen_P.Constant_Value_d;
-  } else {
-    rtb_ManualSwitch = Vehicle_Control_CodeGen_P.Constant1_Value_f;
-  }
-
-  /* End of ManualSwitch: '<Root>/Manual Switch' */
 
   /* Switch: '<Root>/Switch4' incorporates:
    *  Constant: '<Root>/Constant8'
@@ -419,10 +432,10 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* Relay: '<S48>/Relay' incorporates:
    *  DataStoreRead: '<S48>/Data Store Read1'
    */
-  Vehicle_Control_CodeGen_DW.Relay_Mode =
-    ((Vehicle_Control_CodeGen_P.Relay_OnVal <= 0.0) ||
-     ((!(Vehicle_Control_CodeGen_P.Relay_OffVal >= 0.0)) &&
-      Vehicle_Control_CodeGen_DW.Relay_Mode));
+  Vehicle_Control_CodeGen_DW.Relay_Mode = ((Battery_Voltage >=
+    Vehicle_Control_CodeGen_P.Relay_OnVal) || ((!(Battery_Voltage <=
+    Vehicle_Control_CodeGen_P.Relay_OffVal)) &&
+    Vehicle_Control_CodeGen_DW.Relay_Mode));
   if (Vehicle_Control_CodeGen_DW.Relay_Mode) {
     rtb_MaximumPermissableChargeCur = Vehicle_Control_CodeGen_P.Relay_YOn;
   } else {
@@ -529,10 +542,13 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
      *  Constant: '<S48>/Constant15'
      *  Constant: '<S48>/Constant20'
      *  Constant: '<S48>/Constant26'
+     *  DataStoreRead: '<S48>/Data Store Read1'
      *  Product: '<S48>/Divide'
+     *  Sum: '<S48>/Minus'
      */
-    rtb_MaximumPermissableChargeC_o = Vehicle_Control_CodeGen_P.Constant20_Value
-      / Vehicle_Control_CodeGen_P.Constant15_Value /
+    rtb_MaximumPermissableChargeC_o =
+      (Vehicle_Control_CodeGen_P.Constant20_Value - Battery_Voltage) /
+      Vehicle_Control_CodeGen_P.Constant15_Value /
       Vehicle_Control_CodeGen_P.Constant26_Value;
 
     /* Switch: '<S48>/Switch1' incorporates:
@@ -551,7 +567,8 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* End of Switch: '<S48>/Switch2' */
 
   /* DataStoreRead: '<S48>/Data Store Read' */
-  Vehicle_Contr_MovingAverage(0.0, &Vehicle_Control_CodeGen_B.MovingAverage,
+  Vehicle_Contr_MovingAverage(Battery_Voltage,
+    &Vehicle_Control_CodeGen_B.MovingAverage,
     &Vehicle_Control_CodeGen_DW.MovingAverage);
 
   /* Switch: '<S48>/Switch3' incorporates:
@@ -663,16 +680,16 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Gain: '<S48>/Gain1'
    *  Product: '<S48>/Product7'
    */
-  rtb_RequestedChargeCurrent_n = 0.0 * rtb_RequestedChargeCurrent_n +
-    Vehicle_Control_CodeGen_P.Gain1_Gain * rtb_CurrentError;
+  rtb_RequestedChargeCurrent_n = Battery_Voltage * rtb_RequestedChargeCurrent_n
+    + Vehicle_Control_CodeGen_P.Gain1_Gain * rtb_CurrentError;
 
   /* Relay: '<S49>/Relay' incorporates:
    *  DataStoreRead: '<S49>/Data Store Read1'
    */
-  Vehicle_Control_CodeGen_DW.Relay_Mode_f =
-    ((Vehicle_Control_CodeGen_P.Relay_OnVal_i <= 0.0) ||
-     ((!(Vehicle_Control_CodeGen_P.Relay_OffVal_i >= 0.0)) &&
-      Vehicle_Control_CodeGen_DW.Relay_Mode_f));
+  Vehicle_Control_CodeGen_DW.Relay_Mode_f = ((Battery_Voltage >=
+    Vehicle_Control_CodeGen_P.Relay_OnVal_i) || ((!(Battery_Voltage <=
+    Vehicle_Control_CodeGen_P.Relay_OffVal_i)) &&
+    Vehicle_Control_CodeGen_DW.Relay_Mode_f));
   if (Vehicle_Control_CodeGen_DW.Relay_Mode_f) {
     rtb_MaximumPermissableChargeCur = Vehicle_Control_CodeGen_P.Relay_YOn_l;
   } else {
@@ -779,10 +796,12 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
      *  Constant: '<S49>/Constant15'
      *  Constant: '<S49>/Constant20'
      *  Constant: '<S49>/Constant26'
+     *  DataStoreRead: '<S49>/Data Store Read1'
      *  Product: '<S49>/Divide'
+     *  Sum: '<S49>/Minus'
      */
     rtb_MaximumPermissableChargeCur =
-      Vehicle_Control_CodeGen_P.Constant20_Value_f /
+      (Vehicle_Control_CodeGen_P.Constant20_Value_f - Battery_Voltage) /
       Vehicle_Control_CodeGen_P.Constant15_Value_c /
       Vehicle_Control_CodeGen_P.Constant26_Value_h;
 
@@ -802,7 +821,8 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* End of Switch: '<S49>/Switch2' */
 
   /* DataStoreRead: '<S49>/Data Store Read' */
-  Vehicle_Contr_MovingAverage(0.0, &Vehicle_Control_CodeGen_B.MovingAverage_p,
+  Vehicle_Contr_MovingAverage(Battery_Voltage,
+    &Vehicle_Control_CodeGen_B.MovingAverage_p,
     &Vehicle_Control_CodeGen_DW.MovingAverage_p);
 
   /* Switch: '<S49>/Switch3' incorporates:
@@ -949,9 +969,10 @@ void Vehicle_Control_CodeGen_step0(void) /* Sample time: [0.002s, 0.0s] */
     /* S-Function (fcgen): '<Root>/Function-Call Generator' incorporates:
      *  SubSystem: '<Root>/Throttle//Regen Control'
      */
-    Vehicle_Control_CodeGen_DW.TmpRTBAt50HZSendTorqueRequestst = (0.0 *
-      rtb_RequestedChargeCurrent + Vehicle_Control_CodeGen_P.Gain1_Gain_h *
-      rtb_RequestedDischargePower) / rtb_ManualSwitch;
+    Vehicle_Control_CodeGen_DW.TmpRTBAt50HZSendTorqueRequestst =
+      (Battery_Voltage * rtb_RequestedChargeCurrent +
+       Vehicle_Control_CodeGen_P.Gain1_Gain_h * rtb_RequestedDischargePower) /
+      rtb_ManualSwitch;
 
     /* RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters' incorporates:
      *  DataStoreRead: '<S49>/Data Store Read1'
