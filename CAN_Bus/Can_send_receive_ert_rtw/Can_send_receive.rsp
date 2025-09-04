@@ -1,5 +1,4 @@
 stm_fdcan_hal.o
-mw_stm32_nvic.o
 ert_main.o
 Can_send_receive.o
 Can_send_receive_data.o

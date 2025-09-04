@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Can_send_receive'.
  *
- * Model version                  : 1.63
+ * Model version                  : 1.64
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Aug 28 15:08:56 2025
+ * C/C++ source code generated on : Thu Sep  4 11:10:08 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
