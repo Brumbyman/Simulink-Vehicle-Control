@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.69
+ * Model version                  : 1.71
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Sep 16 11:38:53 2025
+ * C/C++ source code generated on : Thu Sep 18 09:41:34 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
