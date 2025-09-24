@@ -2,7 +2,7 @@
 ## Makefile generated for component 'Communication_Testing'. 
 ## 
 ## Makefile     : Communication_Testing.mk
-## Generated on : Tue Sep 16 11:39:00 2025
+## Generated on : Mon Sep 22 14:25:04 2025
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/Communication_Testing.elf
 ## Product type : executable
 ## 

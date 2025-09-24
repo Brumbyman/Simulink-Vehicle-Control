@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.71
+ * Model version                  : 1.75
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Thu Sep 18 09:41:34 2025
+ * C/C++ source code generated on : Mon Sep 22 15:56:46 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -86,7 +86,7 @@ typedef struct tag_ps8Pv2DMyDxNpj6T0q1gJE dsp_simulink_MovingAverage_Co_T;
 
 #endif                             /* typedef_dsp_simulink_MovingAverage_Co_T */
 
-/* Custom Type definition for MATLABSystem: '<S10>/FDCAN Write2' */
+/* Custom Type definition for MATLABSystem: '<S9>/FDCAN Write2' */
 #include "stm_fdcan_hal.h"
 #ifndef struct_tag_KxSwzM11ifHE1iEOqd1VdG
 #define struct_tag_KxSwzM11ifHE1iEOqd1VdG
@@ -108,7 +108,7 @@ typedef struct tag_KxSwzM11ifHE1iEOqd1VdG stm32cube_blocks_FDCANWrite_C_T;
 
 #endif                             /* typedef_stm32cube_blocks_FDCANWrite_C_T */
 
-/* Custom Type definition for MATLABSystem: '<S18>/Analog to Digital Converter' */
+/* Custom Type definition for MATLABSystem: '<S17>/Analog to Digital Converter' */
 #include "stm_adc_ll.h"
 #include "stm_adc_ll.h"
 #ifndef struct_tag_nJDWLJcITUG6sTG8JTIHYE
