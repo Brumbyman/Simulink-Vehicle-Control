@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.75
+ * Model version                  : 1.78
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Sep 22 15:56:46 2025
+ * C/C++ source code generated on : Mon Sep 29 12:08:03 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,6 +22,7 @@
 /* Invariant block signals (default storage) */
 const ConstB_Communication_Testing_T Communication_Testing_ConstB = {
   65435.0,                             /* '<Root>/Add1' */
+  0.0,                                 /* '<S2>/Byte Reversal' */
   1.0,                                 /* '<S8>/Abs' */
   11.0,                                /* '<S8>/Add' */
   11.0,                                /* '<S8>/Divide' */

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.75
+ * Model version                  : 1.78
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Sep 22 15:56:46 2025
+ * C/C++ source code generated on : Mon Sep 29 12:08:03 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -75,15 +75,15 @@ typedef struct {
 typedef struct {
   uint16_T DataTypeConversion7;        /* '<S7>/Data Type Conversion7' */
   uint16_T ByteReversal7;              /* '<S7>/Byte Reversal7' */
-  int16_T DataTypeConversion;          /* '<S2>/Data Type Conversion' */
-  int16_T ByteReversal;                /* '<S2>/Byte Reversal' */
   int16_T DataTypeConversion2;         /* '<S2>/Data Type Conversion2' */
   int16_T ByteReversal1;               /* '<S2>/Byte Reversal1' */
+  int16_T DataTypeConversion;          /* '<S2>/Data Type Conversion' */
   uint8_T VectorConcatenate[3];        /* '<S2>/Vector Concatenate' */
   uint8_T VectorConcatenate1[3];       /* '<S2>/Vector Concatenate1' */
   uint8_T VectorConcatenate1_f[8];     /* '<S7>/Vector Concatenate1' */
-  B_MovingAverage_Communication_T MovingAverage_p;/* '<S18>/Moving Average' */
   B_MovingAverage_Communication_T MovingAverage;/* '<S18>/Moving Average' */
+  B_MovingAverage_Communication_T MovingAverage_pn;/* '<S18>/Moving Average' */
+  B_MovingAverage_Communication_T MovingAverage_p;/* '<S18>/Moving Average' */
 } B_Communication_Testing_T;
 
 /* Block states (default storage) for system '<Root>' */
@@ -114,17 +114,19 @@ typedef struct {
   boolean_T IC1_FirstOutputTime;       /* '<S18>/IC1' */
   boolean_T Relay_Mode_f;              /* '<S19>/Relay' */
   boolean_T IC2_FirstOutputTime;       /* '<S19>/IC2' */
+  DW_MovingAverage_Communicatio_T MovingAverage;/* '<S18>/Moving Average' */
   DW_FDCANWrite3_Communication__T FDCANWrite3_pna;/* '<S9>/FDCAN Write3' */
   DW_FDCANWrite2_Communication__T FDCANWrite1_p;/* '<S9>/FDCAN Write2' */
   DW_FDCANWrite3_Communication__T FDCANWrite3_pn;/* '<S9>/FDCAN Write3' */
   DW_FDCANWrite2_Communication__T FDCANWrite2;/* '<S9>/FDCAN Write2' */
+  DW_MovingAverage_Communicatio_T MovingAverage_pn;/* '<S18>/Moving Average' */
   DW_MovingAverage_Communicatio_T MovingAverage_p;/* '<S18>/Moving Average' */
-  DW_MovingAverage_Communicatio_T MovingAverage;/* '<S18>/Moving Average' */
 } DW_Communication_Testing_T;
 
 /* Invariant block signals (default storage) */
 typedef struct {
   const real_T Add1;                   /* '<Root>/Add1' */
+  const real_T ByteReversal;           /* '<S2>/Byte Reversal' */
   const real_T Abs;                    /* '<S8>/Abs' */
   const real_T Add;                    /* '<S8>/Add' */
   const real_T Divide;                 /* '<S8>/Divide' */
@@ -144,7 +146,7 @@ typedef struct {
   const real_T Subtract1_k;            /* '<S19>/Subtract1' */
   const real_T Slope_h;                /* '<S19>/Divide1' */
   const uint16_T DataTypeConversion;   /* '<S7>/Data Type Conversion' */
-  const uint16_T ByteReversal;         /* '<S7>/Byte Reversal' */
+  const uint16_T ByteReversal_m;       /* '<S7>/Byte Reversal' */
   const uint16_T DataTypeConversion1;  /* '<S7>/Data Type Conversion1' */
   const uint16_T ByteReversal1;        /* '<S7>/Byte Reversal1' */
   const uint16_T DataTypeConversion2;  /* '<S7>/Data Type Conversion2' */
@@ -203,7 +205,7 @@ struct tag_RTM_Communication_Testing_T {
   struct {
     uint32_T clockTick0;
     struct {
-      uint8_T TID[3];
+      uint8_T TID[4];
     } TaskCounters;
 
     struct {
@@ -231,6 +233,7 @@ extern void Communication_Testing_initialize(void);
 extern void Communication_Testing_step0(void);
 extern void Communication_Testing_step1(void);
 extern void Communication_Testing_step2(void);
+extern void Communication_Testing_step3(void);
 extern void Communication_Testing_step(int_T tid);
 extern void Communication_Testing_terminate(void);
 
@@ -252,6 +255,9 @@ extern volatile boolean_T runModel;
  * Block '<S9>/Scope3' : Unused code path elimination
  * Block '<S1>/Scope' : Unused code path elimination
  * Block '<S1>/Scope1' : Unused code path elimination
+ * Block '<Root>/Constant15' : Unused code path elimination
+ * Block '<Root>/Constant17' : Unused code path elimination
+ * Block '<Root>/Product2' : Unused code path elimination
  * Block '<Root>/Scope12' : Unused code path elimination
  * Block '<Root>/Scope13' : Unused code path elimination
  * Block '<Root>/Scope14' : Unused code path elimination
@@ -259,11 +265,30 @@ extern volatile boolean_T runModel;
  * Block '<Root>/Scope16' : Unused code path elimination
  * Block '<Root>/Scope17' : Unused code path elimination
  * Block '<Root>/Scope18' : Unused code path elimination
+ * Block '<Root>/Scope19' : Unused code path elimination
+ * Block '<S4>/Constant26' : Unused code path elimination
+ * Block '<S4>/Constant30' : Unused code path elimination
+ * Block '<S4>/Constant31' : Unused code path elimination
+ * Block '<S4>/Constant32' : Unused code path elimination
+ * Block '<S4>/Constant33' : Unused code path elimination
+ * Block '<S4>/Divide4' : Unused code path elimination
+ * Block '<S4>/Divide5' : Unused code path elimination
+ * Block '<S4>/Divide6' : Unused code path elimination
+ * Block '<S4>/GreaterThan4' : Unused code path elimination
+ * Block '<S4>/Product10' : Unused code path elimination
+ * Block '<S4>/Product11' : Unused code path elimination
+ * Block '<S4>/Product9' : Unused code path elimination
  * Block '<S4>/Scope' : Unused code path elimination
+ * Block '<S4>/Scope1' : Unused code path elimination
  * Block '<S4>/Scope15' : Unused code path elimination
  * Block '<S4>/Scope16' : Unused code path elimination
+ * Block '<S4>/Scope3' : Unused code path elimination
+ * Block '<S4>/Scope4' : Unused code path elimination
+ * Block '<S4>/Switch4' : Unused code path elimination
  * Block '<S5>/Scope15' : Unused code path elimination
  * Block '<S5>/Scope16' : Unused code path elimination
+ * Block '<Root>/Switch2' : Unused code path elimination
+ * Block '<S6>/Divide' : Unused code path elimination
  * Block '<S18>/Add2' : Unused code path elimination
  * Block '<S18>/Constant10' : Unused code path elimination
  * Block '<S18>/Constant3' : Unused code path elimination
@@ -310,14 +335,13 @@ extern volatile boolean_T runModel;
  * Block '<S8>/Scope2' : Unused code path elimination
  * Block '<S8>/Scope3' : Unused code path elimination
  * Block '<Root>/Manual Switch' : Eliminated due to constant selection input
+ * Block '<Root>/Manual Switch1' : Eliminated due to constant selection input
  * Block '<S18>/Manual Switch1' : Eliminated due to constant selection input
  * Block '<S19>/Manual Switch1' : Eliminated due to constant selection input
  * Block '<Root>/Constant16' : Unused code path elimination
- * Block '<Root>/Constant17' : Unused code path elimination
  * Block '<Root>/Constant22' : Unused code path elimination
  * Block '<Root>/Constant23' : Unused code path elimination
  * Block '<Root>/Product1' : Unused code path elimination
- * Block '<Root>/Product2' : Unused code path elimination
  * Block '<S18>/Constant2' : Unused code path elimination
  * Block '<S18>/Product1' : Unused code path elimination
  * Block '<S19>/Constant12' : Unused code path elimination

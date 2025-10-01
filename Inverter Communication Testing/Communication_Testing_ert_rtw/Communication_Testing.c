@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.75
+ * Model version                  : 1.78
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Sep 22 15:56:46 2025
+ * C/C++ source code generated on : Mon Sep 29 12:08:03 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -56,6 +56,7 @@ void Communication_Testing_SetEventsForThisBaseStep(boolean_T *eventFlags)
   /* Task runs when its counter is zero, computed via rtmStepTask macro */
   eventFlags[1] = ((boolean_T)rtmStepTask(Communication_Testing_M, 1));
   eventFlags[2] = ((boolean_T)rtmStepTask(Communication_Testing_M, 2));
+  eventFlags[3] = ((boolean_T)rtmStepTask(Communication_Testing_M, 3));
 }
 
 /*
@@ -86,13 +87,18 @@ static void rate_monotonic_scheduler(void)
    * counter is reset when it reaches its limit (zero means run).
    */
   (Communication_Testing_M->Timing.TaskCounters.TID[1])++;
-  if ((Communication_Testing_M->Timing.TaskCounters.TID[1]) > 9) {/* Sample time: [0.02s, 0.0s] */
+  if ((Communication_Testing_M->Timing.TaskCounters.TID[1]) > 4) {/* Sample time: [0.01s, 0.0s] */
     Communication_Testing_M->Timing.TaskCounters.TID[1] = 0;
   }
 
   (Communication_Testing_M->Timing.TaskCounters.TID[2])++;
-  if ((Communication_Testing_M->Timing.TaskCounters.TID[2]) > 99) {/* Sample time: [0.2s, 0.0s] */
+  if ((Communication_Testing_M->Timing.TaskCounters.TID[2]) > 9) {/* Sample time: [0.02s, 0.0s] */
     Communication_Testing_M->Timing.TaskCounters.TID[2] = 0;
+  }
+
+  (Communication_Testing_M->Timing.TaskCounters.TID[3])++;
+  if ((Communication_Testing_M->Timing.TaskCounters.TID[3]) > 99) {/* Sample time: [0.2s, 0.0s] */
+    Communication_Testing_M->Timing.TaskCounters.TID[3] = 0;
   }
 }
 
@@ -337,7 +343,6 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   real_T rtb_RequestedChargeCurrent;
   real_T rtb_RequestedChargeCurrent_l;
   real_T rtb_RequestedDischargePower;
-  real_T rtb_Saturation;
   uint32_T data;
 
   {                                    /* Sample time: [0.002s, 0.0s] */
@@ -354,15 +359,19 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Product: '<Root>/Divide'
    *  Sum: '<Root>/Add'
    */
-  rtb_Saturation = ((real_T)data - 100.0) / Communication_Testing_ConstB.Add1 *
+  rtb_CurrentError = ((real_T)data - 100.0) / Communication_Testing_ConstB.Add1 *
     100.0;
 
   /* Saturate: '<Root>/Saturation' */
-  if (rtb_Saturation > 100.0) {
-    rtb_Saturation = 100.0;
-  } else if (rtb_Saturation < 0.0) {
-    rtb_Saturation = 0.0;
+  if (rtb_CurrentError > 100.0) {
+    rtb_CurrentError = 100.0;
+  } else if (rtb_CurrentError < 0.0) {
+    rtb_CurrentError = 0.0;
   }
+
+  Communication_MovingAverage(rtb_CurrentError,
+    &Communication_Testing_B.MovingAverage,
+    &Communication_Testing_DW.MovingAverage);
 
   /* End of Saturate: '<Root>/Saturation' */
 
@@ -389,7 +398,8 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Switch: '<S18>/Switch'
    *  Switch: '<S18>/Switch2'
    */
-  rtb_CurrentError = rtb_Saturation * Communication_Testing_ConstB.Slope + 100.0;
+  rtb_CurrentError = Communication_Testing_B.MovingAverage.MovingAverage *
+    Communication_Testing_ConstB.Slope + 100.0;
 
   /* Saturate: '<S18>/Saturation' incorporates:
    *  Switch: '<S18>/Switch'
@@ -414,8 +424,9 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Constant: '<S18>/Constant28'
    *  RelationalOperator: '<S18>/GreaterThan3'
    */
-  if (rtb_Saturation > 22.0) {
-    rtb_RequestedDischargePower = rtb_Saturation;
+  if (Communication_Testing_B.MovingAverage.MovingAverage > 22.0) {
+    rtb_RequestedDischargePower =
+      Communication_Testing_B.MovingAverage.MovingAverage;
   } else {
     rtb_RequestedDischargePower = 0.0;
   }
@@ -438,8 +449,8 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* DataStoreWrite: '<Root>/Data Store Write2' incorporates:
    *  Constant: '<Root>/Constant24'
    */
-  Communication_MovingAverage(580.0, &Communication_Testing_B.MovingAverage,
-    &Communication_Testing_DW.MovingAverage);
+  Communication_MovingAverage(580.0, &Communication_Testing_B.MovingAverage_p,
+    &Communication_Testing_DW.MovingAverage_p);
 
   /* Saturate: '<S18>/Saturation5' */
   if (rtb_CurrentError <= 0.0) {
@@ -449,7 +460,7 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* Product: '<S18>/Product5' incorporates:
    *  Saturate: '<S18>/Saturation5'
    */
-  rtb_CurrentError *= Communication_Testing_B.MovingAverage.MovingAverage;
+  rtb_CurrentError *= Communication_Testing_B.MovingAverage_p.MovingAverage;
 
   /* Sum: '<S18>/Sum1' incorporates:
    *  Constant: '<Root>/Constant13'
@@ -477,7 +488,7 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
     Communication_Testing_DW.IC1_FirstOutputTime = false;
     rtb_Integrator = 600.0;
   } else {
-    rtb_Integrator = Communication_Testing_B.MovingAverage.MovingAverage;
+    rtb_Integrator = Communication_Testing_B.MovingAverage_p.MovingAverage;
   }
 
   /* End of InitialCondition: '<S18>/IC1' */
@@ -529,16 +540,17 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* DataStoreWrite: '<Root>/Data Store Write2' incorporates:
    *  Constant: '<Root>/Constant24'
    */
-  Communication_MovingAverage(580.0, &Communication_Testing_B.MovingAverage_p,
-    &Communication_Testing_DW.MovingAverage_p);
+  Communication_MovingAverage(580.0, &Communication_Testing_B.MovingAverage_pn,
+    &Communication_Testing_DW.MovingAverage_pn);
 
   /* Switch: '<S19>/Switch3' incorporates:
    *  Constant: '<S19>/Constant27'
    *  Constant: '<S19>/Constant28'
    *  RelationalOperator: '<S19>/GreaterThan3'
    */
-  if (rtb_Saturation > 22.0) {
-    rtb_RequestedDischargePower = rtb_Saturation;
+  if (Communication_Testing_B.MovingAverage.MovingAverage > 22.0) {
+    rtb_RequestedDischargePower =
+      Communication_Testing_B.MovingAverage.MovingAverage;
   } else {
     rtb_RequestedDischargePower = 0.0;
   }
@@ -552,7 +564,9 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   rtb_CurrentError = 0.01 * rtb_RequestedDischargePower * 1.22 - 0.22;
 
   /* Saturate: '<S19>/Saturation1' */
-  if (rtb_CurrentError < 0.0) {
+  if (rtb_CurrentError > 1.0) {
+    rtb_CurrentError = 1.0;
+  } else if (rtb_CurrentError < 0.0) {
     rtb_CurrentError = 0.0;
   }
 
@@ -568,7 +582,7 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Saturate: '<S19>/Saturation1'
    */
   rtb_RequestedDischargePower = 5000.0 /
-    Communication_Testing_B.MovingAverage_p.MovingAverage * 1.1 *
+    Communication_Testing_B.MovingAverage_pn.MovingAverage * 1.1 *
     rtb_CurrentError - Communication_Testing_DW.Memory1_PreviousInput_g;
 
   /* Saturate: '<S19>/Saturation5' */
@@ -587,8 +601,8 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
    *  Switch: '<S19>/Switch'
    *  Switch: '<S19>/Switch2'
    */
-  rtb_CurrentError = rtb_Saturation * Communication_Testing_ConstB.Slope_h +
-    100.0;
+  rtb_CurrentError = Communication_Testing_B.MovingAverage.MovingAverage *
+    Communication_Testing_ConstB.Slope_h + 100.0;
 
   /* Saturate: '<S19>/Saturation' incorporates:
    *  Switch: '<S19>/Switch'
@@ -610,7 +624,7 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
 
   /* Product: '<S19>/Product5' */
   rtb_RequestedDischargePower *=
-    Communication_Testing_B.MovingAverage_p.MovingAverage;
+    Communication_Testing_B.MovingAverage_pn.MovingAverage;
 
   /* Sum: '<S19>/Sum1' incorporates:
    *  Constant: '<Root>/Constant13'
@@ -638,7 +652,7 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
     Communication_Testing_DW.IC2_FirstOutputTime = false;
     rtb_Integrator_m = 600.0;
   } else {
-    rtb_Integrator_m = Communication_Testing_B.MovingAverage_p.MovingAverage;
+    rtb_Integrator_m = Communication_Testing_B.MovingAverage_pn.MovingAverage;
   }
 
   /* End of InitialCondition: '<S19>/IC2' */
@@ -702,35 +716,45 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
     rtb_RequestedChargeCurrent = 0.0;
   }
 
-  /* Product: '<S4>/Divide4' incorporates:
-   *  Constant: '<Root>/Constant15'
+  /* Product: '<S6>/Divide3' incorporates:
    *  Constant: '<Root>/Constant24'
-   *  Constant: '<S4>/Constant26'
    *  DataStoreWrite: '<Root>/Data Store Write2'
    *  Gain: '<S19>/Gain1'
    *  Product: '<S19>/Product7'
-   *  Product: '<S6>/Divide'
    *  Sum: '<S19>/Sum3'
-   *  Switch: '<Root>/Switch2'
    *  Switch: '<S19>/Switch1'
    *  Switch: '<S19>/Switch2'
    */
-  rtb_RequestedDischargePower = (-(580.0 * rtb_RequestedChargeCurrent) +
-    rtb_RequestedDischargePower) / 100.0 / 0.54;
+  rtb_CurrentError = (-(580.0 * rtb_RequestedChargeCurrent) +
+                      rtb_RequestedDischargePower) / 580.0;
 
   /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator3' */
 
-  /* Switch: '<S4>/Switch4' incorporates:
-   *  Constant: '<S4>/Constant30'
-   *  Product: '<S4>/Divide5'
-   *  Product: '<S4>/Product9'
-   *  RelationalOperator: '<S4>/GreaterThan4'
-   */
-  if (rtb_RequestedDischargePower > 190.0) {
-    rtb_RequestedDischargePower *= 190.0 / rtb_RequestedDischargePower;
+  /* Saturate: '<S4>/Saturation' */
+  if (rtb_CurrentError > 190.0) {
+    rtb_CurrentError = 190.0;
+  } else if (rtb_CurrentError < 0.0) {
+    rtb_CurrentError = 0.0;
   }
 
-  /* End of Switch: '<S4>/Switch4' */
+  /* Gain: '<Root>/Gain1' incorporates:
+   *  Constant: '<S4>/Constant3'
+   *  Constant: '<S4>/Constant4'
+   *  Constant: '<S4>/Constant5'
+   *  Product: '<S4>/Divide3'
+   *  Product: '<S4>/Product1'
+   *  Product: '<S4>/Product2'
+   *  Saturate: '<S4>/Saturation'
+   */
+  rtb_RequestedDischargePower = -(rtb_CurrentError * 32767.0 *
+    1.4142135623730951 / 270.0);
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (rtb_RequestedDischargePower >= 0.0) {
+    rtb_RequestedDischargePower = 0.0;
+  }
+
+  /* End of Saturate: '<Root>/Saturation1' */
 
   /* S-Function (fcgen): '<Root>/Function-Call Generator3' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
@@ -757,30 +781,15 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
 
   /* End of Switch: '<S5>/Switch4' */
 
-  /* RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1' incorporates:
-   *  Constant: '<S4>/Constant31'
-   *  Constant: '<S4>/Constant32'
-   *  Constant: '<S4>/Constant33'
-   *  Gain: '<Root>/Gain1'
-   *  Product: '<S4>/Divide6'
-   *  Product: '<S4>/Product10'
-   *  Product: '<S4>/Product11'
-   */
-  if (Communication_Testing_M->Timing.RateInteraction.TID0_1) {
+  /* RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1' */
+  if (Communication_Testing_M->Timing.RateInteraction.TID0_2) {
     Communication_Testing_DW.TmpRTBAt50HZSendTorqueRequestst =
-      -(rtb_RequestedDischargePower * 32767.0 * 1.4142135623730951 / 270.0);
+      rtb_RequestedDischargePower;
 
     /* RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1' incorporates:
-     *  Constant: '<S4>/Constant31'
-     *  Constant: '<S4>/Constant32'
-     *  Constant: '<S4>/Constant33'
      *  Constant: '<S5>/Constant31'
      *  Constant: '<S5>/Constant32'
      *  Constant: '<S5>/Constant33'
-     *  Gain: '<Root>/Gain1'
-     *  Product: '<S4>/Divide6'
-     *  Product: '<S4>/Product10'
-     *  Product: '<S4>/Product11'
      *  Product: '<S5>/Divide6'
      *  Product: '<S5>/Product10'
      *  Product: '<S5>/Product11'
@@ -792,8 +801,9 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   /* End of RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1' */
 
   /* RateTransition generated from: '<Root>/Triggered Subsystem' */
-  if (Communication_Testing_M->Timing.RateInteraction.TID0_2) {
-    Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInpor = rtb_Saturation;
+  if (Communication_Testing_M->Timing.RateInteraction.TID0_1) {
+    Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInpor =
+      Communication_Testing_B.MovingAverage.MovingAverage;
   }
 
   /* End of RateTransition generated from: '<Root>/Triggered Subsystem' */
@@ -808,125 +818,12 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
 }
 
 /* Model step function for TID1 */
-void Communication_Testing_step1(void) /* Sample time: [0.02s, 0.0s] */
+void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
 {
   real_T tmp;
-
-  /* S-Function (fcgen): '<Root>/Function-Call Generator5' incorporates:
-   *  SubSystem: '<Root>/50 HZ Send Torque Requests to Inverters1'
-   */
-  /* DataTypeConversion: '<S2>/Data Type Conversion' incorporates:
-   *  RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1'
-   */
-  tmp = floor(Communication_Testing_DW.TmpRTBAt50HZSendTorqueRequestst);
-  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
-    tmp = 0.0;
-  } else {
-    tmp = fmod(tmp, 65536.0);
-  }
-
-  /* DataTypeConversion: '<S2>/Data Type Conversion' */
-  Communication_Testing_B.DataTypeConversion = (int16_T)(tmp < 0.0 ? (int32_T)
-    (int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
-
-  /* S-Function (reverseendian_svd): '<S2>/Byte Reversal' */
-
-  /* ReverseEndian: <S2>/Byte Reversal */
-
-  /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Communication_Testing_B.ByteReversal)[0] =
-    SWAP16(((uint16_T *)&Communication_Testing_B.DataTypeConversion)[0]);
-
-  /* DataTypeConversion: '<S2>/Data Type Conversion2' incorporates:
-   *  RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1'
-   */
-  tmp = floor(Communication_Testing_DW.TmpRTBAt50HZSendTorqueRequest_d);
-  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
-    tmp = 0.0;
-  } else {
-    tmp = fmod(tmp, 65536.0);
-  }
-
-  /* DataTypeConversion: '<S2>/Data Type Conversion2' */
-  Communication_Testing_B.DataTypeConversion2 = (int16_T)(tmp < 0.0 ? (int32_T)
-    (int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
-
-  /* S-Function (reverseendian_svd): '<S2>/Byte Reversal1' */
-
-  /* ReverseEndian: <S2>/Byte Reversal1 */
-
-  /* 2 byte-wide input datatypes */
-  ((uint16_T *)&Communication_Testing_B.ByteReversal1)[0] =
-    SWAP16(((uint16_T *)&Communication_Testing_B.DataTypeConversion2)[0]);
-
-  /* SignalConversion generated from: '<S2>/Vector Concatenate' incorporates:
-   *  Concatenate: '<S2>/Vector Concatenate'
-   */
-  Communication_Testing_B.VectorConcatenate[0] =
-    Communication_Testing_ConstB.DataTypeConversion1_n;
-
-  /* S-Function (any2byte_svd): '<S2>/Byte Pack' */
-
-  /* Pack: <S2>/Byte Pack */
-  {
-    uint32_T MW_outputPortOffset = 0U;
-    uint16_T MW_inputPortWidth = 0U;
-
-    /* Packed output data type - uint8_T */
-    void* packData = &Communication_Testing_B.VectorConcatenate[1];
-
-    /* Packing the values of Input 1 */
-    /* Input data type - int16_T, size - 1 */
-    {
-      MW_inputPortWidth = sizeof(int16_T);
-      memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Communication_Testing_B.ByteReversal, MW_inputPortWidth);
-    }
-  }
-
-  Communication_T_FDCANWrite2(Communication_Testing_B.VectorConcatenate,
-    &Communication_Testing_DW.FDCANWrite1_p);
-
-  /* SignalConversion generated from: '<S2>/Vector Concatenate1' incorporates:
-   *  Concatenate: '<S2>/Vector Concatenate1'
-   */
-  Communication_Testing_B.VectorConcatenate1[0] =
-    Communication_Testing_ConstB.DataTypeConversion3_h;
-
-  /* S-Function (any2byte_svd): '<S2>/Byte Pack1' */
-
-  /* Pack: <S2>/Byte Pack1 */
-  {
-    uint32_T MW_outputPortOffset = 0U;
-    uint16_T MW_inputPortWidth = 0U;
-
-    /* Packed output data type - uint8_T */
-    void* packData = &Communication_Testing_B.VectorConcatenate1[1];
-
-    /* Packing the values of Input 1 */
-    /* Input data type - int16_T, size - 1 */
-    {
-      MW_inputPortWidth = sizeof(int16_T);
-      memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Communication_Testing_B.ByteReversal1, MW_inputPortWidth);
-    }
-  }
-
-  Communication_T_FDCANWrite3(Communication_Testing_B.VectorConcatenate1,
-    &Communication_Testing_DW.FDCANWrite3_pna);
-
-  /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator5' */
-}
-
-/* Model step function for TID2 */
-void Communication_Testing_step2(void) /* Sample time: [0.2s, 0.0s] */
-{
-  real_T tmp;
-  int32_T tmp_0;
   uint32_T fifoLevel;
-  uint8_T rtb_VectorConcatenate[3];
 
-  /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
+  /* S-Function (fcgen): '<Root>/Function-Call Generator2' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
   /* DataTypeConversion: '<S7>/Data Type Conversion7' incorporates:
@@ -1019,6 +916,120 @@ void Communication_Testing_step2(void) /* Sample time: [0.2s, 0.0s] */
   MW_FDCAN_TransmitMessage(Communication_Testing_DW.obj_m.MW_FDCAN_HANDLE,
     &Communication_Testing_B.VectorConcatenate1_f[0], 9U, 0, 0, 8U, 1000U, 0, 0,
     &fifoLevel);
+
+  /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator2' */
+}
+
+/* Model step function for TID2 */
+void Communication_Testing_step2(void) /* Sample time: [0.02s, 0.0s] */
+{
+  real_T tmp;
+
+  /* S-Function (fcgen): '<Root>/Function-Call Generator5' incorporates:
+   *  SubSystem: '<Root>/50 HZ Send Torque Requests to Inverters1'
+   */
+  /* DataTypeConversion: '<S2>/Data Type Conversion2' incorporates:
+   *  RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1'
+   */
+  tmp = floor(Communication_Testing_DW.TmpRTBAt50HZSendTorqueRequest_d);
+  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 65536.0);
+  }
+
+  /* DataTypeConversion: '<S2>/Data Type Conversion2' */
+  Communication_Testing_B.DataTypeConversion2 = (int16_T)(tmp < 0.0 ? (int32_T)
+    (int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
+
+  /* S-Function (reverseendian_svd): '<S2>/Byte Reversal1' */
+
+  /* ReverseEndian: <S2>/Byte Reversal1 */
+
+  /* 2 byte-wide input datatypes */
+  ((uint16_T *)&Communication_Testing_B.ByteReversal1)[0] =
+    SWAP16(((uint16_T *)&Communication_Testing_B.DataTypeConversion2)[0]);
+
+  /* SignalConversion generated from: '<S2>/Vector Concatenate' incorporates:
+   *  Concatenate: '<S2>/Vector Concatenate'
+   */
+  Communication_Testing_B.VectorConcatenate[0] =
+    Communication_Testing_ConstB.DataTypeConversion1_n;
+
+  /* DataTypeConversion: '<S2>/Data Type Conversion' incorporates:
+   *  RateTransition generated from: '<Root>/50 HZ Send Torque Requests to Inverters1'
+   */
+  tmp = floor(Communication_Testing_DW.TmpRTBAt50HZSendTorqueRequestst);
+  if (rtIsNaN(tmp) || rtIsInf(tmp)) {
+    tmp = 0.0;
+  } else {
+    tmp = fmod(tmp, 65536.0);
+  }
+
+  /* DataTypeConversion: '<S2>/Data Type Conversion' */
+  Communication_Testing_B.DataTypeConversion = (int16_T)(tmp < 0.0 ? (int32_T)
+    (int16_T)-(int16_T)(uint16_T)-tmp : (int32_T)(int16_T)(uint16_T)tmp);
+
+  /* S-Function (any2byte_svd): '<S2>/Byte Pack' */
+
+  /* Pack: <S2>/Byte Pack */
+  {
+    uint32_T MW_outputPortOffset = 0U;
+    uint16_T MW_inputPortWidth = 0U;
+
+    /* Packed output data type - uint8_T */
+    void* packData = &Communication_Testing_B.VectorConcatenate[1];
+
+    /* Packing the values of Input 1 */
+    /* Input data type - int16_T, size - 1 */
+    {
+      MW_inputPortWidth = sizeof(int16_T);
+      memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
+             &Communication_Testing_B.DataTypeConversion, MW_inputPortWidth);
+    }
+  }
+
+  Communication_T_FDCANWrite2(Communication_Testing_B.VectorConcatenate,
+    &Communication_Testing_DW.FDCANWrite1_p);
+
+  /* SignalConversion generated from: '<S2>/Vector Concatenate1' incorporates:
+   *  Concatenate: '<S2>/Vector Concatenate1'
+   */
+  Communication_Testing_B.VectorConcatenate1[0] =
+    Communication_Testing_ConstB.DataTypeConversion3_h;
+
+  /* S-Function (any2byte_svd): '<S2>/Byte Pack1' */
+
+  /* Pack: <S2>/Byte Pack1 */
+  {
+    uint32_T MW_outputPortOffset = 0U;
+    uint16_T MW_inputPortWidth = 0U;
+
+    /* Packed output data type - uint8_T */
+    void* packData = &Communication_Testing_B.VectorConcatenate1[1];
+
+    /* Packing the values of Input 1 */
+    /* Input data type - int16_T, size - 1 */
+    {
+      MW_inputPortWidth = sizeof(int16_T);
+      memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
+             &Communication_Testing_B.ByteReversal1, MW_inputPortWidth);
+    }
+  }
+
+  Communication_T_FDCANWrite3(Communication_Testing_B.VectorConcatenate1,
+    &Communication_Testing_DW.FDCANWrite3_pna);
+
+  /* End of Outputs for S-Function (fcgen): '<Root>/Function-Call Generator5' */
+}
+
+/* Model step function for TID3 */
+void Communication_Testing_step3(void) /* Sample time: [0.2s, 0.0s] */
+{
+  real_T tmp;
+  int32_T tmp_0;
+  uint32_T fifoLevel;
+  uint8_T rtb_VectorConcatenate[3];
 
   /* S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem3'
@@ -1173,6 +1184,10 @@ void Communication_Testing_step(int_T tid)
     Communication_Testing_step2();
     break;
 
+   case 3 :
+    Communication_Testing_step3();
+    break;
+
    default :
     /* do nothing */
     break;
@@ -1182,23 +1197,6 @@ void Communication_Testing_step(int_T tid)
 /* Model initialize function */
 void Communication_Testing_initialize(void)
 {
-  /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
-   *  SubSystem: '<Root>/Triggered Subsystem'
-   */
-  /* Start for MATLABSystem: '<S7>/FDCAN Write3' */
-  Communication_Testing_DW.obj_c.matlabCodegenIsDeleted = false;
-  Communication_Testing_DW.obj_c.isInitialized = 1;
-  Communication_Testing_DW.obj_c.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
-  MW_FDCAN_Start(Communication_Testing_DW.obj_c.MW_FDCAN_HANDLE);
-  Communication_Testing_DW.obj_c.isSetupComplete = true;
-
-  /* Start for MATLABSystem: '<S7>/FDCAN Write1' */
-  Communication_Testing_DW.obj_m.matlabCodegenIsDeleted = false;
-  Communication_Testing_DW.obj_m.isInitialized = 1;
-  Communication_Testing_DW.obj_m.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
-  MW_FDCAN_Start(Communication_Testing_DW.obj_m.MW_FDCAN_HANDLE);
-  Communication_Testing_DW.obj_m.isSetupComplete = true;
-
   /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem3'
    */
@@ -1227,6 +1225,25 @@ void Communication_Testing_initialize(void)
 
   /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator5' */
 
+  /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator2' incorporates:
+   *  SubSystem: '<Root>/Triggered Subsystem'
+   */
+  /* Start for MATLABSystem: '<S7>/FDCAN Write3' */
+  Communication_Testing_DW.obj_c.matlabCodegenIsDeleted = false;
+  Communication_Testing_DW.obj_c.isInitialized = 1;
+  Communication_Testing_DW.obj_c.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
+  MW_FDCAN_Start(Communication_Testing_DW.obj_c.MW_FDCAN_HANDLE);
+  Communication_Testing_DW.obj_c.isSetupComplete = true;
+
+  /* Start for MATLABSystem: '<S7>/FDCAN Write1' */
+  Communication_Testing_DW.obj_m.matlabCodegenIsDeleted = false;
+  Communication_Testing_DW.obj_m.isInitialized = 1;
+  Communication_Testing_DW.obj_m.MW_FDCAN_HANDLE = MW_FDCAN_Initialize(1);
+  MW_FDCAN_Start(Communication_Testing_DW.obj_m.MW_FDCAN_HANDLE);
+  Communication_Testing_DW.obj_m.isSetupComplete = true;
+
+  /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator2' */
+
   /* SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator3' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
    */
@@ -1244,8 +1261,8 @@ void Communication_Testing_initialize(void)
 
   /* InitializeConditions for Memory: '<S19>/Memory1' */
   Communication_Testing_DW.Memory1_PreviousInput_g = 14.0;
-  Communic_MovingAverage_Init(&Communication_Testing_DW.MovingAverage);
   Communic_MovingAverage_Init(&Communication_Testing_DW.MovingAverage_p);
+  Communic_MovingAverage_Init(&Communication_Testing_DW.MovingAverage_pn);
 
   /* End of SystemInitialize for S-Function (fcgen): '<Root>/Function-Call Generator3' */
 
@@ -1253,6 +1270,7 @@ void Communication_Testing_initialize(void)
   Communication_Testing_DW.obj_mo.isInitialized = 0;
   Communication_Testing_DW.obj_mo.matlabCodegenIsDeleted = false;
   Communicatio_SystemCore_setup_l(&Communication_Testing_DW.obj_mo);
+  Communic_MovingAverage_Init(&Communication_Testing_DW.MovingAverage);
 
   /* Enable for S-Function (fcgen): '<Root>/Function-Call Generator3' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
@@ -1282,24 +1300,17 @@ void Communication_Testing_terminate(void)
   }
 
   /* End of Terminate for MATLABSystem: '<S17>/Analog to Digital Converter' */
+  Communic_MovingAverage_Term(&Communication_Testing_DW.MovingAverage);
 
   /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator3' incorporates:
    *  SubSystem: '<Root>/Throttle//Regen Control'
    */
-  Communic_MovingAverage_Term(&Communication_Testing_DW.MovingAverage);
   Communic_MovingAverage_Term(&Communication_Testing_DW.MovingAverage_p);
+  Communic_MovingAverage_Term(&Communication_Testing_DW.MovingAverage_pn);
 
   /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator3' */
 
-  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator5' incorporates:
-   *  SubSystem: '<Root>/50 HZ Send Torque Requests to Inverters1'
-   */
-  Communicat_FDCANWrite2_Term(&Communication_Testing_DW.FDCANWrite1_p);
-  Communicat_FDCANWrite3_Term(&Communication_Testing_DW.FDCANWrite3_pna);
-
-  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator5' */
-
-  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
+  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator2' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem'
    */
   /* Terminate for MATLABSystem: '<S7>/FDCAN Write3' */
@@ -1323,6 +1334,15 @@ void Communication_Testing_terminate(void)
   }
 
   /* End of Terminate for MATLABSystem: '<S7>/FDCAN Write1' */
+  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator2' */
+
+  /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator5' incorporates:
+   *  SubSystem: '<Root>/50 HZ Send Torque Requests to Inverters1'
+   */
+  Communicat_FDCANWrite2_Term(&Communication_Testing_DW.FDCANWrite1_p);
+  Communicat_FDCANWrite3_Term(&Communication_Testing_DW.FDCANWrite3_pna);
+
+  /* End of Terminate for S-Function (fcgen): '<Root>/Function-Call Generator5' */
 
   /* Terminate for S-Function (fcgen): '<Root>/Function-Call Generator4' incorporates:
    *  SubSystem: '<Root>/Triggered Subsystem3'
