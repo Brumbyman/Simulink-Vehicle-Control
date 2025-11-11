@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.78
+ * Model version                  : 1.83
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Sep 29 12:08:03 2025
+ * C/C++ source code generated on : Sat Oct  4 15:40:52 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -38,14 +38,14 @@ volatile boolean_T stopRequested = false;
 volatile boolean_T runModel = true;
 SemaphoreHandle_t stopSem;
 SemaphoreHandle_t baserateTaskSem;
-SemaphoreHandle_t subrateTaskSem[3];
-int taskId[3];
+SemaphoreHandle_t subrateTaskSem[4];
+int taskId[4];
 mw_thread_t schedulerThread;
 mw_thread_t baseRateThread;
 void *threadJoinStatus;
 int terminatingmodel = 0;
-mw_thread_t subRateThread[3];
-int subratePriority[3];
+mw_thread_t subRateThread[4];
+int subratePriority[4];
 void *subrateTask(void *arg)
 {
   int tid = *((int *) arg);
@@ -86,7 +86,7 @@ void *baseRateTask(void *arg)
 #endif
 
     for (i = 1
-         ; i <= 3; i++) {
+         ; i <= 4; i++) {
       if (rtmStepTask(Communication_Testing_M, i)
           ) {
         mw_osSemaphoreRelease(&subrateTaskSem[ i - 1
@@ -121,7 +121,7 @@ void *terminateTask(void *arg)
     int i;
 
     /* Signal all periodic tasks to complete */
-    for (i=0; i<3; i++) {
+    for (i=0; i<4; i++) {
       CHECK_STATUS(mw_osSemaphoreRelease(&subrateTaskSem[i]), 0,
                    "mw_osSemaphoreRelease");
       CHECK_STATUS(mw_osSemaphoreDelete(&subrateTaskSem[i]), 0,
@@ -129,7 +129,7 @@ void *terminateTask(void *arg)
     }
 
     /* Wait for all periodic tasks to complete */
-    for (i=0; i<3; i++) {
+    for (i=0; i<4; i++) {
       CHECK_STATUS(mw_osThreadJoin(subRateThread[i], &threadJoinStatus), 0,
                    "mw_osThreadJoin");
     }
@@ -153,9 +153,11 @@ void *terminateTask(void *arg)
 
 int main(int argc, char **argv)
 {
+  MW_EnableNVICPeripheral();
   subratePriority[0] = 39;
   subratePriority[1] = 38;
   subratePriority[2] = 37;
+  subratePriority[3] = 36;
 
 #if !defined(MW_FREERTOS) && defined(MW_MULTI_TASKING_MODE) && (MW_MULTI_TASKING_MODE == 1)
 
@@ -198,13 +200,16 @@ int main(int argc, char **argv)
   MX_TIM23_Init();
   MX_TIM24_Init();
   MX_TIM7_Init();
+  MW_FDCAN_ConfigGlobalFilter(2,FDCAN_ACCEPT_IN_RX_FIFO0,FDCAN_REJECT,
+    FDCAN_REJECT_REMOTE,FDCAN_REJECT_REMOTE);
   rtmSetErrorStatus(Communication_Testing_M, 0);
+  Communication_Testing_configure_interrupts();
 
   /* Initialize model */
   Communication_Testing_initialize();
 
   /* Call RTOS Initialization function */
-  mw_RTOSInit(0.002, 3);
+  mw_RTOSInit(0.002, 4);
 
   /* Wait for stop semaphore */
   mw_osSemaphoreWaitEver(&stopSem);

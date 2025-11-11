@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.78
+ * Model version                  : 1.83
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Sep 29 12:08:03 2025
+ * C/C++ source code generated on : Sat Oct  4 15:40:52 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,6 +22,26 @@
 #include "rtwtypes.h"
 #include "stm_fdcan_hal.h"
 #include "stm_adc_ll.h"
+#ifndef DEFINED_TYPEDEF_FOR_CAN_FD_MESSAGE_BUS_
+#define DEFINED_TYPEDEF_FOR_CAN_FD_MESSAGE_BUS_
+
+typedef struct {
+  uint8_T ProtocolMode;
+  uint8_T Extended;
+  uint8_T Length;
+  uint8_T Remote;
+  uint8_T Error;
+  uint8_T BRS;
+  uint8_T ESI;
+  uint8_T DLC;
+  uint32_T ID;
+  uint32_T Reserved;
+  real_T Timestamp;
+  uint8_T Data[64];
+} CAN_FD_MESSAGE_BUS;
+
+#endif
+
 #ifndef struct_tag_4B5c9t1JtSUztS9hrJrCFG
 #define struct_tag_4B5c9t1JtSUztS9hrJrCFG
 
@@ -86,7 +106,7 @@ typedef struct tag_ps8Pv2DMyDxNpj6T0q1gJE dsp_simulink_MovingAverage_Co_T;
 
 #endif                             /* typedef_dsp_simulink_MovingAverage_Co_T */
 
-/* Custom Type definition for MATLABSystem: '<S9>/FDCAN Write2' */
+/* Custom Type definition for MATLABSystem: '<S12>/FDCAN Write2' */
 #include "stm_fdcan_hal.h"
 #ifndef struct_tag_KxSwzM11ifHE1iEOqd1VdG
 #define struct_tag_KxSwzM11ifHE1iEOqd1VdG
@@ -108,7 +128,27 @@ typedef struct tag_KxSwzM11ifHE1iEOqd1VdG stm32cube_blocks_FDCANWrite_C_T;
 
 #endif                             /* typedef_stm32cube_blocks_FDCANWrite_C_T */
 
-/* Custom Type definition for MATLABSystem: '<S17>/Analog to Digital Converter' */
+#ifndef struct_tag_teqMPwEGIK86lITAwcPFIE
+#define struct_tag_teqMPwEGIK86lITAwcPFIE
+
+struct tag_teqMPwEGIK86lITAwcPFIE
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  FDCAN_Type_T * MW_FDCAN_HANDLE;
+};
+
+#endif                                 /* struct_tag_teqMPwEGIK86lITAwcPFIE */
+
+#ifndef typedef_stm32cube_blocks_FDCANRead_Co_T
+#define typedef_stm32cube_blocks_FDCANRead_Co_T
+
+typedef struct tag_teqMPwEGIK86lITAwcPFIE stm32cube_blocks_FDCANRead_Co_T;
+
+#endif                             /* typedef_stm32cube_blocks_FDCANRead_Co_T */
+
+/* Custom Type definition for MATLABSystem: '<S20>/Analog to Digital Converter' */
 #include "stm_adc_ll.h"
 #include "stm_adc_ll.h"
 #ifndef struct_tag_nJDWLJcITUG6sTG8JTIHYE

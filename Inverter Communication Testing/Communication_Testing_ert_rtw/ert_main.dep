@@ -3,6 +3,8 @@ ert_main.o: \
  C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing.h \
  C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/rtwtypes.h \
  C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/rt_nonfinite.h \
+ C:/Program\ Files/MATLAB/R2024a/toolbox/shared/can/src/scanutil/can_fd_message.h \
+ C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Communication_Testing_ert_rtw/rtwtypes.h \
  C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_fdcan_hal.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Core/Inc/main.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
@@ -66,10 +68,10 @@ ert_main.o: \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h \
+ C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/mw_stm32_nvic.h \
  C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing_types.h \
  C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_adc_ll.h \
  C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/mw_stm32_types.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Communication_Testing_ert_rtw/rtwtypes.h \
  C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing_private.h \
  C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/target/shared/freertos/include/mw_freertos.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
@@ -94,6 +96,8 @@ ert_main.o: \
 C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing.h:
 C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/rtwtypes.h:
 C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/rt_nonfinite.h:
+C:/Program\ Files/MATLAB/R2024a/toolbox/shared/can/src/scanutil/can_fd_message.h:
+C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Communication_Testing_ert_rtw/rtwtypes.h:
 C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_fdcan_hal.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Core/Inc/main.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
@@ -157,10 +161,10 @@ C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Comm
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h:
+C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/mw_stm32_nvic.h:
 C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing_types.h:
 C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_adc_ll.h:
 C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/mw_stm32_types.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Communication_Testing_ert_rtw/rtwtypes.h:
 C:/Users/ezeki/OneDrive/DOCUME~1/GitHub/SIMULI~1/INVERT~1/Communication_Testing_ert_rtw/Communication_Testing_private.h:
 C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/target/shared/freertos/include/mw_freertos.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Inverter\ Communication\ Testing/Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
