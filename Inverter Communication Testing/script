@@ -1,4 +1,4 @@
-config load "C:\Users\ezeki\OneDrive\Documents\GitHub\Simulink-Vehicle-Control\Inverter Communication Testing\Communication_Testing.ioc"
+config load "C:\Users\ezeki\OneDrive\Documents\GitHub\Simulink-Vehicle-Control\Inverter Communication Testing\Communication_Testing_CANTIMING2.ioc"
 project toolchain STM32CubeIDE
 
 SetStructure Advanced

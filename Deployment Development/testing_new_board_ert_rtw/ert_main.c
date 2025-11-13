@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.2
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Nov 12 14:16:36 2025
+ * C/C++ source code generated on : Wed Nov 12 15:28:47 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -106,14 +106,13 @@ int main(int argc, char **argv)
   PeriphCommonClock_Config();
   MX_GPIO_Init();
   MX_FDCAN1_Init();
-  MX_FDCAN2_Init();
   rtmSetErrorStatus(testing_new_board_M, 0);
 
   /* Initialize model */
   testing_new_board_initialize();
 
   /* Call RTOS Initialization function */
-  mw_RTOSInit(0.5, 0);
+  mw_RTOSInit(0.2, 0);
 
   /* Wait for stop semaphore */
   mw_osSemaphoreWaitEver(&stopSem);

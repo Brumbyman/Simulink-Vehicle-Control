@@ -70,7 +70,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 void   MX_GPIO_Init(void);
 void   MX_FDCAN1_Init(void);
-void   MX_FDCAN2_Init(void);
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

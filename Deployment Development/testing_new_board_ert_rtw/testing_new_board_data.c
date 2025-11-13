@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.2
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Nov 12 14:16:36 2025
+ * C/C++ source code generated on : Wed Nov 12 15:28:47 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -24,27 +24,7 @@ P_testing_new_board_T testing_new_board_P = {
   /* Expression: 1
    * Referenced by: '<Root>/Constant'
    */
-  1.0,
-
-  /* Expression: 1
-   * Referenced by: '<Root>/Pulse Generator'
-   */
-  1.0,
-
-  /* Expression: 2
-   * Referenced by: '<Root>/Pulse Generator'
-   */
-  2.0,
-
-  /* Expression: 1
-   * Referenced by: '<Root>/Pulse Generator'
-   */
-  1.0,
-
-  /* Expression: 0
-   * Referenced by: '<Root>/Pulse Generator'
-   */
-  0.0
+  1.0
 };
 
 /*

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.83
+ * Model version                  : 1.88
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Sat Oct  4 15:40:52 2025
+ * C/C++ source code generated on : Thu Nov 13 14:39:43 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -77,15 +77,14 @@ typedef struct {
 /* Block signals (default storage) */
 typedef struct {
   CAN_FD_MESSAGE_BUS FDCANRead1;       /* '<S5>/FDCAN Read1' */
-  uint16_T TmpRTBAtTriggeredSubsystemInpor;
   uint16_T TmpRTBAtFunctionCallSubsystemOu;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_m;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_i;/* '<Root>/Function-Call Subsystem' */
-  uint16_T TmpRTBAtTriggeredSubsystemInp_l;
   uint16_T TmpRTBAtFunctionCallSubsystem_j;/* '<Root>/Function-Call Subsystem' */
   uint16_T TmpRTBAtFunctionCallSubsystem_o;/* '<Root>/Function-Call Subsystem' */
   uint16_T ByteUnpack;                 /* '<S5>/Byte Unpack' */
   uint16_T ByteUnpack1;                /* '<S5>/Byte Unpack1' */
+  uint16_T ByteUnpack2;                /* '<S5>/Byte Unpack2' */
   uint16_T In1;                        /* '<S32>/In1' */
   uint16_T In1_g;                      /* '<S33>/In1' */
   uint16_T In1_g2;                     /* '<S24>/In1' */
@@ -95,14 +94,19 @@ typedef struct {
   uint16_T In1_g20asd;                 /* '<S29>/In1' */
   uint16_T DataTypeConversion;         /* '<S10>/Data Type Conversion' */
   uint16_T ByteReversal;               /* '<S10>/Byte Reversal' */
+  uint16_T DataTypeConversion1;        /* '<S10>/Data Type Conversion1' */
   uint16_T ByteReversal1;              /* '<S10>/Byte Reversal1' */
   uint16_T ByteReversal2;              /* '<S10>/Byte Reversal2' */
   uint16_T ByteReversal3;              /* '<S10>/Byte Reversal3' */
+  uint16_T DataTypeConversion5;        /* '<S10>/Data Type Conversion5' */
+  int16_T DataTypeConversion4;         /* '<S5>/Data Type Conversion4' */
+  int16_T DataTypeConversion5_f;       /* '<S5>/Data Type Conversion5' */
   int16_T DataTypeConversion2;         /* '<S2>/Data Type Conversion2' */
   int16_T ByteReversal1_f;             /* '<S2>/Byte Reversal1' */
   int16_T DataTypeConversion_e;        /* '<S2>/Data Type Conversion' */
   uint8_T CANFDUnpack2[3];             /* '<S5>/CAN FD Unpack2' */
-  uint8_T CANFDUnpack1[6];             /* '<S5>/CAN FD Unpack1' */
+  uint8_T CANFDUnpack1[4];             /* '<S5>/CAN FD Unpack1' */
+  uint8_T CANFDUnpack3[6];             /* '<S5>/CAN FD Unpack3' */
   uint8_T VectorConcatenate[3];        /* '<S2>/Vector Concatenate' */
   uint8_T VectorConcatenate1[3];       /* '<S2>/Vector Concatenate1' */
   uint8_T VectorConcatenate_j[8];      /* '<S10>/Vector Concatenate' */
@@ -136,11 +140,13 @@ typedef struct {
   int_T CANFDUnpack2_StatusPortID;     /* '<S5>/CAN FD Unpack2' */
   int_T CANFDUnpack1_ModeSignalID;     /* '<S5>/CAN FD Unpack1' */
   int_T CANFDUnpack1_StatusPortID;     /* '<S5>/CAN FD Unpack1' */
-  volatile uint16_T TmpRTBAtTriggeredSubsystemInp_l;/* synthesized block */
+  int_T CANFDUnpack3_ModeSignalID;     /* '<S5>/CAN FD Unpack3' */
+  int_T CANFDUnpack3_StatusPortID;     /* '<S5>/CAN FD Unpack3' */
+  volatile int16_T TmpRTBAtTriggeredSubsystemInp_l;/* synthesized block */
+  volatile int16_T TmpRTBAtTriggeredSubsystemInp_d;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystemOu;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_k;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_m;/* synthesized block */
-  volatile uint16_T TmpRTBAtTriggeredSubsystemInp_d;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_b;/* synthesized block */
   volatile uint16_T TmpRTBAtFunctionCallSubsystem_e;/* synthesized block */
   uint8_T Output_DSTATE;               /* '<S13>/Output' */
@@ -381,11 +387,9 @@ extern "C"
  * Block '<Root>/Manual Switch1' : Eliminated due to constant selection input
  * Block '<S37>/Manual Switch1' : Eliminated due to constant selection input
  * Block '<S38>/Manual Switch1' : Eliminated due to constant selection input
- * Block '<S10>/Data Type Conversion1' : Eliminate redundant data type conversion
  * Block '<S10>/Data Type Conversion2' : Eliminate redundant data type conversion
  * Block '<S10>/Data Type Conversion3' : Eliminate redundant data type conversion
  * Block '<S10>/Data Type Conversion4' : Eliminate redundant data type conversion
- * Block '<S10>/Data Type Conversion5' : Eliminate redundant data type conversion
  * Block '<S10>/Data Type Conversion6' : Eliminate redundant data type conversion
  * Block '<S10>/Data Type Conversion7' : Eliminate redundant data type conversion
  * Block '<Root>/Constant16' : Unused code path elimination

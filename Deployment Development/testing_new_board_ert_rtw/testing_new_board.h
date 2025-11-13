@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.2
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Nov 12 14:16:36 2025
+ * C/C++ source code generated on : Wed Nov 12 15:28:47 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -24,7 +24,6 @@
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
 #include "math.h"
-#include "main.h"
 #include "stm_fdcan_hal.h"
 #endif                                 /* testing_new_board_COMMON_INCLUDES_ */
 
@@ -43,25 +42,12 @@
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
   stm32cube_blocks_FDCANWrite_t_T obj; /* '<Root>/FDCAN Write1' */
-  int32_T clockTickCounter;            /* '<Root>/Pulse Generator' */
 } DW_testing_new_board_T;
 
 /* Parameters (default storage) */
 struct P_testing_new_board_T_ {
   real_T Constant_Value;               /* Expression: 1
                                         * Referenced by: '<Root>/Constant'
-                                        */
-  real_T PulseGenerator_Amp;           /* Expression: 1
-                                        * Referenced by: '<Root>/Pulse Generator'
-                                        */
-  real_T PulseGenerator_Period;        /* Expression: 2
-                                        * Referenced by: '<Root>/Pulse Generator'
-                                        */
-  real_T PulseGenerator_Duty;          /* Expression: 1
-                                        * Referenced by: '<Root>/Pulse Generator'
-                                        */
-  real_T PulseGenerator_PhaseDelay;    /* Expression: 0
-                                        * Referenced by: '<Root>/Pulse Generator'
                                         */
 };
 
@@ -101,9 +87,6 @@ extern volatile boolean_T runModel;
  * Here is the system hierarchy for this model
  *
  * '<Root>' : 'testing_new_board'
- * '<S1>'   : 'testing_new_board/Digital Port Write'
- * '<S2>'   : 'testing_new_board/Digital Port Write/ECSoC'
- * '<S3>'   : 'testing_new_board/Digital Port Write/ECSoC/ECSimCodegen'
  */
 #endif                                 /* testing_new_board_h_ */
 

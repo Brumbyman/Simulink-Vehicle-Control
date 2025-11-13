@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.83
+ * Model version                  : 1.88
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Sat Oct  4 15:40:52 2025
+ * C/C++ source code generated on : Thu Nov 13 14:39:43 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -151,23 +151,24 @@ typedef struct tag_teqMPwEGIK86lITAwcPFIE stm32cube_blocks_FDCANRead_Co_T;
 /* Custom Type definition for MATLABSystem: '<S20>/Analog to Digital Converter' */
 #include "stm_adc_ll.h"
 #include "stm_adc_ll.h"
-#ifndef struct_tag_nJDWLJcITUG6sTG8JTIHYE
-#define struct_tag_nJDWLJcITUG6sTG8JTIHYE
+#ifndef struct_tag_xDa1CJmc8rHriSeDex4KKD
+#define struct_tag_xDa1CJmc8rHriSeDex4KKD
 
-struct tag_nJDWLJcITUG6sTG8JTIHYE
+struct tag_xDa1CJmc8rHriSeDex4KKD
 {
   boolean_T matlabCodegenIsDeleted;
   int32_T isInitialized;
   boolean_T isSetupComplete;
   ADC_Type_T* ADCHandle;
+  uint32_T * ADCInternalBuffer;
 };
 
-#endif                                 /* struct_tag_nJDWLJcITUG6sTG8JTIHYE */
+#endif                                 /* struct_tag_xDa1CJmc8rHriSeDex4KKD */
 
 #ifndef typedef_stm32cube_blocks_AnalogInputF_T
 #define typedef_stm32cube_blocks_AnalogInputF_T
 
-typedef struct tag_nJDWLJcITUG6sTG8JTIHYE stm32cube_blocks_AnalogInputF_T;
+typedef struct tag_xDa1CJmc8rHriSeDex4KKD stm32cube_blocks_AnalogInputF_T;
 
 #endif                             /* typedef_stm32cube_blocks_AnalogInputF_T */
 

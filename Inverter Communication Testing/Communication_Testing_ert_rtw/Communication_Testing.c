@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Communication_Testing'.
  *
- * Model version                  : 1.83
+ * Model version                  : 1.88
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Sat Oct  4 15:40:52 2025
+ * C/C++ source code generated on : Thu Nov 13 14:39:43 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -25,7 +25,6 @@
 #include <math.h>
 #include "rt_nonfinite.h"
 #include "stm_adc_ll.h"
-#include <stddef.h>
 
 /* Block signals (default storage) */
 B_Communication_Testing_T Communication_Testing_B;
@@ -316,22 +315,20 @@ void Communicat_FDCANWrite3_Term(DW_FDCANWrite3_Communication__T *localDW)
 static void Communicatio_SystemCore_setup_l(stm32cube_blocks_AnalogInputF_T *obj)
 {
   ADC_Type_T adcStructLoc;
-  obj->isSetupComplete = false;
 
   /* Start for MATLABSystem: '<S20>/Analog to Digital Converter' */
   obj->isInitialized = 1;
-  adcStructLoc.InternalBufferPtr = (void *)(NULL);
-
-  /* Start for MATLABSystem: '<S20>/Analog to Digital Converter' */
+  obj->ADCInternalBuffer = GET_ADC1_DMA_BUFFER();
   adcStructLoc.InjectedNoOfConversion = 0U;
+  adcStructLoc.InternalBufferPtr = obj->ADCInternalBuffer;
   adcStructLoc.peripheralPtr = ADC1;
-  adcStructLoc.dmaPeripheralPtr = NULL;
-  adcStructLoc.dmastream = 0;
+  adcStructLoc.dmaPeripheralPtr = DMA2;
+  adcStructLoc.dmastream = LL_DMA_STREAM_0;
   adcStructLoc.DataTransferMode = ADC_DR_TRANSFER;
   adcStructLoc.DmaTransferMode = ADC_DMA_TRANSFER_LIMITED;
   adcStructLoc.InternalBufferSize = 1U;
   adcStructLoc.RegularNoOfConversion = 1U;
-  obj->ADCHandle = ADC_Handle_Init(&adcStructLoc, ADC_NORMAL_MODE, 1,
+  obj->ADCHandle = ADC_Handle_Init(&adcStructLoc, ADC_DMA_INTERRUPT_MODE, 1,
     ADC_TRIGGER_AND_READ, LL_ADC_REG_SEQ_SCAN_DISABLE);
   enableADCAutomaticCalibration(obj->ADCHandle, (uint32_T)LL_ADC_CALIB_OFFSET, 2);
   enableADC(obj->ADCHandle);
@@ -357,8 +354,8 @@ void Communication_Testing_step0(void) /* Sample time: [0.002s, 0.0s] */
   }
 
   /* MATLABSystem: '<S20>/Analog to Digital Converter' */
-  regularReadADCNormal(Communication_Testing_DW.obj_mo.ADCHandle,
-                       ADC_TRIGGER_AND_READ, &data);
+  regularReadADCDMA(Communication_Testing_DW.obj_mo.ADCHandle,
+                    ADC_TRIGGER_AND_READ, &data);
 
   /* Product: '<Root>/Product' incorporates:
    *  Constant: '<Root>/Constant12'
@@ -846,9 +843,11 @@ void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
 {
   real_T tmp;
   uint32_T fifoLevel;
+  int16_T rtb_TmpRTBAtTriggeredSubsyste_e;
+  int16_T rtb_TmpRTBAtTriggeredSubsyste_f;
 
   /* RateTransition generated from: '<Root>/Triggered Subsystem' */
-  Communication_Testing_B.TmpRTBAtTriggeredSubsystemInpor =
+  rtb_TmpRTBAtTriggeredSubsyste_f =
     Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInp_l;
 
   /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
@@ -864,7 +863,7 @@ void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
     Communication_Testing_DW.TmpRTBAtFunctionCallSubsystem_m;
 
   /* RateTransition generated from: '<Root>/Triggered Subsystem' */
-  Communication_Testing_B.TmpRTBAtTriggeredSubsystemInp_l =
+  rtb_TmpRTBAtTriggeredSubsyste_e =
     Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInp_d;
 
   /* RateTransition generated from: '<Root>/Function-Call Subsystem' */
@@ -900,14 +899,17 @@ void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
   ((uint16_T *)&Communication_Testing_B.ByteReversal)[0] =
     SWAP16(((uint16_T *)&Communication_Testing_B.DataTypeConversion)[0]);
 
+  /* DataTypeConversion: '<S10>/Data Type Conversion1' */
+  Communication_Testing_B.DataTypeConversion1 = (uint16_T)
+    rtb_TmpRTBAtTriggeredSubsyste_f;
+
   /* S-Function (reverseendian_svd): '<S10>/Byte Reversal1' */
 
   /* ReverseEndian: <S10>/Byte Reversal1 */
 
   /* 2 byte-wide input datatypes */
   ((uint16_T *)&Communication_Testing_B.ByteReversal1)[0] =
-    SWAP16(((uint16_T *)&Communication_Testing_B.TmpRTBAtTriggeredSubsystemInpor)
-           [0]);
+    SWAP16(((uint16_T *)&Communication_Testing_B.DataTypeConversion1)[0]);
 
   /* S-Function (reverseendian_svd): '<S10>/Byte Reversal2' */
 
@@ -1030,6 +1032,10 @@ void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
     }
   }
 
+  /* DataTypeConversion: '<S10>/Data Type Conversion5' */
+  Communication_Testing_B.DataTypeConversion5 = (uint16_T)
+    rtb_TmpRTBAtTriggeredSubsyste_e;
+
   /* S-Function (any2byte_svd): '<S10>/Byte Pack5' */
 
   /* Pack: <S10>/Byte Pack5 */
@@ -1045,8 +1051,7 @@ void Communication_Testing_step1(void) /* Sample time: [0.01s, 0.0s] */
     {
       MW_inputPortWidth = sizeof(uint16_T);
       memcpy((void *)&(((uint8_T *)packData)[MW_outputPortOffset]), (void*)
-             &Communication_Testing_B.TmpRTBAtTriggeredSubsystemInp_l,
-             MW_inputPortWidth);
+             &Communication_Testing_B.DataTypeConversion5, MW_inputPortWidth);
     }
   }
 
@@ -1469,6 +1474,10 @@ void Communication_Testing_initialize(void)
 
   /*-----------S-Function Block: <S5>/CAN FD Unpack1 -----------------*/
 
+  /* Start for S-Function (scanfdunpack): '<S5>/CAN FD Unpack3' */
+
+  /*-----------S-Function Block: <S5>/CAN FD Unpack3 -----------------*/
+
   /* Start for MATLABSystem: '<S5>/FDCAN Read1' */
   Communication_Testing_DW.obj_d.matlabCodegenIsDeleted = false;
   Communication_Testing_DW.obj_d.isInitialized = 1;
@@ -1505,7 +1514,7 @@ void Communication_Testing_terminate(void)
     if ((Communication_Testing_DW.obj_mo.isInitialized == 1) &&
         Communication_Testing_DW.obj_mo.isSetupComplete) {
       ADC_Handle_Deinit(Communication_Testing_DW.obj_mo.ADCHandle,
-                        ADC_NORMAL_MODE, 1);
+                        ADC_DMA_INTERRUPT_MODE, 1);
     }
   }
 
@@ -1675,13 +1684,13 @@ void FDCAN2_IT0_IRQHandler(void)
           /* S-Function (scanfdunpack): '<S5>/CAN FD Unpack1' */
           {
             /* S-Function (scanfdunpack): '<S5>/CAN FD Unpack1' */
-            if ((6 == Communication_Testing_B.FDCANRead1.Length) &&
+            if ((4 == Communication_Testing_B.FDCANRead1.Length) &&
                 (Communication_Testing_B.FDCANRead1.ID != INVALID_CAN_ID) ) {
               if ((401 == Communication_Testing_B.FDCANRead1.ID) && (0U ==
                    Communication_Testing_B.FDCANRead1.Extended) ) {
                 (void) memcpy(&Communication_Testing_B.CANFDUnpack1[0],
                               Communication_Testing_B.FDCANRead1.Data,
-                              6 * sizeof(uint8_T));
+                              4 * sizeof(uint8_T));
               }
             }
           }
@@ -1705,6 +1714,86 @@ void FDCAN2_IT0_IRQHandler(void)
                      MW_outputPortWidth);
             }
           }
+
+          /* S-Function (scanfdunpack): '<S5>/CAN FD Unpack3' */
+          {
+            /* S-Function (scanfdunpack): '<S5>/CAN FD Unpack3' */
+            if ((6 == Communication_Testing_B.FDCANRead1.Length) &&
+                (Communication_Testing_B.FDCANRead1.ID != INVALID_CAN_ID) ) {
+              if ((401 == Communication_Testing_B.FDCANRead1.ID) && (0U ==
+                   Communication_Testing_B.FDCANRead1.Extended) ) {
+                (void) memcpy(&Communication_Testing_B.CANFDUnpack3[0],
+                              Communication_Testing_B.FDCANRead1.Data,
+                              6 * sizeof(uint8_T));
+              }
+            }
+          }
+
+          /* S-Function (byte2any_svd): '<S5>/Byte Unpack2' */
+
+          /* Unpack: <S5>/Byte Unpack2 */
+          {
+            uint32_T MW_inputPortOffset = 0U;
+            uint16_T MW_outputPortWidth = 0U;
+
+            /* Packed input data type - uint8_T */
+            void* unpackData = &Communication_Testing_B.CANFDUnpack3[1];
+
+            /* Unpacking the values to output 1 */
+            /* Output data type - uint16_T, size - 1 */
+            {
+              MW_outputPortWidth = sizeof(uint16_T);
+              memcpy((void*)&Communication_Testing_B.ByteUnpack2, (void *)
+                     &(((uint8_T *)unpackData)[MW_inputPortOffset]),
+                     MW_outputPortWidth);
+            }
+          }
+
+          /* SwitchCase: '<S5>/Switch Case1' incorporates:
+           *  DataTypeConversion: '<S5>/Data Type Conversion1'
+           */
+          switch (Communication_Testing_B.CANFDUnpack1[0]) {
+           case 235:
+            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem12' incorporates:
+             *  ActionPort: '<S26>/Action Port'
+             */
+            /* SignalConversion generated from: '<S26>/In1' */
+            Communication_Testing_B.In1_g20 =
+              Communication_Testing_B.ByteUnpack1;
+
+            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem12' */
+            break;
+
+           case 74:
+           case 73:
+            break;
+
+           case 168:
+            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem10' incorporates:
+             *  ActionPort: '<S24>/Action Port'
+             */
+            /* SignalConversion generated from: '<S24>/In1' */
+            Communication_Testing_B.In1_g2 = Communication_Testing_B.ByteUnpack1;
+
+            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem10' */
+            break;
+
+           case 95:
+            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem8' incorporates:
+             *  ActionPort: '<S33>/Action Port'
+             */
+            /* SignalConversion generated from: '<S33>/In1' */
+            Communication_Testing_B.In1_g = Communication_Testing_B.ByteUnpack1;
+
+            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem8' */
+            break;
+          }
+
+          /* End of SwitchCase: '<S5>/Switch Case1' */
+
+          /* DataTypeConversion: '<S5>/Data Type Conversion4' */
+          Communication_Testing_B.DataTypeConversion4 = (int16_T)
+            Communication_Testing_B.In1_g2;
 
           /* SwitchCase: '<S5>/Switch Case' incorporates:
            *  DataTypeConversion: '<S5>/Data Type Conversion3'
@@ -1751,57 +1840,24 @@ void FDCAN2_IT0_IRQHandler(void)
 
           /* End of SwitchCase: '<S5>/Switch Case' */
 
-          /* SwitchCase: '<S5>/Switch Case1' incorporates:
-           *  DataTypeConversion: '<S5>/Data Type Conversion1'
+          /* DataTypeConversion: '<S5>/Data Type Conversion5' */
+          Communication_Testing_B.DataTypeConversion5_f = (int16_T)
+            Communication_Testing_B.In1_g20asd;
+
+          /* SwitchCase: '<S5>/Switch Case2' incorporates:
+           *  DataTypeConversion: '<S5>/Data Type Conversion2'
            */
-          switch (Communication_Testing_B.CANFDUnpack1[0]) {
-           case 235:
-            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem12' incorporates:
-             *  ActionPort: '<S26>/Action Port'
-             */
-            /* SignalConversion generated from: '<S26>/In1' */
-            Communication_Testing_B.In1_g20 =
-              Communication_Testing_B.ByteUnpack1;
-
-            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem12' */
-            break;
-
-           case 74:
-           case 73:
-            break;
-
-           case 168:
-            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem10' incorporates:
-             *  ActionPort: '<S24>/Action Port'
-             */
-            /* SignalConversion generated from: '<S24>/In1' */
-            Communication_Testing_B.In1_g2 = Communication_Testing_B.ByteUnpack1;
-
-            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem10' */
-            break;
-
-           case 95:
-            /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem8' incorporates:
-             *  ActionPort: '<S33>/Action Port'
-             */
-            /* SignalConversion generated from: '<S33>/In1' */
-            Communication_Testing_B.In1_g = Communication_Testing_B.ByteUnpack1;
-
-            /* End of Outputs for SubSystem: '<S5>/If Action Subsystem8' */
-            break;
-
-           case 138:
+          if (Communication_Testing_B.CANFDUnpack3[0] == 138) {
             /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem7' incorporates:
              *  ActionPort: '<S32>/Action Port'
              */
             /* SignalConversion generated from: '<S32>/In1' */
-            Communication_Testing_B.In1 = Communication_Testing_B.ByteUnpack1;
+            Communication_Testing_B.In1 = Communication_Testing_B.ByteUnpack2;
 
             /* End of Outputs for SubSystem: '<S5>/If Action Subsystem7' */
-            break;
           }
 
-          /* End of SwitchCase: '<S5>/Switch Case1' */
+          /* End of SwitchCase: '<S5>/Switch Case2' */
         }
 
         /* End of Outputs for S-Function (HardwareInterrupt_sfun): '<S36>/Hardware Interrupt' */
@@ -1828,11 +1884,11 @@ void FDCAN2_IT0_IRQHandler(void)
 
         /* RateTransition generated from: '<Root>/Triggered Subsystem' */
         Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInp_l =
-          Communication_Testing_B.In1_g20asd;
+          Communication_Testing_B.DataTypeConversion5_f;
 
         /* RateTransition generated from: '<Root>/Triggered Subsystem' */
         Communication_Testing_DW.TmpRTBAtTriggeredSubsystemInp_d =
-          Communication_Testing_B.In1_g2;
+          Communication_Testing_B.DataTypeConversion4;
       }
     }
   }
