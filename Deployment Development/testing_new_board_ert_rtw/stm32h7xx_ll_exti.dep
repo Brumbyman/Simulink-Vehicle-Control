@@ -31,15 +31,8 @@ stm32h7xx_ll_exti.o: \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_sdmmc.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_delayblock.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd_ex.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h
+ C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h735xx.h:
@@ -71,12 +64,5 @@ C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ De
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_sdmmc.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_delayblock.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd_ex.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h:

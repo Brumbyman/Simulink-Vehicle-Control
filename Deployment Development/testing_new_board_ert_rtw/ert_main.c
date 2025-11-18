@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.6
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Mon Nov 17 14:33:08 2025
+ * C/C++ source code generated on : Tue Nov 18 16:10:03 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -168,9 +168,7 @@ int main(int argc, char **argv)
   MX_FDCAN3_Init();
   MX_ADC1_Init();
   MX_ADC2_Init();
-  MX_SDMMC1_SD_Init();
   MX_TIM1_Init();
-  MX_USB_OTG_HS_PCD_Init();
   rtmSetErrorStatus(testing_new_board_M, 0);
 
   /* Initialize model */

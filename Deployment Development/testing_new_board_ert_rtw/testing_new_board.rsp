@@ -37,16 +37,9 @@ stm32h7xx_hal_i2c.o
 stm32h7xx_hal_i2c_ex.o
 stm32h7xx_hal_exti.o
 stm32h7xx_hal_fdcan.o
-stm32h7xx_ll_sdmmc.o
-stm32h7xx_ll_delayblock.o
-stm32h7xx_hal_sd.o
-stm32h7xx_hal_sd_ex.o
 stm32h7xx_hal_tim.o
 stm32h7xx_hal_tim_ex.o
 stm32h7xx_ll_tim.o
-stm32h7xx_hal_pcd.o
-stm32h7xx_hal_pcd_ex.o
-stm32h7xx_ll_usb.o
 croutine.o
 event_groups.o
 list.o

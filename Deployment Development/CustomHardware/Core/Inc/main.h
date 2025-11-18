@@ -124,9 +124,7 @@ void   MX_FDCAN2_Init(void);
 void   MX_FDCAN3_Init(void);
 void   MX_ADC1_Init(void);
 void   MX_ADC2_Init(void);
-void   MX_SDMMC1_SD_Init(void);
 void   MX_TIM1_Init(void);
-void   MX_USB_OTG_HS_PCD_Init(void);
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
