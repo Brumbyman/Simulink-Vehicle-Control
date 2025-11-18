@@ -198,7 +198,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* hfdcan)
   /* USER CODE BEGIN FDCAN1_MspInit 0 */
 
   /* USER CODE END FDCAN1_MspInit 0 */
-    LL_RCC_SetFDCANClockSource(LL_RCC_FDCAN_CLKSOURCE_PLL1Q);
+    LL_RCC_SetFDCANClockSource(LL_RCC_FDCAN_CLKSOURCE_HSE);
 
     /* Peripheral clock enable */
     HAL_RCC_FDCAN_CLK_ENABLED++;
@@ -231,7 +231,7 @@ void HAL_FDCAN_MspInit(FDCAN_HandleTypeDef* hfdcan)
 
   /* USER CODE END FDCAN2_MspInit 0 */
 
-    LL_RCC_SetFDCANClockSource(LL_RCC_FDCAN_CLKSOURCE_PLL1Q);
+    LL_RCC_SetFDCANClockSource(LL_RCC_FDCAN_CLKSOURCE_HSE);
 
     /* Peripheral clock enable */
     HAL_RCC_FDCAN_CLK_ENABLED++;

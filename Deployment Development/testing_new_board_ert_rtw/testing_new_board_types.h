@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'testing_new_board'.
  *
- * Model version                  : 1.2
+ * Model version                  : 1.6
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Nov 12 15:28:47 2025
+ * C/C++ source code generated on : Mon Nov 17 14:33:08 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -21,8 +21,24 @@
 #define testing_new_board_types_h_
 #include "rtwtypes.h"
 #include "stm_fdcan_hal.h"
+#ifndef struct_tag_S5MMpcz8vT0FlmhmEl4q5C
+#define struct_tag_S5MMpcz8vT0FlmhmEl4q5C
 
-/* Custom Type definition for MATLABSystem: '<Root>/FDCAN Write1' */
+struct tag_S5MMpcz8vT0FlmhmEl4q5C
+{
+  int32_T isInitialized;
+};
+
+#endif                                 /* struct_tag_S5MMpcz8vT0FlmhmEl4q5C */
+
+#ifndef typedef_stm32cube_blocks_DigitalPortW_T
+#define typedef_stm32cube_blocks_DigitalPortW_T
+
+typedef struct tag_S5MMpcz8vT0FlmhmEl4q5C stm32cube_blocks_DigitalPortW_T;
+
+#endif                             /* typedef_stm32cube_blocks_DigitalPortW_T */
+
+/* Custom Type definition for MATLABSystem: '<S3>/FDCAN Write1' */
 #include "stm_fdcan_hal.h"
 #ifndef struct_tag_KxSwzM11ifHE1iEOqd1VdG
 #define struct_tag_KxSwzM11ifHE1iEOqd1VdG

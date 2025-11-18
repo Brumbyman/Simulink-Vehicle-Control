@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'testing_new_board'.
  *
- * Model version                  : 1.2
+ * Model version                  : 1.6
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Wed Nov 12 15:28:47 2025
+ * C/C++ source code generated on : Mon Nov 17 14:33:08 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
