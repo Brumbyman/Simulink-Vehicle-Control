@@ -107,8 +107,6 @@ void SystemClock_Config(void)
   LL_RCC_PLL1_SetP(1);
   LL_RCC_PLL1_SetQ(16);
   LL_RCC_PLL1_SetR(2);
-  LL_RCC_PLL1_SetFRACN(4096);
-  LL_RCC_PLL1FRACN_Enable();
   LL_RCC_PLL1_Enable();
 
    /* Wait till PLL is ready */
@@ -132,7 +130,7 @@ void SystemClock_Config(void)
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
   LL_RCC_SetAPB3Prescaler(LL_RCC_APB3_DIV_2);
   LL_RCC_SetAPB4Prescaler(LL_RCC_APB4_DIV_2);
-  LL_SetSystemCoreClock(548000000);
+  LL_SetSystemCoreClock(544000000);
 
    /* Update the time base */
   if (HAL_InitTick (TICK_INT_PRIORITY) != HAL_OK)
@@ -581,20 +579,12 @@ void MX_GPIO_Init(void)
   LL_GPIO_ResetOutputPin(GPIOD, BRAKE_LIGHT_Pin|FAN_ENABLE_Pin|PUMP_ENABLE_Pin);
 
   /**/
-  GPIO_InitStruct.Pin = LED_BLUE_Pin|LED_GREEN_Pin;
+  GPIO_InitStruct.Pin = LED_BLUE_Pin|LED_GREEN_Pin|LED_RED_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
   LL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED_RED_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_DOWN;
-  LL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
 
   /**/
   GPIO_InitStruct.Pin = PDOC_PRE_CHECK_Pin|PDOC_DIS_CHECK_Pin|SC_HARD_BPSD_CHECK_Pin|SC_IMD_CHECK_Pin;

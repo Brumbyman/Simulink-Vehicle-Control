@@ -1,6 +1,4 @@
-stm_fdcan_hal.o
 ert_main.o
-rt_nonfinite.o
 testing_new_board.o
 testing_new_board_data.o
 overrideHALDelay.o

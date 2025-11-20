@@ -52,8 +52,6 @@ platform_timer.o: \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/testing_new_board.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/rtwtypes.h \
- C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/rt_nonfinite.h \
- C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_fdcan_hal.h \
  C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/testing_new_board_types.h
 C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/mw_stm32_types.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/rtwtypes.h:
@@ -107,6 +105,4 @@ C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ De
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/CustomHardware/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/testing_new_board.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/rtwtypes.h:
-C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/rt_nonfinite.h:
-C:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include/stm_fdcan_hal.h:
 C:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw/testing_new_board_types.h:

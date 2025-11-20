@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'testing_new_board'.
  *
- * Model version                  : 1.6
+ * Model version                  : 1.7
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Nov 18 16:10:03 2025
+ * C/C++ source code generated on : Wed Nov 19 13:34:19 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -23,7 +23,6 @@
 #include "testing_new_board_private.h"
 #include "rtwtypes.h"
 #include "limits.h"
-#include "rt_nonfinite.h"
 #include "main.h"
 #include "mw_freertos.h"
 #define UNUSED(x)                      x = x
@@ -38,63 +37,22 @@ volatile boolean_T stopRequested = false;
 volatile boolean_T runModel = true;
 SemaphoreHandle_t stopSem;
 SemaphoreHandle_t baserateTaskSem;
-SemaphoreHandle_t subrateTaskSem[1];
-int taskId[1];
 mw_thread_t schedulerThread;
 mw_thread_t baseRateThread;
 void *threadJoinStatus;
 int terminatingmodel = 0;
-mw_thread_t subRateThread[1];
-int subratePriority[1];
-void *subrateTask(void *arg)
-{
-  int tid = *((int *) arg);
-  int subRateId;
-  subRateId = tid + 1;
-  while (runModel) {
-    mw_osSemaphoreWaitEver(&subrateTaskSem[tid]);
-    if (terminatingmodel)
-      break;
-
-#ifdef MW_RTOS_DEBUG
-
-    printf(" -subrate task %d semaphore received\n", subRateId);
-
-#endif
-
-    testing_new_board_step(subRateId);
-
-    /* Get model outputs here */
-  }
-
-  mw_osThreadExit((void *)0);
-  return NULL;
-}
-
 void *baseRateTask(void *arg)
 {
   runModel = (rtmGetErrorStatus(testing_new_board_M) == (NULL));
   while (runModel) {
     mw_osSemaphoreWaitEver(&baserateTaskSem);
-
-#ifdef MW_RTOS_DEBUG
-
-    printf("*base rate task semaphore received\n");
-    fflush(stdout);
-
-#endif
-
-    if (rtmStepTask(testing_new_board_M, 1)
-        ) {
-      mw_osSemaphoreRelease(&subrateTaskSem[0]);
-    }
-
-    testing_new_board_step(0);
+    testing_new_board_step();
 
     /* Get model outputs here */
     stopRequested = !((rtmGetErrorStatus(testing_new_board_M) == (NULL)));
   }
 
+  runModel = 0;
   terminateTask(arg);
   mw_osThreadExit((void *)0);
   return NULL;
@@ -113,22 +71,6 @@ void *terminateTask(void *arg)
   terminatingmodel = 1;
 
   {
-    int i;
-
-    /* Signal all periodic tasks to complete */
-    for (i=0; i<1; i++) {
-      CHECK_STATUS(mw_osSemaphoreRelease(&subrateTaskSem[i]), 0,
-                   "mw_osSemaphoreRelease");
-      CHECK_STATUS(mw_osSemaphoreDelete(&subrateTaskSem[i]), 0,
-                   "mw_osSemaphoreDelete");
-    }
-
-    /* Wait for all periodic tasks to complete */
-    for (i=0; i<1; i++) {
-      CHECK_STATUS(mw_osThreadJoin(subRateThread[i], &threadJoinStatus), 0,
-                   "mw_osThreadJoin");
-    }
-
     runModel = 0;
   }
 
@@ -148,7 +90,6 @@ void *terminateTask(void *arg)
 
 int main(int argc, char **argv)
 {
-  subratePriority[0] = 39;
 
 #if !defined(MW_FREERTOS) && defined(MW_MULTI_TASKING_MODE) && (MW_MULTI_TASKING_MODE == 1)
 
@@ -175,7 +116,7 @@ int main(int argc, char **argv)
   testing_new_board_initialize();
 
   /* Call RTOS Initialization function */
-  mw_RTOSInit(0.1, 1);
+  mw_RTOSInit(0.5, 0);
 
   /* Wait for stop semaphore */
   mw_osSemaphoreWaitEver(&stopSem);

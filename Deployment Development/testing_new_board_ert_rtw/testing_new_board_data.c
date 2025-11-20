@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'testing_new_board'.
  *
- * Model version                  : 1.6
+ * Model version                  : 1.7
  * Simulink Coder version         : 24.1 (R2024a) 19-Nov-2023
- * C/C++ source code generated on : Tue Nov 18 16:10:03 2025
+ * C/C++ source code generated on : Wed Nov 19 13:34:19 2025
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,11 +22,6 @@
 /* Block parameters (default storage) */
 P_testing_new_board_T testing_new_board_P = {
   /* Expression: 1
-   * Referenced by: '<S3>/Constant'
-   */
-  1.0,
-
-  /* Expression: 1
    * Referenced by: '<Root>/Pulse Generator'
    */
   1.0,
@@ -43,26 +38,6 @@ P_testing_new_board_T testing_new_board_P = {
 
   /* Expression: 0
    * Referenced by: '<Root>/Pulse Generator'
-   */
-  0.0,
-
-  /* Expression: 1
-   * Referenced by: '<Root>/Pulse Generator1'
-   */
-  1.0,
-
-  /* Expression: 4
-   * Referenced by: '<Root>/Pulse Generator1'
-   */
-  4.0,
-
-  /* Expression: 2
-   * Referenced by: '<Root>/Pulse Generator1'
-   */
-  2.0,
-
-  /* Expression: 0
-   * Referenced by: '<Root>/Pulse Generator1'
    */
   0.0
 };

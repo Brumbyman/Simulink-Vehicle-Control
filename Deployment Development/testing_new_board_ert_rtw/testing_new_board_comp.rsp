@@ -1,5 +1,4 @@
 -IC:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development
--IC:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include
 -IC:/Users/ezeki/OneDrive/Documents/GitHub/Simulink-Vehicle-Control/Deployment\ Development/testing_new_board_ert_rtw
 -IC:/Program\ Files/MATLAB/R2024a/extern/include
 -IC:/Program\ Files/MATLAB/R2024a/simulink/include
@@ -9,6 +8,7 @@
 -IC:/Program\ Files/MATLAB/R2024a/toolbox/target/shared/armcortexmbase/scheduler/include
 -IC:/Program\ Files/MATLAB/R2024a/toolbox/target/shared/armcortexmbase/xcp/include
 -IC:/Program\ Files/MATLAB/R2024a/rtw/c/src/ext_mode/serial
+-IC:/ProgramData/MATLAB/SupportPackages/R2024a/toolbox/shared/supportpackages/stm32/include
 -IC:/Program\ Files/MATLAB/R2024a/toolbox/target/shared/svd/common/include
 -IC:/ProgramData/MATLAB/SupportPackages/R2024a/3P.instrset/cmsis.instrset/CMSIS/Core/Include
 -IC:/ProgramData/MATLAB/SupportPackages/R2024a/3P.instrset/cmsis_dsp.instrset/Include
